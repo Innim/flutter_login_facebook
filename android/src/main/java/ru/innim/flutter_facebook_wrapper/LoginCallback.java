@@ -2,6 +2,8 @@ package ru.innim.flutter_facebook_wrapper;
 
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 
 import java.util.HashMap;
@@ -19,8 +21,15 @@ public class LoginCallback implements FacebookCallback<LoginResult> {
     }
 
     @Override
-    public void onSuccess(LoginResult loginResult) {
-        callResult(Results.loginSuccess(loginResult));
+    public void onSuccess(final LoginResult loginResult) {
+        new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                stopTracking();
+                Profile.setCurrentProfile(currentProfile);
+                callResult(Results.loginSuccess(loginResult));
+            }
+        }.startTracking();
     }
 
     @Override
