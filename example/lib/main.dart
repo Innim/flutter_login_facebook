@@ -1,7 +1,5 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:flutter_facebook_wrapper/flutter_facebook_wrapper.dart';
 
 void main() => runApp(MyApp());
@@ -12,9 +10,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final FlutterFacebookWrapper _wrapper = FlutterFacebookWrapper();
+  FacebookAccessToken _token;
+  FacebookUserProfile _profile;
+
   @override
   void initState() {
     super.initState();
+    _updateLoginInfo();
   }
 
   @override
@@ -25,9 +28,58 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Flutter Facebook wrapper example app'),
         ),
         body: Center(
-          child: Text('Running'),
-        ),
+            child: Column(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text('UserName: '),
+                    Text((_profile?.firstName ?? 'null') +
+                        ' ' +
+                        (_profile?.lastName ?? 'null'))
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text('AccessToken: '),
+                    Text(_token?.token ?? 'null')
+                  ],
+                )
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                OutlineButton(
+                    onPressed: _onPressedLogInButton, child: Text('LogIn')),
+                OutlineButton(
+                    onPressed: _onPressedLogOutButton, child: Text('LogOut'))
+              ],
+            ),
+          ],
+        )),
       ),
     );
+  }
+
+  void _onPressedLogInButton() async {
+    await _wrapper.logIn([]);
+    _updateLoginInfo();
+  }
+
+  void _onPressedLogOutButton() async {
+    await _wrapper.logOut();
+    _updateLoginInfo();
+  }
+
+  void _updateLoginInfo() async {
+    final token = await _wrapper.accessToken;
+    final profile = await _wrapper.userProfile;
+    setState(() {
+      _token = token;
+      _profile = profile;
+    });
   }
 }
