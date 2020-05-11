@@ -14,7 +14,7 @@ class FlutterFacebookWrapper {
   static const MethodChannel _channel =
       const MethodChannel('flutter_facebook_wrapper');
 
-  static Future<FacebookAccessToken> get accessToken async {
+  Future<FacebookAccessToken> get accessToken async {
     final Map<dynamic, dynamic> tokenData =
         await _channel.invokeMethod(_getAccessTokenMethod);
 
@@ -23,7 +23,7 @@ class FlutterFacebookWrapper {
         : null;
   }
 
-  static Future<bool> get isLoggedIn async {
+  Future<bool> get isLoggedIn async {
     var token = await accessToken;
 
     return token != null && DateTime.now().isBefore(token.expires);
@@ -31,7 +31,7 @@ class FlutterFacebookWrapper {
 
   Future<FacebookUserProfile> get userProfile async {
     final Map<dynamic, dynamic> profileData =
-    await _channel.invokeMethod(_getUserProfileMethod);
+        await _channel.invokeMethod(_getUserProfileMethod);
 
     return profileData != null
         ? FacebookUserProfile.fromMap(profileData.cast<String, dynamic>())
@@ -39,10 +39,18 @@ class FlutterFacebookWrapper {
   }
 
   Future<FacebookLoginResult> logIn(List<String> permissions) async {
-    final Map<dynamic, dynamic> loginResultData =
-    await _channel.invokeMethod(_logInMethod, {_permissionsArg : permissions});
-    return FacebookLoginResult.fromMap(loginResultData.cast<String, dynamic>());
+    if (!await isLoggedIn) {
+      final Map<dynamic, dynamic> loginResultData = await _channel
+          .invokeMethod(_logInMethod, {_permissionsArg: permissions});
+      return FacebookLoginResult.fromMap(
+          loginResultData.cast<String, dynamic>());
+    } else {
+      return FacebookLoginResult(
+          FacebookLoginStatus.Success, await accessToken);
+    }
   }
+
+  Future<void> logOut() => _channel.invokeMethod(_logOutMethod);
 }
 
 /// Профиль пользователя.
@@ -92,13 +100,13 @@ class FacebookUserProfile {
 
 /// Токен.
 class FacebookAccessToken {
-  final String accessToken;
+  final String token;
   final String userId;
   final DateTime expires;
   final List<String> permissions;
 
   FacebookAccessToken.fromMap(Map<String, dynamic> map)
-      : accessToken = map['accessToken'],
+      : token = map['token'],
         userId = map['userId'],
         expires =
             DateTime.fromMillisecondsSinceEpoch(map['expires'], isUtc: true),
@@ -106,7 +114,7 @@ class FacebookAccessToken {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'accessToken': accessToken,
+      'token': token,
       'userId': userId,
       'expires': expires.millisecondsSinceEpoch,
       'permissions': permissions
@@ -118,14 +126,14 @@ class FacebookAccessToken {
       identical(this, other) ||
       other is FacebookAccessToken &&
           runtimeType == other.runtimeType &&
-          accessToken == other.accessToken &&
+          token == other.token &&
           userId == other.userId &&
           expires == other.expires &&
           const IterableEquality().equals(permissions, other.permissions);
 
   @override
   int get hashCode =>
-      accessToken.hashCode ^
+      token.hashCode ^
       userId.hashCode ^
       expires.hashCode ^
       permissions.hashCode;
@@ -135,6 +143,10 @@ class FacebookAccessToken {
 class FacebookLoginResult {
   final FacebookLoginStatus status;
   final FacebookAccessToken accessToken;
+
+  FacebookLoginResult(this.status, this.accessToken)
+      : assert(status != null),
+        assert(accessToken != null);
 
   FacebookLoginResult.fromMap(Map<String, dynamic> map)
       : status = _parseStatus(map['status']),
