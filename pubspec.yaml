@@ -1,12 +1,11 @@
 name: flutter_facebook_wrapper
 description: Facebook SDK wrapper
-version: 0.0.2
+version: 0.0.3
 author: Innim
 homepage:
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
-  flutter: ">=1.12.0"
 
 dependencies:
   flutter:
