@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Notes</string>
-    <string name="facebook_app_id">569110183722181</string>
-    <string name="fb_login_protocol_scheme">fb569110183722181</string>
+    <string name="app_name">Flutter Login via Facebook Example</string>
+    <string name="facebook_app_id">775909079608849</string>
+    <string name="fb_login_protocol_scheme">fb775909079608849</string>
 </resources>
