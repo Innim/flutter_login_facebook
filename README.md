@@ -1,6 +1,6 @@
 # flutter_login_facebook
 
-A new flutter plugin project.
+Flutter Plugin to login via Facebook.
 
 ## Getting Started
 
