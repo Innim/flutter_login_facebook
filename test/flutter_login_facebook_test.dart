@@ -1,9 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_facebook_wrapper/flutter_facebook_wrapper.dart';
 
 void main() {
-  const MethodChannel channel = MethodChannel('flutter_facebook_wrapper');
+  const MethodChannel channel = MethodChannel('flutter_login_facebook');
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -17,7 +16,7 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
-//  test('getPlatformVersion', () async {
-//    expect(await FlutterFacebookWrapper.platformVersion, '42');
-//  });
+  // test('getPlatformVersion', () async {
+  //   expect(await FlutterLoginFacebook.platformVersion, '42');
+  // });
 }

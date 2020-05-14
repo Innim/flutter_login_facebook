@@ -1,4 +1,4 @@
-group 'ru.innim.flutter_facebook_wrapper'
+group 'ru.innim.flutter_login_facebook'
 version '1.0'
 
 buildscript {

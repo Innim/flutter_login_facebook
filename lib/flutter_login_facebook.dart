@@ -5,14 +5,14 @@ import 'package:flutter/services.dart';
 
 enum FacebookLoginStatus { Success, Cancel, Error }
 
-class FlutterFacebookWrapper {
+class FacebookLogin {
   static const String _logInMethod = "logIn";
   static const String _logOutMethod = "logOut";
   static const String _getAccessTokenMethod = "getAccessToken";
   static const String _getUserProfileMethod = "getUserProfile";
   static const String _permissionsArg = "permissions";
   static const MethodChannel _channel =
-      const MethodChannel('flutter_facebook_wrapper');
+      const MethodChannel('flutter_login_facebook');
 
   Future<FacebookAccessToken> get accessToken async {
     final Map<dynamic, dynamic> tokenData =

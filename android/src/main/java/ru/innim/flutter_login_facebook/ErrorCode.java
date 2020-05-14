@@ -1,4 +1,4 @@
-package ru.innim.flutter_facebook_wrapper;
+package ru.innim.flutter_login_facebook;
 
 public class ErrorCode {
     public static final int UNKNOWN = 0;

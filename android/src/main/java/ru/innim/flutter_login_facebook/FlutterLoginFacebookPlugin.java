@@ -1,4 +1,4 @@
-package ru.innim.flutter_facebook_wrapper;
+package ru.innim.flutter_login_facebook;
 
 import com.facebook.CallbackManager;
 import com.facebook.login.LoginManager;
@@ -10,8 +10,11 @@ import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
-public class FlutterFacebookWrapperPlugin implements FlutterPlugin, ActivityAware {
-    private static final String _CHANNEL_NAME = "flutter_facebook_wrapper";
+/** FlutterLoginFacebookPlugin */
+public class FlutterLoginFacebookPlugin implements FlutterPlugin, ActivityAware {
+    private static final String _CHANNEL_NAME = "flutter_login_facebook";
+
+    private MethodChannel _dartChannel;
 
     private MethodCallHandler _methodCallHandler;
     private ActivityListener _activityListener;
@@ -38,12 +41,12 @@ public class FlutterFacebookWrapperPlugin implements FlutterPlugin, ActivityAwar
     @Override
     public void onAttachedToEngine(FlutterPluginBinding flutterPluginBinding) {
         final BinaryMessenger messenger = flutterPluginBinding.getBinaryMessenger();
-        final MethodChannel channel = new MethodChannel(messenger, _CHANNEL_NAME);
+        _dartChannel = new MethodChannel(messenger, _CHANNEL_NAME);
         _callbackManager = CallbackManager.Factory.create();
         _loginCallback = new LoginCallback();
         _activityListener = new ActivityListener(_callbackManager);
         _methodCallHandler = new MethodCallHandler(_loginCallback);
-        channel.setMethodCallHandler(_methodCallHandler);
+        _dartChannel.setMethodCallHandler(_methodCallHandler);
     }
 
     @Override
@@ -74,6 +77,7 @@ public class FlutterFacebookWrapperPlugin implements FlutterPlugin, ActivityAwar
         _callbackManager = null;
         _activityPluginBinding = null;
         _loginCallback = null;
+        _dartChannel.setMethodCallHandler(null);
     }
 
     private void _setActivity(ActivityPluginBinding activityPluginBinding) {

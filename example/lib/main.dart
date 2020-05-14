@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_wrapper/flutter_facebook_wrapper.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,7 +10,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final FlutterFacebookWrapper _wrapper = FlutterFacebookWrapper();
+  final FacebookLogin _wrapper = FacebookLogin();
   FacebookAccessToken _token;
   FacebookUserProfile _profile;
 

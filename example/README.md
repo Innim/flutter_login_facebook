@@ -1,6 +1,6 @@
-# flutter_facebook_wrapper_example
+# flutter_login_facebook_example
 
-Demonstrates how to use the flutter_facebook_wrapper plugin.
+Demonstrates how to use the flutter_login_facebook plugin.
 
 ## Getting Started
 

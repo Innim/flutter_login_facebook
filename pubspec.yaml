@@ -1,11 +1,13 @@
-name: flutter_facebook_wrapper
-description: Facebook SDK wrapper
+name: flutter_login_facebook
+description: Login via Facebook.
 version: 0.0.3
-author: Innim
-homepage:
+homepage: https://github.com/Innim/flutter_login_facebook
+repository: https://github.com/Innim/flutter_login_facebook
+issue_tracker: https://github.com/Innim/flutter_login_facebook/issues
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.10.0"
 
 dependencies:
   flutter:
@@ -19,5 +21,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: ru.innim.flutter_facebook_wrapper
-        pluginClass: FlutterFacebookWrapperPlugin
+        package: ru.innim.flutter_login_facebook
+        pluginClass: FlutterLoginFacebookPlugin
+      ios:
+        pluginClass: FlutterLoginFacebookPlugin

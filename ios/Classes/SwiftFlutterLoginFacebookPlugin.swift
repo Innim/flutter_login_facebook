@@ -1,10 +1,10 @@
 import Flutter
 import UIKit
 
-public class SwiftFlutterFacebookWrapperPlugin: NSObject, FlutterPlugin {
+public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "flutter_facebook_wrapper", binaryMessenger: registrar.messenger())
-    let instance = SwiftFlutterFacebookWrapperPlugin()
+    let channel = FlutterMethodChannel(name: "flutter_login_facebook", binaryMessenger: registrar.messenger())
+    let instance = SwiftFlutterLoginFacebookPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 

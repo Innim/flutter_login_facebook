@@ -1,6 +1,6 @@
-# flutter_facebook_wrapper
+# flutter_login_facebook
 
-A new Flutter plugin.
+A new flutter plugin project.
 
 ## Getting Started
 
