@@ -88,10 +88,12 @@ public class FlutterLoginFacebookPlugin implements FlutterPlugin, ActivityAware 
     }
 
     private void _resetActivity() {
-        final LoginManager loginManager = LoginManager.getInstance();
-        loginManager.unregisterCallback(_callbackManager);
-        _activityPluginBinding.removeActivityResultListener(_activityListener);
-        _activityPluginBinding = null;
-        _methodCallHandler.updateActivity(null);
+        if (_activityPluginBinding != null) {
+            final LoginManager loginManager = LoginManager.getInstance();
+            loginManager.unregisterCallback(_callbackManager);
+            _activityPluginBinding.removeActivityResultListener(_activityListener);
+            _activityPluginBinding = null;
+            _methodCallHandler.updateActivity(null);
+        }
     }
 }
