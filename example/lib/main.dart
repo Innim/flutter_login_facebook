@@ -5,12 +5,13 @@ import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
+  final plugin = FacebookLogin();
+
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  final FacebookLogin _wrapper = FacebookLogin();
   FacebookAccessToken _token;
   FacebookUserProfile _profile;
 
@@ -22,61 +23,79 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final isLogin = _token != null;
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Flutter Facebook wrapper example app'),
+          title: const Text('Flutter Login via Facebook example'),
         ),
-        body: Center(
+        body: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 8.0),
+          child: Center(
             child: Column(
-          children: <Widget>[
-            Column(
               children: <Widget>[
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text('UserName: '),
-                    Text((_profile?.firstName ?? 'null') +
-                        ' ' +
-                        (_profile?.lastName ?? 'null'))
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text('AccessToken: '),
-                    Text(_token?.token ?? 'null')
-                  ],
-                )
+                if (isLogin)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: _buildUserInfo(context, _profile, _token),
+                  ),
+                isLogin
+                    ? OutlineButton(
+                        child: Text('Log Out'),
+                        onPressed: _onPressedLogOutButton,
+                      )
+                    : OutlineButton(
+                        child: Text('Log In'),
+                        onPressed: _onPressedLogInButton,
+                      ),
               ],
             ),
-            Column(
-              children: <Widget>[
-                OutlineButton(
-                    onPressed: _onPressedLogInButton, child: Text('LogIn')),
-                OutlineButton(
-                    onPressed: _onPressedLogOutButton, child: Text('LogOut'))
-              ],
-            ),
-          ],
-        )),
+          ),
+        ),
       ),
     );
   }
 
+  Widget _buildUserInfo(BuildContext context, FacebookUserProfile profile,
+      FacebookAccessToken accessToken) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text('User: '),
+            Text(
+              '${profile.firstName} ${profile.lastName}',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        Text('AccessToken: '),
+        Container(
+          child: Text(
+            accessToken.token,
+            softWrap: true,
+          ),
+        ),
+      ],
+    );
+  }
+
   void _onPressedLogInButton() async {
-    await _wrapper.logIn([]);
+    await widget.plugin.logIn([]);
     _updateLoginInfo();
   }
 
   void _onPressedLogOutButton() async {
-    await _wrapper.logOut();
+    await widget.plugin.logOut();
     _updateLoginInfo();
   }
 
   void _updateLoginInfo() async {
-    final token = await _wrapper.accessToken;
-    final profile = await _wrapper.userProfile;
+    final plugin = widget.plugin;
+    final token = await plugin.accessToken;
+    final profile = await plugin.userProfile;
     setState(() {
       _token = token;
       _profile = profile;
