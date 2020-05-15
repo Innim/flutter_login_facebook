@@ -83,7 +83,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _onPressedLogInButton() async {
-    await widget.plugin.logIn([]);
+    await widget.plugin.logIn();
     _updateLoginInfo();
   }
 

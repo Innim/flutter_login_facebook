@@ -39,7 +39,9 @@ class FacebookLogin {
         : null;
   }
 
-  Future<FacebookLoginResult> logIn(List<String> permissions) async {
+  Future<FacebookLoginResult> logIn(
+      {List<String> permissions = const []}) async {
+    assert(permissions != null);
     if (!await isLoggedIn) {
       final Map<dynamic, dynamic> loginResultData = await _channel
           .invokeMethod(_methodLogIn, {_permissionsArg: permissions});
