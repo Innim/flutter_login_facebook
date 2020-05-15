@@ -29,6 +29,8 @@ class FacebookLogin {
   }
 
   Future<FacebookUserProfile> get userProfile async {
+    if (await isLoggedIn == false) return null;
+
     final Map<dynamic, dynamic> profileData =
         await _channel.invokeMethod(_methodGetUserProfil);
 
