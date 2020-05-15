@@ -7,6 +7,8 @@
 
 build/
 
+# VSCode settings
+.vscode/
 # VSCode extension generated files
 android/.settings/
 android/.classpath
