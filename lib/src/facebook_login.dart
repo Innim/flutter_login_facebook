@@ -3,17 +3,20 @@ import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 
 /// Class for implementing login via Facebook.
 class FacebookLogin {
-  static const String _logInMethod = "logIn";
-  static const String _logOutMethod = "logOut";
-  static const String _getAccessTokenMethod = "getAccessToken";
-  static const String _getUserProfileMethod = "getUserProfile";
-  static const String _permissionsArg = "permissions";
+  // Methods
+  static const _methodLogIn = "logIn";
+  static const _methodLogOut = "logOut";
+  static const _methodGetAccessToken = "getAccessToken";
+  static const _methodGetUserProfil = "getUserProfile";
+
+  static const _permissionsArg = "permissions";
+
   static const MethodChannel _channel =
       const MethodChannel('flutter_login_facebook');
 
   Future<FacebookAccessToken> get accessToken async {
     final Map<dynamic, dynamic> tokenData =
-        await _channel.invokeMethod(_getAccessTokenMethod);
+        await _channel.invokeMethod(_methodGetAccessToken);
 
     return tokenData != null
         ? FacebookAccessToken.fromMap(tokenData.cast<String, dynamic>())
@@ -21,14 +24,13 @@ class FacebookLogin {
   }
 
   Future<bool> get isLoggedIn async {
-    var token = await accessToken;
-
+    final token = await accessToken;
     return token != null && DateTime.now().isBefore(token.expires);
   }
 
   Future<FacebookUserProfile> get userProfile async {
     final Map<dynamic, dynamic> profileData =
-        await _channel.invokeMethod(_getUserProfileMethod);
+        await _channel.invokeMethod(_methodGetUserProfil);
 
     return profileData != null
         ? FacebookUserProfile.fromMap(profileData.cast<String, dynamic>())
@@ -38,7 +40,7 @@ class FacebookLogin {
   Future<FacebookLoginResult> logIn(List<String> permissions) async {
     if (!await isLoggedIn) {
       final Map<dynamic, dynamic> loginResultData = await _channel
-          .invokeMethod(_logInMethod, {_permissionsArg: permissions});
+          .invokeMethod(_methodLogIn, {_permissionsArg: permissions});
       return FacebookLoginResult.fromMap(
           loginResultData.cast<String, dynamic>());
     } else {
@@ -47,5 +49,5 @@ class FacebookLogin {
     }
   }
 
-  Future<void> logOut() => _channel.invokeMethod(_logOutMethod);
+  Future<void> logOut() => _channel.invokeMethod(_methodLogOut);
 }
