@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_login_facebook'
-  s.version          = '0.0.1'
+  s.version          = '0.1.0'
   s.summary          = 'Login via Facebook for Flutter projects.'
   s.description      = <<-DESC
 Login via Facebook for Flutter projects.
