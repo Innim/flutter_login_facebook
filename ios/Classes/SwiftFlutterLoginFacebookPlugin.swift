@@ -5,7 +5,7 @@ import FBSDKLoginKit
 
 /// Plugin methods.
 enum PluginMethod: String {
-    case logIn, logOut, getAccessToken, getUserProfile
+    case logIn, logOut, getAccessToken, getUserProfile, getSdkVersion
 }
 
 /// Arguments for method `PluginMethod.logIn`
@@ -50,6 +50,8 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             getAccessToken(result: result)
         case .getUserProfile:
             getUserProfile(result: result)
+        case .getSdkVersion:
+            getSdkVersion(result: result)
         }
     }
     
@@ -78,6 +80,11 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
         guard let token = AccessToken.current else { return false }
         
         return !token.isExpired
+    }
+    
+    private func getSdkVersion(result: @escaping FlutterResult) {
+        let sdkVersion = Settings.sdkVersion
+        result(sdkVersion)
     }
     
     private func getAccessToken(result: @escaping FlutterResult) {

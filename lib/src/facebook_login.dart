@@ -9,6 +9,7 @@ class FacebookLogin {
   static const _methodLogOut = "logOut";
   static const _methodGetAccessToken = "getAccessToken";
   static const _methodGetUserProfil = "getUserProfile";
+  static const _methodGetSdkVersion = "getSdkVersion";
 
   static const _permissionsArg = "permissions";
 
@@ -22,6 +23,12 @@ class FacebookLogin {
     return tokenData != null
         ? FacebookAccessToken.fromMap(tokenData.cast<String, dynamic>())
         : null;
+  }
+
+  /// Returns currently used Facebook SDK.
+  Future<String> get sdkVersion async {
+    final String res = await _channel.invokeMethod(_methodGetSdkVersion);
+    return res;
   }
 
   Future<bool> get isLoggedIn async {
