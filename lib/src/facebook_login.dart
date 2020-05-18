@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:flutter_login_facebook/src/models/facebook_permission.dart';
 
@@ -15,6 +16,13 @@ class FacebookLogin {
 
   static const MethodChannel _channel =
       const MethodChannel('flutter_login_facebook');
+
+  /// If `true` all requests and results will be printed in console.
+  final bool debug;
+
+  FacebookLogin({this.debug = false}) : assert(debug != null) {
+    if (debug) sdkVersion.then((v) => _log('SDK version: $v'));
+  }
 
   Future<FacebookAccessToken> get accessToken async {
     final Map<dynamic, dynamic> tokenData =
@@ -41,11 +49,14 @@ class FacebookLogin {
   /// If not logged in than return `null`.
   Future<FacebookUserProfile> getUserProfile() async {
     if (await isLoggedIn == false) {
+      if (debug) _log('Not loggen in. User profile is null');
       return null;
     }
 
     final Map<dynamic, dynamic> profileData =
         await _channel.invokeMethod(_methodGetUserProfil);
+
+    if (debug) _log('User profile: $profileData');
 
     return profileData != null
         ? FacebookUserProfile.fromMap(profileData.cast<String, dynamic>())
@@ -66,10 +77,20 @@ class FacebookLogin {
     final permissionsArg = permissions.map((e) => e.name).toList();
     if (customPermissions != null) permissionsArg.addAll(customPermissions);
 
+    if (debug) _log('Log In with permissions $permissionsArg');
     final Map<dynamic, dynamic> loginResultData = await _channel
         .invokeMethod(_methodLogIn, {_permissionsArg: permissionsArg});
+
+    if (debug) _log('Result: $loginResultData');
     return FacebookLoginResult.fromMap(loginResultData.cast<String, dynamic>());
   }
 
-  Future<void> logOut() => _channel.invokeMethod(_methodLogOut);
+  Future<void> logOut() {
+    if (debug) _log('Log Out');
+    return _channel.invokeMethod(_methodLogOut);
+  }
+
+  void _log(String message) {
+    if (debug) debugPrint('[FB] $message');
+  }
 }
