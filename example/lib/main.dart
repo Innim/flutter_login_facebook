@@ -12,12 +12,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  String _sdkVersion;
   FacebookAccessToken _token;
   FacebookUserProfile _profile;
 
   @override
   void initState() {
     super.initState();
+
+    _getSdkVersion();
     _updateLoginInfo();
   }
 
@@ -34,6 +37,7 @@ class _MyAppState extends State<MyApp> {
           child: Center(
             child: Column(
               children: <Widget>[
+                if (_sdkVersion != null) Text("SDK v$_sdkVersion"),
                 if (isLogin)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
@@ -93,6 +97,13 @@ class _MyAppState extends State<MyApp> {
   void _onPressedLogOutButton() async {
     await widget.plugin.logOut();
     _updateLoginInfo();
+  }
+
+  void _getSdkVersion() async {
+    final sdkVesion = await widget.plugin.sdkVersion;
+    setState(() {
+      _sdkVersion = sdkVesion;
+    });
   }
 
   void _updateLoginInfo() async {
