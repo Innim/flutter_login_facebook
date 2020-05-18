@@ -39,4 +39,10 @@ class FacebookAccessToken {
       userId.hashCode ^
       expires.hashCode ^
       permissions.hashCode;
+
+  @override
+  String toString() {
+    return 'FacebookAccessToken(token: $token, userId: $userId, '
+        'expires: $expires, permissions: $permissions)';
+  }
 }

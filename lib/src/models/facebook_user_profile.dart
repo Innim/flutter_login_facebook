@@ -41,4 +41,10 @@ class FacebookUserProfile {
       firstName.hashCode ^
       middleName.hashCode ^
       lastName.hashCode;
+
+  @override
+  String toString() {
+    return 'FacebookUserProfile(userId: $userId, name: $name, '
+        'firstName: $firstName, middleName: $middleName, lastName: $lastName)';
+  }
 }
