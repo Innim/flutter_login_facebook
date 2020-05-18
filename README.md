@@ -20,6 +20,7 @@ To use this plugin:
 
  1. add `flutter_login_facebook` as a [dependency in your pubspec.yaml file](https://pub.dev/packages/flutter_login_facebook#-installing-tab-);
  2. [setup android](#android);
+ 3. [setup ios](#ios);
 See [Facebook Login documentation](https://developers.facebook.com/docs/facebook-login) for full information.
 
 ### Android
@@ -81,3 +82,73 @@ echo "{sha1key}" | xxd -r -p | openssl base64
 In next **Step 7** [Enable Single Sign On for Your App](https://developers.facebook.com/docs/facebook-login/android#7--enable-single-sign-on-for-your-app) you can enable Single Sing On if you want to.
 
 And that's it for Android.
+
+### iOS
+
+Go to [Facebook Login for iOS - Quickstart](https://developers.facebook.com/docs/facebook-login/ios).
+
+#### Select an App or Create a New App
+
+You need to complete **Step 1**: [Select an App or Create a New App](https://developers.facebook.com/docs/facebook-login/ios#1--select-an-app-or-create-a-new-app). If you create app while setup for Android than use it.
+
+Skip **Step 2** (Set up Your Development Environment) and **Step 3** (Integrate the Facebook SDK).
+
+#### Register and Configure Your App with Facebook
+
+Complete **Step 3**: [Register and Configure Your App with Facebook](https://developers.facebook.com/docs/facebook-login/ios#3--register-and-configure-your-app-with-facebook).
+
+1. Add your Bundle Identifier - set `Bundle ID` (you can find it in Xcode: Runner - Target Runner - General, section `Identity`, field `Bundle Identifier`) and click "Save".
+2. Enable Single Sign-On for Your App if you need it and click "Save".
+
+#### Configure Your Project
+
+Complete **Step 4**: [Configure Your Project](https://developers.facebook.com/docs/facebook-login/ios#4--configure-your-project).
+
+Configure `info.plist`:
+
+1. In Xcode right-click on `Info.plist`, and choose `Open As Source Code`.
+2. Copy and paste the following XML snippet into the body of your file (`<dict>...</dict>`),
+replacing `[APP_ID]` with Facebook application id and `[APP_NAME]` with Facebook application name
+(you can copy prepared values from [Step 4](https://developers.facebook.com/docs/facebook-login/ios#4--configure-your-project) in Facebook Quickstart).
+```xml
+<key>CFBundleURLTypes</key>
+<array>
+  <dict>
+  <key>CFBundleURLSchemes</key>
+  <array>
+    <string>fb[APP_ID]</string>
+  </array>
+  </dict>
+</array>
+<key>FacebookAppID</key>
+<string>[APP_ID]</string>
+<key>FacebookDisplayName</key>
+<string>[APP_NAME]</string>
+```
+3. Also add in `Info.plist` body (`<dict>...</dict>`):
+```xml
+<key>LSApplicationQueriesSchemes</key>
+<array>
+  <string>fbapi</string>
+  <string>fbapi20130214</string>
+  <string>fbapi20130410</string>
+  <string>fbapi20130702</string>
+  <string>fbapi20131010</string>
+  <string>fbapi20131219</string>
+  <string>fbapi20140410</string>
+  <string>fbapi20140116</string>
+  <string>fbapi20150313</string>
+  <string>fbapi20150629</string>
+  <string>fbapi20160328</string>
+  <string>fbauth</string>
+  <string>fb-messenger-share-api</string>
+  <string>fbauth2</string>
+  <string>fbshareextension</string>
+</array>
+```
+
+⚠️ **NOTE.** Check if you already have `CFBundleURLTypes` or `LSApplicationQueriesSchemes` keys in your `Info.plist`. If you do, you should merge them values, but ot add a duplicate key.
+
+Skip **Step 5** (Connect Your App Delegate) and all the rest.
+
+And that's it for iOS.
