@@ -21,6 +21,7 @@ To use this plugin:
  1. add `flutter_login_facebook` as a [dependency in your pubspec.yaml file](https://pub.dev/packages/flutter_login_facebook#-installing-tab-);
  2. [setup android](#android);
  3. [setup ios](#ios);
+ 4. [additional Facebook app setup](#additional-facebook-app-setup);
 See [Facebook Login documentation](https://developers.facebook.com/docs/facebook-login) for full information.
 
 ### Android
@@ -152,3 +153,34 @@ replacing `[APP_ID]` with Facebook application id and `[APP_NAME]` with Facebook
 Skip **Step 5** (Connect Your App Delegate) and all the rest.
 
 And that's it for iOS.
+
+### Additional Facebook app setup
+
+Go to [My App](https://developers.facebook.com/apps/) on Facebook and select your application.
+
+#### Icon 
+
+You should add **App Icon** (in Settings -> Basic) in order to users
+will see your application icon instead default when they attempt to log in.
+
+#### Add store IDs
+
+In Setting -> Basic -> iOS fill up field "iPhone Store ID" ("iPad Store ID").
+
+#### Optional setting
+
+You may want to change some other settings.
+For example *Display Name*, *Contact Email*, *Category*, etc.
+
+#### Enable application 
+
+By default your application has status "In development". 
+
+![](https://raw.githubusercontent.com/Innim/flutter_login_facebook/master/readme_images/fb_status_in_development.png)
+
+You should enable application before log in feature goes public.
+
+Facebook will show warning if your application is not fully set up. 
+For example you may need to provide **Privacy Policy**. You can use your
+Privacy Policy from Google Play/App Store.
+
