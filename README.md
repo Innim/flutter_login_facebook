@@ -22,6 +22,8 @@ To use this plugin:
  2. [setup android](#android);
  3. [setup ios](#ios);
  4. [additional Facebook app setup](#additional-facebook-app-setup);
+ 5. [use plugin in application](#usage-in-application).
+
 See [Facebook Login documentation](https://developers.facebook.com/docs/facebook-login) for full information.
 
 ### Android
@@ -184,3 +186,45 @@ Facebook will show warning if your application is not fully set up.
 For example you may need to provide **Privacy Policy**. You can use your
 Privacy Policy from Google Play/App Store.
 
+### Usage in application
+
+You can:
+- log in via Facebook;
+- get access token;
+- get user profile;
+- check if logged in;
+- log out.
+
+Sample code:
+
+```dart
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+
+// Create an instance of FacebookLogin
+final fb = FacebookLogin();
+
+// Log in
+final res = await fb.logIn();
+
+// Check result status
+switch (res.status) {
+  case FacebookLoginStatus.Success:
+    // Logged in
+    
+    // Send this access token to server for validation and auth
+    final accessToken = res.accessToken;
+
+    // Get profile data
+    final profile = await fb.getUserProfile();
+    print('Hello, ${profile.name}! You ID: ${profile.userId}');
+    
+    break;
+  case FacebookLoginStatus.Cancel:
+    // User cancel log in
+    break;
+  case FacebookLoginStatus.Error:
+    // Log in failed
+    break;
+}
+
+```
