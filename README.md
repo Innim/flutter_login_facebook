@@ -1,5 +1,7 @@
 # flutter_login_facebook
 
+[![pub package](https://img.shields.io/pub/v/flutter_login_facebook)](https://pub.dartlang.org/packages/flutter_login_facebook)
+
 Flutter Plugin to login via Facebook.
 
 ## SDK version
@@ -217,7 +219,7 @@ switch (res.status) {
     // Get profile data
     final profile = await fb.getUserProfile();
     print('Hello, ${profile.name}! You ID: ${profile.userId}');
-    
+
     break;
   case FacebookLoginStatus.Cancel:
     // User cancel log in
