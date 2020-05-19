@@ -4,6 +4,8 @@
 
 Flutter Plugin to login via Facebook.
 
+Easily add Facebook login feature in your application. User profile information included.
+
 ## SDK version
 
 Facebook SDK version, used in pluging:
