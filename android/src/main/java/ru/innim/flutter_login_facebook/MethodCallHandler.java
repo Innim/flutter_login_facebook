@@ -3,6 +3,7 @@ package ru.innim.flutter_login_facebook;
 import android.app.Activity;
 
 import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 
@@ -18,6 +19,7 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
     private final static String _GET_ACCESS_TOKEN = "getAccessToken";
     private final static String _GET_USER_PROFILE = "getUserProfile";
     private final static String _PERMISSIONS_ARG = "permissions";
+    private final static String _GET_SDK_VERSION = "getSdkVersion";
 
     private final LoginCallback _loginCallback;
     private Activity _activity;
@@ -46,6 +48,9 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
                 case _GET_USER_PROFILE:
                     getUserProfile(result);
                     break;
+                case _GET_SDK_VERSION:
+                    getSdkVersion(result);
+                    break;
                 default:
                     result.notImplemented();
                     break;
@@ -71,5 +76,9 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
     private void getUserProfile(Result result) {
         final Profile profile = Profile.getCurrentProfile();
         result.success(Results.userProfile(profile));
+    }
+
+    private void getSdkVersion(Result result) {
+        result.success(FacebookSdk.getSdkVersion());
     }
 }

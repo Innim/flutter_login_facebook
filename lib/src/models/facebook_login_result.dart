@@ -49,4 +49,8 @@ class FacebookLoginResult {
 
   @override
   int get hashCode => status.hashCode ^ accessToken?.hashCode ?? 0;
+
+  @override
+  String toString() =>
+      'FacebookLoginResult(status: $status, accessToken: $accessToken)';
 }

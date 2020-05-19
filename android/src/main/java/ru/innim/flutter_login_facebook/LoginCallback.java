@@ -22,14 +22,19 @@ public class LoginCallback implements FacebookCallback<LoginResult> {
 
     @Override
     public void onSuccess(final LoginResult loginResult) {
-        new ProfileTracker() {
-            @Override
-            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
-                stopTracking();
-                Profile.setCurrentProfile(currentProfile);
-                callResult(Results.loginSuccess(loginResult));
-            }
-        }.startTracking();
+        final Profile profile = Profile.getCurrentProfile();
+        if (profile == null) {
+            new ProfileTracker() {
+                @Override
+                protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                    stopTracking();
+                    Profile.setCurrentProfile(currentProfile);
+                    loginSuccess(loginResult);
+                }
+            };
+        } else {
+            loginSuccess(loginResult);
+        }
     }
 
     @Override
@@ -40,6 +45,10 @@ public class LoginCallback implements FacebookCallback<LoginResult> {
     @Override
     public void onError(FacebookException error) {
         callResult(Results.loginError());
+    }
+
+    private void loginSuccess(final LoginResult loginResult) {
+        callResult(Results.loginSuccess(loginResult));
     }
 
     private void callResult(HashMap<String, Object> data) {
