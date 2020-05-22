@@ -8,7 +8,7 @@ Easily add Facebook login feature in your application. User profile information 
 
 ## SDK version
 
-Facebook SDK version, used in pluging:
+Facebook SDK version, used in plugin:
 
 * iOS: **^7.0** ([CocoaPods](https://cocoapods.org/pods/FBSDKLoginKit))
 * Android: **^7.0** ([Maven](https://search.maven.org/artifact/com.facebook.android/facebook-android-sdk/7.0.0/jar))
@@ -85,6 +85,9 @@ echo "{sha1key}" | xxd -r -p | openssl base64
 ```
 2. Add generated keys in `Key Hashes`.
 3. Click "Save".
+
+⚠️ **Important!** You should add key hashes for every build variants. E.g. if you have CI/CD which build APK for testing
+with it's own cerificate (it may be auto generated debug cetificate or some another) than you should add it's key too.
 
 In next **Step 7** [Enable Single Sign On for Your App](https://developers.facebook.com/docs/facebook-login/android#7--enable-single-sign-on-for-your-app) you can enable Single Sing On if you want to.
 
