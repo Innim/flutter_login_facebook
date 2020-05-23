@@ -1,4 +1,5 @@
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:flutter_login_facebook/src/models/facebook_error.dart';
 
 /// Login status.
 enum FacebookLoginStatus { Success, Cancel, Error }
@@ -7,8 +8,9 @@ enum FacebookLoginStatus { Success, Cancel, Error }
 class FacebookLoginResult {
   final FacebookLoginStatus status;
   final FacebookAccessToken accessToken;
+  final FacebookError error;
 
-  FacebookLoginResult(this.status, this.accessToken)
+  FacebookLoginResult(this.status, this.accessToken, {this.error})
       : assert(status != null),
         assert(accessToken != null);
 
@@ -17,12 +19,16 @@ class FacebookLoginResult {
         accessToken = map['accessToken'] != null
             ? FacebookAccessToken.fromMap(
                 map['accessToken'].cast<String, dynamic>())
+            : null,
+        error = map['error'] != null
+            ? FacebookError.fromMap(map['error'].cast<String, dynamic>())
             : null;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'status': status.toString().split('.').last,
-      'accessToken': accessToken
+      'accessToken': accessToken,
+      'error': accessToken?.toMap(),
     };
   }
 
@@ -45,12 +51,14 @@ class FacebookLoginResult {
       other is FacebookLoginResult &&
           runtimeType == other.runtimeType &&
           status == other.status &&
-          accessToken == other.accessToken;
+          accessToken == other.accessToken &&
+          error == other.error;
 
   @override
-  int get hashCode => status.hashCode ^ accessToken?.hashCode ?? 0;
+  int get hashCode =>
+      status.hashCode ^ accessToken?.hashCode ?? 0 ^ error?.hashCode ?? 0;
 
   @override
   String toString() =>
-      'FacebookLoginResult(status: $status, accessToken: $accessToken)';
+      'FacebookLoginResult(status: $status, accessToken: $accessToken, error: $error)';
 }
