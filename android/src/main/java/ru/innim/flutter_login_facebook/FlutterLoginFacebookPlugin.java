@@ -81,6 +81,7 @@ public class FlutterLoginFacebookPlugin implements FlutterPlugin, ActivityAware 
     }
 
     private void _setActivity(ActivityPluginBinding activityPluginBinding) {
+        _activityPluginBinding = activityPluginBinding;
         final LoginManager loginManager = LoginManager.getInstance();
         loginManager.registerCallback(_callbackManager, _loginCallback);
         activityPluginBinding.addActivityResultListener(_activityListener);
