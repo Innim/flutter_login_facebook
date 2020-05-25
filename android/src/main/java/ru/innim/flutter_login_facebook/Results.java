@@ -1,6 +1,7 @@
 package ru.innim.flutter_login_facebook;
 
 import com.facebook.AccessToken;
+import com.facebook.FacebookException;
 import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 
@@ -27,13 +28,14 @@ public class Results {
         }};
     }
 
-    public static HashMap<String, Object> loginError() {
+    public static HashMap<String, Object> loginError(final FacebookException error) {
         return new HashMap<String, Object>() {{
             put("status", LoginStatus.Error.name());
+            put("error", error(error));
         }};
     }
 
-    public static HashMap<String, Object> accessToken(final AccessToken accessToken) {
+    static HashMap<String, Object> accessToken(final AccessToken accessToken) {
         if (accessToken == null)
             return null;
 
@@ -56,6 +58,15 @@ public class Results {
             put("firstName", profile.getFirstName());
             put("middleName", profile.getMiddleName());
             put("lastName", profile.getLastName());
+        }};
+    }
+
+    static HashMap<String, Object> error(final FacebookException error) {
+        if (error == null)
+            return null;
+
+        return new HashMap<String, Object>() {{
+            put("developerMessage", error.getMessage());
         }};
     }
 }
