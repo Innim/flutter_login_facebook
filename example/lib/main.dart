@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final isLogin = _token != null;
+    final isLogin = _token != null && _profile != null;
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(

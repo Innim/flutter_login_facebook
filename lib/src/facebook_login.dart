@@ -46,21 +46,25 @@ class FacebookLogin {
 
   /// Get user profile information.
   ///
-  /// If not logged in than return `null`.
+  /// If not logged in or error during request than return `null`.
   Future<FacebookUserProfile> getUserProfile() async {
     if (await isLoggedIn == false) {
-      if (debug) _log('Not loggen in. User profile is null');
+      if (debug) _log('Not logged in. User profile is null');
       return null;
     }
 
-    final Map<dynamic, dynamic> profileData =
-        await _channel.invokeMethod(_methodGetUserProfil);
+    try {
+      final Map<dynamic, dynamic> profileData =
+          await _channel.invokeMethod(_methodGetUserProfil);
 
-    if (debug) _log('User profile: $profileData');
+      if (debug) _log('User profile: $profileData');
 
-    return profileData != null
-        ? FacebookUserProfile.fromMap(profileData.cast<String, dynamic>())
-        : null;
+      if (profileData != null)
+        return FacebookUserProfile.fromMap(profileData.cast<String, dynamic>());
+    } on PlatformException catch (e) {
+      if (debug) _log('Get profile error: $e');
+    }
+    return null;
   }
 
   /// Start log in Facebook process.

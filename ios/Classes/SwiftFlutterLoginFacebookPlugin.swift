@@ -130,23 +130,27 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             // TODO: add `granted` and `declined` information
             let accessTokenMap: [String: Any]?
             let status: String
+            let errorMap: [String: Any?]?
             switch res {
                 case let .success(_, _, token):
                     status = "Success"
                     accessTokenMap = self.accessTokenToMap(token: token)
+                    errorMap = nil
                 case .cancelled:
                     status = "Cancel"
                     accessTokenMap = nil
+                    errorMap = nil
                 case let .failed(error):
-                    // TODO: send error to dart
                     print("Log in failed with error: \(error)")
                     status = "Error"
                     accessTokenMap = nil
+                    errorMap = self.errorToMap(error: error)
             }
         
             let data: [String: Any?] = [
-                "status" : status,
-                "accessToken" : accessTokenMap,
+                "status": status,
+                "accessToken": accessTokenMap,
+                "error": errorMap
             ]
             
             result(data)
@@ -163,10 +167,21 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
     
     private func accessTokenToMap(token: AccessToken) -> [String: Any] {
         return [
-            "token" : token.tokenString,
-            "userId" : token.userID,
-            "expires" : Int((token.expirationDate.timeIntervalSince1970 * 1000.0).rounded()),
-            "permissions" : token.permissions.map {item in item.name},
+            "token": token.tokenString,
+            "userId": token.userID,
+            "expires": Int((token.expirationDate.timeIntervalSince1970 * 1000.0).rounded()),
+            "permissions": token.permissions.map {item in item.name},
+        ]
+    }
+    
+    private func errorToMap(error: Error) -> [String: Any?]? {
+        let nsError = error as NSError
+        let info = nsError.userInfo
+        
+        return [
+            "developerMessage": info[ErrorDeveloperMessageKey] as? String,
+            "localizedDescription": info[ErrorLocalizedDescriptionKey] as? String,
+            "localizedTitle": info[ErrorLocalizedTitleKey] as? String,
         ]
     }
 }

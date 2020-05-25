@@ -44,7 +44,7 @@ public class LoginCallback implements FacebookCallback<LoginResult> {
 
     @Override
     public void onError(FacebookException error) {
-        callResult(Results.loginError());
+        callResult(Results.loginError(error));
     }
 
     private void loginSuccess(final LoginResult loginResult) {
