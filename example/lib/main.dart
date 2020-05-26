@@ -15,6 +15,7 @@ class _MyAppState extends State<MyApp> {
   String _sdkVersion;
   FacebookAccessToken _token;
   FacebookUserProfile _profile;
+  String _email;
 
   @override
   void initState() {
@@ -41,7 +42,7 @@ class _MyAppState extends State<MyApp> {
                 if (isLogin)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
-                    child: _buildUserInfo(context, _profile, _token),
+                    child: _buildUserInfo(context, _profile, _token, _email),
                   ),
                 isLogin
                     ? OutlineButton(
@@ -61,7 +62,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget _buildUserInfo(BuildContext context, FacebookUserProfile profile,
-      FacebookAccessToken accessToken) {
+      FacebookAccessToken accessToken, String email) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -82,6 +83,7 @@ class _MyAppState extends State<MyApp> {
             softWrap: true,
           ),
         ),
+        if (email != null) Text('Email: $email'),
       ],
     );
   }
@@ -110,9 +112,14 @@ class _MyAppState extends State<MyApp> {
     final plugin = widget.plugin;
     final token = await plugin.accessToken;
     final profile = await plugin.getUserProfile();
+    final email =
+        token?.permissions?.contains(FacebookPermission.email.name) ?? false
+            ? await plugin.getUserEmail()
+            : null;
     setState(() {
       _token = token;
       _profile = profile;
+      _email = email;
     });
   }
 }

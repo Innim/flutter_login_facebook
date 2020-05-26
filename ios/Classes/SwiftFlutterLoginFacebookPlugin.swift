@@ -5,7 +5,7 @@ import FBSDKLoginKit
 
 /// Plugin methods.
 enum PluginMethod: String {
-    case logIn, logOut, getAccessToken, getUserProfile, getSdkVersion
+    case logIn, logOut, getAccessToken, getUserProfile, getUserEmail, getSdkVersion
 }
 
 /// Arguments for method `PluginMethod.logIn`
@@ -50,13 +50,15 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             getAccessToken(result: result)
         case .getUserProfile:
             getUserProfile(result: result)
+        case .getUserEmail:
+            getUserEmail(result: result)
         case .getSdkVersion:
             getSdkVersion(result: result)
         }
     }
     
     public func application(_ application: UIApplication,
-                            didFinishLaunchingWithOptions launchOptions: [AnyHashable : Any] = [:]) -> Bool {
+                            didFinishLaunchingWithOptions launchOptions: [AnyHashable: Any] = [:]) -> Bool {
         var options = [UIApplication.LaunchOptionsKey: Any]()
         for (k, value) in launchOptions {
             let key = k as! UIApplication.LaunchOptionsKey
@@ -118,6 +120,34 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
                                     details: nil))
             }
         }
+    }
+    
+    private func getUserEmail(result: @escaping FlutterResult) {
+        let graphRequest : GraphRequest = GraphRequest(graphPath: "me", parameters: ["fields": "email"])
+        graphRequest.start(completionHandler: { (connection, res, error) -> Void in
+            
+            guard
+                let response = res as? [String: Any],
+                let email = response["email"] as? String
+                else {
+                    let resError: FlutterError
+                    if let err = error {
+                        resError = FlutterError(
+                            code: "FAILED",
+                            message: "Can't get email: \(err)",
+                            details: nil)
+                    } else {
+                        resError = FlutterError(
+                            code: "UNKNOWN",
+                            message: "Invalid result on get email: \(String(describing: result))",
+                            details: nil)
+                    }
+                    result(resError)
+                    return;
+            }
+            
+            result(email)
+        })
     }
     
     private func logIn(result: @escaping FlutterResult, permissions: [Permission]) {

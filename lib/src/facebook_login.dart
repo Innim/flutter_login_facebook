@@ -9,7 +9,8 @@ class FacebookLogin {
   static const _methodLogIn = "logIn";
   static const _methodLogOut = "logOut";
   static const _methodGetAccessToken = "getAccessToken";
-  static const _methodGetUserProfil = "getUserProfile";
+  static const _methodGetUserProfile = "getUserProfile";
+  static const _methodGetUserEmail = "getUserEmail";
   static const _methodGetSdkVersion = "getSdkVersion";
 
   static const _permissionsArg = "permissions";
@@ -41,7 +42,7 @@ class FacebookLogin {
 
   Future<bool> get isLoggedIn async {
     final token = await accessToken;
-    return token != null && DateTime.now().isBefore(token.expires);
+    return _isLoggedIn(token);
   }
 
   /// Get user profile information.
@@ -55,7 +56,7 @@ class FacebookLogin {
 
     try {
       final Map<dynamic, dynamic> profileData =
-          await _channel.invokeMethod(_methodGetUserProfil);
+          await _channel.invokeMethod(_methodGetUserProfile);
 
       if (debug) _log('User profile: $profileData');
 
@@ -63,6 +64,36 @@ class FacebookLogin {
         return FacebookUserProfile.fromMap(profileData.cast<String, dynamic>());
     } on PlatformException catch (e) {
       if (debug) _log('Get profile error: $e');
+    }
+    return null;
+  }
+
+  /// Get user email.
+  ///
+  /// Attention! User need to be logged in with
+  /// accepted [FacebookPermission.email] permission.
+  ///
+  /// If not logged in, decline [FacebookPermission.email] permission
+  /// or error during request occured, than returns `null`.
+  Future<String> getUserEmail() async {
+    final token = await accessToken;
+    if (!_isLoggedIn(token)) {
+      if (debug) _log('Not logged in. Email is null');
+      return null;
+    }
+
+    if (!token.permissions.contains(FacebookPermission.email.name)) {
+      if (debug) _log('User did not accept `email` permission. Email is null');
+      return null;
+    }
+
+    try {
+      final String email = await _channel.invokeMethod(_methodGetUserEmail);
+
+      if (debug) _log('User email: $email');
+      return email;
+    } on PlatformException catch (e) {
+      if (debug) _log('Get user email error: $e');
     }
     return null;
   }
@@ -93,6 +124,9 @@ class FacebookLogin {
     if (debug) _log('Log Out');
     return _channel.invokeMethod(_methodLogOut);
   }
+
+  bool _isLoggedIn(FacebookAccessToken token) =>
+      token != null && DateTime.now().isBefore(token.expires);
 
   void _log(String message) {
     if (debug) debugPrint('[FB] $message');
