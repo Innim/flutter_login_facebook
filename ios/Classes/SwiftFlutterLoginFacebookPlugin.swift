@@ -171,6 +171,7 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             "userId": token.userID,
             "expires": Int((token.expirationDate.timeIntervalSince1970 * 1000.0).rounded()),
             "permissions": token.permissions.map {item in item.name},
+            "declinedPermissions": token.declinedPermissions.map {item in item.name},
         ]
     }
     
