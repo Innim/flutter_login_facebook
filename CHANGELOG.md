@@ -1,6 +1,7 @@
 ## Next release
 
 * An ability to get user email (if have permissions).
+* Add `declinedPermissions` in `AccessToken`.
 
 ## 0.1.1+1 - 2020-05-22
 
