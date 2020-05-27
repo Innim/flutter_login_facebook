@@ -95,7 +95,7 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         final FacebookRequestError error = response.getError();
-                        if (error != null) {
+                        if (error == null) {
                             try {
                                 result.success(object.getString("email"));
                             } catch (Exception e) {
