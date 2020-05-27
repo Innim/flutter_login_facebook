@@ -211,7 +211,10 @@ import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 final fb = FacebookLogin();
 
 // Log in
-final res = await fb.logIn();
+final res = await fb.logIn([
+  FacebookPermission.publicProfile,
+  FacebookPermission.email,
+]);
 
 // Check result status
 switch (res.status) {
@@ -224,6 +227,12 @@ switch (res.status) {
     // Get profile data
     final profile = await fb.getUserProfile();
     print('Hello, ${profile.name}! You ID: ${profile.userId}');
+
+    // Get email (since we request email permission)
+    final email = await fb.getUserEmail();
+    // But user can decline permission
+    if (email != null)
+      print('And your email is $email');
 
     break;
   case FacebookLoginStatus.Cancel:
