@@ -211,7 +211,7 @@ import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 final fb = FacebookLogin();
 
 // Log in
-final res = await fb.logIn([
+final res = await fb.logIn(permissions: [
   FacebookPermission.publicProfile,
   FacebookPermission.email,
 ]);
@@ -240,6 +240,7 @@ switch (res.status) {
     break;
   case FacebookLoginStatus.Error:
     // Log in failed
+    print('Error while log in: ${res.error}');
     break;
 }
 

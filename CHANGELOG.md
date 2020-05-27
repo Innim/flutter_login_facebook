@@ -1,5 +1,10 @@
 ## Next release
 
+## 0.1.2+1 - 2020-05-27
+
+* Readme: add log in error handling.
+* Fixed mistake in Readme.
+
 ## 0.1.2 - 2020-05-27
 
 * An ability to get user email (if have permissions).
