@@ -1,3 +1,7 @@
+## Next release
+
+* An ability to get user email (if have permissions).
+
 ## 0.1.1+1 - 2020-05-22
 
 * [android] Fixed: reset activity is never called.
