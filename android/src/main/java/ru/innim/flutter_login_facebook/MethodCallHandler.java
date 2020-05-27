@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.facebook.AccessToken;
+import com.facebook.FacebookRequestError;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -93,10 +94,15 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
                 new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
-                        try {
-                            result.success(object.getString("email"));
-                        } catch (Exception e) {
-                            result.error(ErrorCode.UNKNOWN, e.getMessage(), null);
+                        final FacebookRequestError error = response.getError();
+                        if (error != null) {
+                            try {
+                                result.success(object.getString("email"));
+                            } catch (Exception e) {
+                                result.error(ErrorCode.UNKNOWN, e.getMessage(), null);
+                            }
+                        } else {
+                            result.error(ErrorCode.FAILED, error.getErrorMessage(), null);
                         }
                     }
                 });
