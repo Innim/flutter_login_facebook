@@ -10,7 +10,6 @@ import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -96,7 +95,7 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         try {
                             result.success(object.getString("email"));
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             result.error(ErrorCode.UNKNOWN, e.getMessage(), null);
                         }
                     }
