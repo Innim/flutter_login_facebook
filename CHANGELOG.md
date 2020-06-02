@@ -1,5 +1,7 @@
 ## Next release
 
+* Readme: fix links urls.
+
 ## 0.1.2+1 - 2020-05-27
 
 * Readme: add log in error handling.

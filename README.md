@@ -36,13 +36,13 @@ Go to [Facebook Login for Android - Quickstart](https://developers.facebook.com/
 
 #### Select an App or Create a New App
 
-You need to complete **Step 1**: [Select an App or Create a New App](https://developers.facebook.com/docs/facebook-login/android#1--select-an-app-or-create-a-new-app).
+You need to complete **Step 1**: [Select an App or Create a New App](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#1--select-an-app-or-create-a-new-app).
 
 Skip **Step 2** (Download the Facebook App) and **Step 3** (Integrate the Facebook SDK).
 
 #### Edit Your Resources and Manifest
 
-Complete **Step 4**: [Edit Your Resources and Manifest](https://developers.facebook.com/docs/facebook-login/android#manifest)
+Complete **Step 4**: [Edit Your Resources and Manifest](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#manifest)
 
 * Add values to `/android/app/src/main/res/values/strings.xml` (create file if not exist)
 * Add `meta-data` element and activities in `android/app/src/main/AndroidManifest.xml`, section `application`:
@@ -71,15 +71,15 @@ See full `AndroidManifest.xml` in [example](example/android/app/src/main/Android
 
 #### Setup Facebook App
 
-Complete **Step 5**: [Associate Your Package Name and Default Class with Your App](https://developers.facebook.com/docs/facebook-login/android#5--associate-your-package-name-and-default-class-with-your-app).
+Complete **Step 5**: [Associate Your Package Name and Default Class with Your App](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#5--associate-your-package-name-and-default-class-with-your-app).
 
 1. Set `Package Name` - your package name for Android application (attribute `package` in `AndroidManifest.xml`).
 2. Set `Default Activity Class Name` - your main activity class (with package). By default it would be `com.yourcompany.yourapp.MainActivity`.
 3. Click "Save".
 
-Complete **Step 6**: [Provide the Development and Release Key Hashes for Your App](https://developers.facebook.com/docs/facebook-login/android#6--provide-the-development-and-release-key-hashes-for-your-app).
+Complete **Step 6**: [Provide the Development and Release Key Hashes for Your App](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#6--provide-the-development-and-release-key-hashes-for-your-app).
 
-1. Generate Development and Release key as described in [documentation](https://developers.facebook.com/docs/facebook-login/android#6--provide-the-development-and-release-key-hashes-for-your-app). *Note:* if your application uses [Google Play App Signing](https://support.google.com/googleplay/android-developer/answer/7384423) than you should get certificate SHA-1 fingerprint from Google Play Console and convert it to base64
+1. Generate Development and Release key as described in [documentation](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#6--provide-the-development-and-release-key-hashes-for-your-app). *Note:* if your application uses [Google Play App Signing](https://support.google.com/googleplay/android-developer/answer/7384423) than you should get certificate SHA-1 fingerprint from Google Play Console and convert it to base64
 ```
 echo "{sha1key}" | xxd -r -p | openssl base64
 ```
@@ -89,7 +89,7 @@ echo "{sha1key}" | xxd -r -p | openssl base64
 ⚠️ **Important!** You should add key hashes for every build variants. E.g. if you have CI/CD which build APK for testing
 with it's own cerificate (it may be auto generated debug cetificate or some another) than you should add it's key too.
 
-In next **Step 7** [Enable Single Sign On for Your App](https://developers.facebook.com/docs/facebook-login/android#7--enable-single-sign-on-for-your-app) you can enable Single Sing On if you want to.
+In next **Step 7** [Enable Single Sign On for Your App](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#7--enable-single-sign-on-for-your-app) you can enable Single Sing On if you want to.
 
 And that's it for Android.
 
@@ -99,27 +99,27 @@ Go to [Facebook Login for iOS - Quickstart](https://developers.facebook.com/docs
 
 #### Select an App or Create a New App
 
-You need to complete **Step 1**: [Select an App or Create a New App](https://developers.facebook.com/docs/facebook-login/ios#1--select-an-app-or-create-a-new-app). If you create app while setup for Android than use it.
+You need to complete **Step 1**: [Select an App or Create a New App](https://developers.facebook.com/docs/facebook-login/ios?locale=en_US#1--select-an-app-or-create-a-new-app). If you create app while setup for Android than use it.
 
 Skip **Step 2** (Set up Your Development Environment) and **Step 3** (Integrate the Facebook SDK).
 
 #### Register and Configure Your App with Facebook
 
-Complete **Step 3**: [Register and Configure Your App with Facebook](https://developers.facebook.com/docs/facebook-login/ios#3--register-and-configure-your-app-with-facebook).
+Complete **Step 3**: [Register and Configure Your App with Facebook](https://developers.facebook.com/docs/facebook-login/ios?locale=en_US#3--register-and-configure-your-app-with-facebook).
 
 1. Add your Bundle Identifier - set `Bundle ID` (you can find it in Xcode: Runner - Target Runner - General, section `Identity`, field `Bundle Identifier`) and click "Save".
 2. Enable Single Sign-On for Your App if you need it and click "Save".
 
 #### Configure Your Project
 
-Complete **Step 4**: [Configure Your Project](https://developers.facebook.com/docs/facebook-login/ios#4--configure-your-project).
+Complete **Step 4**: [Configure Your Project](https://developers.facebook.com/docs/facebook-login/ios?locale=en_US#4--configure-your-project).
 
 Configure `info.plist`:
 
 1. In Xcode right-click on `Info.plist`, and choose `Open As Source Code`.
 2. Copy and paste the following XML snippet into the body of your file (`<dict>...</dict>`),
 replacing `[APP_ID]` with Facebook application id and `[APP_NAME]` with Facebook application name
-(you can copy prepared values from [Step 4](https://developers.facebook.com/docs/facebook-login/ios#4--configure-your-project) in Facebook Quickstart).
+(you can copy prepared values from [Step 4](https://developers.facebook.com/docs/facebook-login/ios?locale=en_US#4--configure-your-project) in Facebook Quickstart).
 ```xml
 <key>CFBundleURLTypes</key>
 <array>
@@ -176,7 +176,7 @@ will see your application icon instead default when they attempt to log in.
 
 In Setting -> Basic -> iOS fill up field "iPhone Store ID" ("iPad Store ID").
 
-#### Optional setting
+#### Optional settings
 
 You may want to change some other settings.
 For example *Display Name*, *Contact Email*, *Category*, etc.
