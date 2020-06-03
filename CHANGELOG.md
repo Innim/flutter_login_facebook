@@ -1,5 +1,7 @@
 ## Next release
 
+## 0.1.2+2 - 2020-06-03
+
 * Readme: fix links urls.
 * Readme: fix some errors in text.
 * Readme: Medium article link.
