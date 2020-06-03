@@ -30,6 +30,8 @@ To use this plugin:
 
 See [Facebook Login documentation](https://developers.facebook.com/docs/facebook-login) for full information.
 
+Also you can read the [article on Medium](https://medium.com/@greymag/add-facebook-login-in-your-flutter-app-5172b034aa7d) with detailed instructions.
+
 ### Android
 
 Go to [Facebook Login for Android - Quickstart](https://developers.facebook.com/docs/facebook-login/android) page.

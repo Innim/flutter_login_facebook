@@ -2,6 +2,7 @@
 
 * Readme: fix links urls.
 * Readme: fix some errors in text.
+* Readme: Medium article link.
 
 ## 0.1.2+1 - 2020-05-27
 
