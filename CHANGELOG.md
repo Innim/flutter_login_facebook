@@ -1,6 +1,7 @@
 ## Next release
 
 * Readme: fix links urls.
+* Readme: fix some errors in text.
 
 ## 0.1.2+1 - 2020-05-27
 

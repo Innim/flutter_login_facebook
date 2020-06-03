@@ -32,7 +32,7 @@ See [Facebook Login documentation](https://developers.facebook.com/docs/facebook
 
 ### Android
 
-Go to [Facebook Login for Android - Quickstart](https://developers.facebook.com/docs/facebook-login/android).
+Go to [Facebook Login for Android - Quickstart](https://developers.facebook.com/docs/facebook-login/android) page.
 
 #### Select an App or Create a New App
 
@@ -44,8 +44,8 @@ Skip **Step 2** (Download the Facebook App) and **Step 3** (Integrate the Facebo
 
 Complete **Step 4**: [Edit Your Resources and Manifest](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#manifest)
 
-* Add values to `/android/app/src/main/res/values/strings.xml` (create file if not exist)
-* Add `meta-data` element and activities in `android/app/src/main/AndroidManifest.xml`, section `application`:
+* Add values to `/android/app/src/main/res/values/strings.xml` (create file if it doesn't exist)
+* Add a `meta-data` element and activities to `android/app/src/main/AndroidManifest.xml`, section `application`:
 
 ```xml
     <meta-data android:name="com.facebook.sdk.ApplicationId" 
@@ -79,7 +79,7 @@ Complete **Step 5**: [Associate Your Package Name and Default Class with Your Ap
 
 Complete **Step 6**: [Provide the Development and Release Key Hashes for Your App](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#6--provide-the-development-and-release-key-hashes-for-your-app).
 
-1. Generate Development and Release key as described in [documentation](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#6--provide-the-development-and-release-key-hashes-for-your-app). *Note:* if your application uses [Google Play App Signing](https://support.google.com/googleplay/android-developer/answer/7384423) than you should get certificate SHA-1 fingerprint from Google Play Console and convert it to base64
+1. Generate Development and Release keys as described in the [documentation](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#6--provide-the-development-and-release-key-hashes-for-your-app). *Note:* if your application uses [Google Play App Signing](https://support.google.com/googleplay/android-developer/answer/7384423) than you should get certificate SHA-1 fingerprint from Google Play Console and convert it to base64
 ```
 echo "{sha1key}" | xxd -r -p | openssl base64
 ```
@@ -89,7 +89,7 @@ echo "{sha1key}" | xxd -r -p | openssl base64
 ⚠️ **Important!** You should add key hashes for every build variants. E.g. if you have CI/CD which build APK for testing
 with it's own cerificate (it may be auto generated debug cetificate or some another) than you should add it's key too.
 
-In next **Step 7** [Enable Single Sign On for Your App](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#7--enable-single-sign-on-for-your-app) you can enable Single Sing On if you want to.
+In the next **Step 7** [Enable Single Sign On for Your App](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#7--enable-single-sign-on-for-your-app) you can enable Single Sing On if you want to.
 
 And that's it for Android.
 
@@ -99,7 +99,7 @@ Go to [Facebook Login for iOS - Quickstart](https://developers.facebook.com/docs
 
 #### Select an App or Create a New App
 
-You need to complete **Step 1**: [Select an App or Create a New App](https://developers.facebook.com/docs/facebook-login/ios?locale=en_US#1--select-an-app-or-create-a-new-app). If you create app while setup for Android than use it.
+You need to complete **Step 1**: [Select an App or Create a New App](https://developers.facebook.com/docs/facebook-login/ios?locale=en_US#1--select-an-app-or-create-a-new-app). If you've created an app during an Android setup than use it.
 
 Skip **Step 2** (Set up Your Development Environment) and **Step 3** (Integrate the Facebook SDK).
 
@@ -135,7 +135,7 @@ replacing `[APP_ID]` with Facebook application id and `[APP_NAME]` with Facebook
 <key>FacebookDisplayName</key>
 <string>[APP_NAME]</string>
 ```
-3. Also add in `Info.plist` body (`<dict>...</dict>`):
+3. Also add to `Info.plist` body (`<dict>...</dict>`):
 ```xml
 <key>LSApplicationQueriesSchemes</key>
 <array>
@@ -157,7 +157,7 @@ replacing `[APP_ID]` with Facebook application id and `[APP_NAME]` with Facebook
 </array>
 ```
 
-⚠️ **NOTE.** Check if you already have `CFBundleURLTypes` or `LSApplicationQueriesSchemes` keys in your `Info.plist`. If you do, you should merge them values, but ot add a duplicate key.
+⚠️ **NOTE.** Check if you already have `CFBundleURLTypes` or `LSApplicationQueriesSchemes` keys in your `Info.plist`. If you have, you should merge their values, instead of adding a duplicate key.
 
 Skip **Step 5** (Connect Your App Delegate) and all the rest.
 
@@ -169,8 +169,8 @@ Go to [My App](https://developers.facebook.com/apps/) on Facebook and select you
 
 #### Icon 
 
-You should add **App Icon** (in Settings -> Basic) in order to users
-will see your application icon instead default when they attempt to log in.
+You should add the **App Icon** (in Settings -> Basic) to let users see
+your application icon instead of the default icon when they attempt to log in.
 
 #### Add store IDs
 
@@ -183,14 +183,14 @@ For example *Display Name*, *Contact Email*, *Category*, etc.
 
 #### Enable application 
 
-By default your application has status "In development". 
+By default, your application has the status "In development". 
 
 ![](https://raw.githubusercontent.com/Innim/flutter_login_facebook/master/readme_images/fb_status_in_development.png)
 
 You should enable application before log in feature goes public.
 
-Facebook will show warning if your application is not fully set up. 
-For example you may need to provide **Privacy Policy**. You can use your
+Facebook will show a warning if your application is not fully set up. 
+For example, you may need to provide a **Privacy Policy**. You can use your
 Privacy Policy from Google Play/App Store.
 
 ### Usage in application
