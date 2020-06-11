@@ -116,7 +116,7 @@ Complete **Step 3**: [Register and Configure Your App with Facebook](https://dev
 
 Complete **Step 4**: [Configure Your Project](https://developers.facebook.com/docs/facebook-login/ios?locale=en_US#4--configure-your-project).
 
-Configure `info.plist`:
+Configure `Info.plist` (`ios/Runner/Info.plist`):
 
 1. In Xcode right-click on `Info.plist`, and choose `Open As Source Code`.
 2. Copy and paste the following XML snippet into the body of your file (`<dict>...</dict>`),
@@ -158,6 +158,8 @@ replacing `[APP_ID]` with Facebook application id and `[APP_NAME]` with Facebook
   <string>fbshareextension</string>
 </array>
 ```
+
+See full `Info.plist` in [example](example/ios/Runner/Info.plist).
 
 ⚠️ **NOTE.** Check if you already have `CFBundleURLTypes` or `LSApplicationQueriesSchemes` keys in your `Info.plist`. If you have, you should merge their values, instead of adding a duplicate key.
 
