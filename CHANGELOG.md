@@ -1,6 +1,9 @@
 ## Next release
 
-* Fixed: intercept all open urls and launches, even though it can't be handled. 
+## 0.1.2+3 - 2020-06-11
+
+* **Fixed:** intercept all open urls and launches, even though it can't be handled. 
+* Minor readme improvements.
 
 ## 0.1.2+2 - 2020-06-03
 
