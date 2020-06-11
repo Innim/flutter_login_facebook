@@ -203,6 +203,7 @@ You can:
 - log in via Facebook;
 - get access token;
 - get user profile;
+- get user email (if has permissions);
 - check if logged in;
 - log out.
 
@@ -227,6 +228,9 @@ switch (res.status) {
     
     // Send this access token to server for validation and auth
     final accessToken = res.accessToken;
+    // Send access token to server for validation and auth
+    final FacebookAccessToken accessToken = res.accessToken;
+    print('Access token: ${accessToken.token}');
 
     // Get profile data
     final profile = await fb.getUserProfile();
