@@ -65,17 +65,19 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             options[key] = value
         }
         
-        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: options)
-        return true
+        let processed = ApplicationDelegate.shared.application(
+            application,
+            didFinishLaunchingWithOptions: options)
+        return processed
     }
     
     public func application(_ application: UIApplication, open url: URL,
                             options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        ApplicationDelegate.shared.application(
+        let processed = ApplicationDelegate.shared.application(
             application, open: url,
             sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
             annotation: options[UIApplication.OpenURLOptionsKey.annotation])
-        return true;
+        return processed;
     }
     
     var isLoggedIn: Bool {
