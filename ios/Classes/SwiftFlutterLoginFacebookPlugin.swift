@@ -65,10 +65,11 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             options[key] = value
         }
         
-        let processed = ApplicationDelegate.shared.application(
+        ApplicationDelegate.shared.application(
             application,
             didFinishLaunchingWithOptions: options)
-        return processed
+        
+        return true
     }
     
     public func application(_ application: UIApplication, open url: URL,
