@@ -15,7 +15,7 @@ enum LogInArg: String {
 
 /// Arguments for method `PluginMethod.getProfileImageUrl`
 enum GetProfileImageUrlArg: String {
-    case mode, width, height
+    case width, height
 }
 
 public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
@@ -60,7 +60,6 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
         case .getProfileImageUrl:
             guard
                 let args = call.arguments as? [String: Any],
-                let modeArg = args[GetProfileImageUrlArg.mode.rawValue] as? String,
                 let widthArg = args[GetProfileImageUrlArg.width.rawValue] as? Int,
                 let heightArg = args[GetProfileImageUrlArg.height.rawValue] as? Int
                 else {
@@ -70,20 +69,7 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
                     return
             }
             
-            let mode: Profile.PictureMode
-            switch modeArg {
-            case "square":
-                mode = Profile.PictureMode.square
-            case "normal":
-                mode = Profile.PictureMode.normal
-            default:
-                result(FlutterError(code: "INVALID_ARGS",
-                                    message: "Mode is invalid: \(modeArg)",
-                                    details: nil))
-                return
-            }
-            
-            getProfileImageUrl(result: result, mode: mode, width: widthArg, height: heightArg)
+            getProfileImageUrl(result: result, width: widthArg, height: heightArg)
         case .getSdkVersion:
             getSdkVersion(result: result)
         }
@@ -185,12 +171,12 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
         })
     }
     
-    private func getProfileImageUrl(result: @escaping FlutterResult,
-                                    mode: Profile.PictureMode, width: Int, height: Int) {
+    private func getProfileImageUrl(result: @escaping FlutterResult, width: Int, height: Int) {
         Profile.loadCurrentProfile { profile, error in
             switch (profile, error) {
             case let (profile?, nil):
-                let url = profile.imageURL(forMode: mode, size: CGSize(width: width, height: height))
+                let url = profile.imageURL(forMode: Profile.PictureMode.normal,
+                                           size: CGSize(width: width, height: height))
                 result(url?.absoluteString)
             case let (nil, error?):
                 result(FlutterError(code: "FAILED",

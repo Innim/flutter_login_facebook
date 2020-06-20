@@ -16,7 +16,6 @@ class FacebookLogin {
 
   static const _permissionsArg = "permissions";
 
-  static const _modeArg = "mode";
   static const _widthArg = "width";
   static const _heightArg = "height";
 
@@ -77,16 +76,9 @@ class FacebookLogin {
   ///
   /// If not logged in or error during request than return `null`.
   ///
-  /// [mode] is defines the aspect ratio mode for the source image of the profile picture.
-  /// By default: [FlutterPictureMode.square].
-  ///
   /// [width] of picture is required, but [height] is optional,
   /// and by default is equals to [widht].
-  Future<String> getProfileImageUrl(
-      {FlutterPictureMode mode = FlutterPictureMode.square,
-      @required int width,
-      int height}) async {
-    assert(mode != null);
+  Future<String> getProfileImageUrl({@required int width, int height}) async {
     assert(width != null);
 
     if (await isLoggedIn == false) {
@@ -98,7 +90,6 @@ class FacebookLogin {
       final String url = await _channel.invokeMethod(
         _methodGetProfileImageUrl,
         {
-          _modeArg: mode.name,
           _widthArg: width,
           _heightArg: height ?? width,
         },
