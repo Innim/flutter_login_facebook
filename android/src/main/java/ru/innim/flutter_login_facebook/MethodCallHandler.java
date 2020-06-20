@@ -1,6 +1,7 @@
 package ru.innim.flutter_login_facebook;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.facebook.AccessToken;
@@ -24,9 +25,13 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
     private final static String _LOGOUT_METHOD = "logOut";
     private final static String _GET_ACCESS_TOKEN = "getAccessToken";
     private final static String _GET_USER_PROFILE = "getUserProfile";
-    private final static String _PERMISSIONS_ARG = "permissions";
     private final static String _GET_SDK_VERSION = "getSdkVersion";
     private final static String _GET_USER_EMAIL = "getUserEmail";
+    private final static String _GET_PROFILE_IMAGE_URL = "getProfileImageUrl";
+
+    private final static String _PERMISSIONS_ARG = "permissions";
+    private final static String _WIDTH_ARG = "width";
+    private final static String _HEIGHT_ARG = "height";
 
     private final LoginCallback _loginCallback;
     private Activity _activity;
@@ -61,6 +66,16 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
                     break;
                 case _GET_USER_EMAIL:
                     getUserEmail(result);
+                    break;
+                case _GET_PROFILE_IMAGE_URL:
+                    final Integer width = call.argument(_WIDTH_ARG);
+                    final Integer height = call.argument(_HEIGHT_ARG);
+
+                    if (width != null && height != null ) {
+                        getProfileImageUrl(result, width, height);
+                    } else {
+                        result.error(ErrorCode.INVALID_ARGS, "Some of args is invalid", null);
+                    }
                     break;
                 default:
                     result.notImplemented();
@@ -110,6 +125,16 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
         parameters.putString("fields", "email");
         request.setParameters(parameters);
         request.executeAsync();
+    }
+
+    private void getProfileImageUrl(Result result, int width, int height) {
+        final Profile profile = Profile.getCurrentProfile();
+        final Uri uri = profile.getProfilePictureUri(width, height);
+        if (uri != null) {
+            result.success(uri.toString());
+        } else {
+            result.success(null);
+        }
     }
 
     private void getSdkVersion(Result result) {
