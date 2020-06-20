@@ -16,6 +16,7 @@ class _MyAppState extends State<MyApp> {
   FacebookAccessToken _token;
   FacebookUserProfile _profile;
   String _email;
+  String _imageUrl;
 
   @override
   void initState() {
@@ -66,6 +67,10 @@ class _MyAppState extends State<MyApp> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        if (_imageUrl != null)
+          Center(
+            child: Image.network(_imageUrl),
+          ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -111,15 +116,22 @@ class _MyAppState extends State<MyApp> {
   void _updateLoginInfo() async {
     final plugin = widget.plugin;
     final token = await plugin.accessToken;
-    final profile = await plugin.getUserProfile();
-    final email =
-        token?.permissions?.contains(FacebookPermission.email.name) ?? false
-            ? await plugin.getUserEmail()
-            : null;
+    FacebookUserProfile profile;
+    String email;
+    String imageUrl;
+
+    if (token != null) {
+      profile = await plugin.getUserProfile();
+      if (token.permissions?.contains(FacebookPermission.email.name) ?? false)
+        email = await plugin.getUserEmail();
+      imageUrl = await plugin.getProfileImageUrl(width: 100);
+    }
+
     setState(() {
       _token = token;
       _profile = profile;
       _email = email;
+      _imageUrl = imageUrl;
     });
   }
 }
