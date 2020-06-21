@@ -5,12 +5,17 @@ import FBSDKLoginKit
 
 /// Plugin methods.
 enum PluginMethod: String {
-    case logIn, logOut, getAccessToken, getUserProfile, getUserEmail, getSdkVersion
+    case logIn, logOut, getAccessToken, getUserProfile, getUserEmail, getSdkVersion, getProfileImageUrl
 }
 
 /// Arguments for method `PluginMethod.logIn`
 enum LogInArg: String {
     case permissions
+}
+
+/// Arguments for method `PluginMethod.getProfileImageUrl`
+enum GetProfileImageUrlArg: String {
+    case width, height
 }
 
 public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
@@ -52,6 +57,19 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             getUserProfile(result: result)
         case .getUserEmail:
             getUserEmail(result: result)
+        case .getProfileImageUrl:
+            guard
+                let args = call.arguments as? [String: Any],
+                let widthArg = args[GetProfileImageUrlArg.width.rawValue] as? Int,
+                let heightArg = args[GetProfileImageUrlArg.height.rawValue] as? Int
+                else {
+                    result(FlutterError(code: "INVALID_ARGS",
+                                        message: "Arguments is invalid",
+                                        details: nil))
+                    return
+            }
+            
+            getProfileImageUrl(result: result, width: widthArg, height: heightArg)
         case .getSdkVersion:
             getSdkVersion(result: result)
         }
@@ -151,6 +169,25 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             
             result(email)
         })
+    }
+    
+    private func getProfileImageUrl(result: @escaping FlutterResult, width: Int, height: Int) {
+        Profile.loadCurrentProfile { profile, error in
+            switch (profile, error) {
+            case let (profile?, nil):
+                let url = profile.imageURL(forMode: Profile.PictureMode.normal,
+                                           size: CGSize(width: width, height: height))
+                result(url?.absoluteString)
+            case let (nil, error?):
+                result(FlutterError(code: "FAILED",
+                                    message: "Can't get profile: \(error)",
+                                    details: nil))
+            case (_, _):
+                result(FlutterError(code: "UNKNOWN",
+                                    message: "Unknown error while get current profile",
+                                    details: nil))
+            }
+        }
     }
     
     private func logIn(result: @escaping FlutterResult, permissions: [Permission]) {
