@@ -203,6 +203,7 @@ You can:
 - log in via Facebook;
 - get access token;
 - get user profile;
+- get user profile image url;
 - get user email (if has permissions);
 - check if logged in;
 - log out.
@@ -235,6 +236,10 @@ switch (res.status) {
     // Get profile data
     final profile = await fb.getUserProfile();
     print('Hello, ${profile.name}! You ID: ${profile.userId}');
+
+    // Get user profile image url
+    final imageUrl = await plugin.getProfileImageUrl(width: 100);
+    print('Your profile image: $imageUrl');
 
     // Get email (since we request email permission)
     final email = await fb.getUserEmail();
