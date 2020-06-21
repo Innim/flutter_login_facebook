@@ -1,3 +1,4 @@
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:list_ext/list_ext.dart';
 
 /// Facebook access token.
@@ -7,6 +8,14 @@ class FacebookAccessToken {
   final DateTime expires;
   final List<String> permissions;
   final List<String> declinedPermissions;
+
+  FacebookAccessToken(this.token, this.userId, this.expires, this.permissions,
+      this.declinedPermissions)
+      : assert(token != null),
+        assert(userId != null),
+        assert(expires != null),
+        assert(permissions != null),
+        assert(declinedPermissions != null);
 
   FacebookAccessToken.fromMap(Map<String, dynamic> map)
       : token = map['token'],
@@ -25,6 +34,10 @@ class FacebookAccessToken {
       'declinedPermissions': declinedPermissions,
     };
   }
+
+  /// Returns `true` if user did allow [permission].
+  bool isAllowed(FacebookPermission permission) =>
+      permissions.contains(permission.name);
 
   @override
   bool operator ==(Object other) =>

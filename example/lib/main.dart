@@ -125,7 +125,7 @@ class _MyAppState extends State<MyApp> {
 
     if (token != null) {
       profile = await plugin.getUserProfile();
-      if (token.permissions?.contains(FacebookPermission.email.name) ?? false)
+      if (token.isAllowed(FacebookPermission.email))
         email = await plugin.getUserEmail();
       imageUrl = await plugin.getProfileImageUrl(width: 100);
     }

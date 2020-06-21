@@ -1,5 +1,7 @@
 ## Next release
 
+* Method to check if permission allowed.
+
 ## 0.2.0+1 - 2020-06-21
 
 * Readme: add information about usage `getProfileImageUrl()`.
