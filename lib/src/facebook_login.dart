@@ -11,9 +11,13 @@ class FacebookLogin {
   static const _methodGetAccessToken = "getAccessToken";
   static const _methodGetUserProfile = "getUserProfile";
   static const _methodGetUserEmail = "getUserEmail";
+  static const _methodGetProfileImageUrl = "getProfileImageUrl";
   static const _methodGetSdkVersion = "getSdkVersion";
 
   static const _permissionsArg = "permissions";
+
+  static const _widthArg = "width";
+  static const _heightArg = "height";
 
   static const MethodChannel _channel =
       const MethodChannel('flutter_login_facebook');
@@ -65,6 +69,39 @@ class FacebookLogin {
     } on PlatformException catch (e) {
       if (debug) _log('Get profile error: $e');
     }
+    return null;
+  }
+
+  /// Get user profile image url.
+  ///
+  /// If not logged in or error during request than return `null`.
+  ///
+  /// [width] of picture is required, but [height] is optional,
+  /// and by default is equals to [widht].
+  Future<String> getProfileImageUrl({@required int width, int height}) async {
+    assert(width != null);
+
+    if (await isLoggedIn == false) {
+      if (debug) _log('Not logged in. Profile image url is null');
+      return null;
+    }
+
+    try {
+      final String url = await _channel.invokeMethod(
+        _methodGetProfileImageUrl,
+        {
+          _widthArg: width,
+          _heightArg: height ?? width,
+        },
+      );
+
+      if (debug) _log('Profile image url: $url');
+
+      return url;
+    } on PlatformException catch (e) {
+      if (debug) _log('Get profile image url error: $e');
+    }
+
     return null;
   }
 

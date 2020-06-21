@@ -1,5 +1,9 @@
 ## Next release
 
+## 0.2.0 - 2020-06-20
+
+- Method to get user profile image.
+
 ## 0.1.2+4 - 2020-06-20
 
 - **Fixed:** Plugin may break some other libraries ([PR #8](https://github.com/Innim/flutter_login_facebook/pull/8)). Thanks to [@spiritinlife](https://github.com/spiritinlife).
