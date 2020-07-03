@@ -28,7 +28,7 @@ class FacebookLoginResult {
     return <String, dynamic>{
       'status': status.toString().split('.').last,
       'accessToken': accessToken,
-      'error': accessToken?.toMap(),
+      'error': error?.toMap(),
     };
   }
 
