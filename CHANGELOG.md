@@ -1,5 +1,9 @@
 ## Next release
 
+## 0.2.1 - 2020-08-06
+
+* **Fixed**: Crash on iOS 10.
+
 ## 0.2.0+1 - 2020-06-21
 
 * Readme: add information about usage `getProfileImageUrl()`.
