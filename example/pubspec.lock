@@ -94,7 +94,7 @@ packages:
       name: list_ext
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.6"
+    version: "0.1.12"
   matcher:
     dependency: transitive
     description:
