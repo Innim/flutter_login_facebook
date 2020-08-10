@@ -227,8 +227,6 @@ switch (res.status) {
   case FacebookLoginStatus.Success:
     // Logged in
     
-    // Send this access token to server for validation and auth
-    final accessToken = res.accessToken;
     // Send access token to server for validation and auth
     final FacebookAccessToken accessToken = res.accessToken;
     print('Access token: ${accessToken.token}');
@@ -238,7 +236,7 @@ switch (res.status) {
     print('Hello, ${profile.name}! You ID: ${profile.userId}');
 
     // Get user profile image url
-    final imageUrl = await plugin.getProfileImageUrl(width: 100);
+    final imageUrl = await fb.getProfileImageUrl(width: 100);
     print('Your profile image: $imageUrl');
 
     // Get email (since we request email permission)

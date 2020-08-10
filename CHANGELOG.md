@@ -1,5 +1,7 @@
 ## Next release
 
+* Readme: fixes in code example.
+
 ## 0.2.1 - 2020-08-06
 
 * **Fixed**: Crash on iOS 10.
