@@ -7,6 +7,7 @@ import 'package:flutter_login_facebook/src/models/facebook_permission.dart';
 class FacebookLogin {
   // Methods
   static const _methodLogIn = "logIn";
+  static const _methodExpressLogIn = "expressLogin";
   static const _methodLogOut = "logOut";
   static const _methodGetAccessToken = "getAccessToken";
   static const _methodGetUserProfile = "getUserProfile";
@@ -153,6 +154,14 @@ class FacebookLogin {
     final Map<dynamic, dynamic> loginResultData = await _channel
         .invokeMethod(_methodLogIn, {_permissionsArg: permissionsArg});
 
+    if (debug) _log('Result: $loginResultData');
+    return FacebookLoginResult.fromMap(loginResultData.cast<String, dynamic>());
+  }
+
+  Future<FacebookLoginResult> expressLogin() async {
+    if (debug) _log('Trying to expressLogin');
+    final Map<dynamic, dynamic> loginResultData =
+        await _channel.invokeMethod(_methodExpressLogIn);
     if (debug) _log('Result: $loginResultData');
     return FacebookLoginResult.fromMap(loginResultData.cast<String, dynamic>());
   }

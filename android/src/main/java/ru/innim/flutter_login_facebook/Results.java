@@ -22,6 +22,13 @@ public class Results {
         }};
     }
 
+    public static HashMap<String, Object> loginSuccess(final AccessToken accessToken) {
+        return new HashMap<String, Object>() {{
+            put("status", LoginStatus.Success.name());
+            put("accessToken", accessToken(accessToken));
+        }};
+    }
+
     public static HashMap<String, Object> loginCancel() {
         return new HashMap<String, Object>() {{
             put("status", LoginStatus.Cancel.name());
