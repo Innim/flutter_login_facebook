@@ -1,6 +1,8 @@
 ## Next release
 
-* Readme: fixes in code example.
+## 0.2.1+1 - 2020-10-15
+
+* Readme: fixes in code example and typos.
 
 ## 0.2.1 - 2020-08-06
 
