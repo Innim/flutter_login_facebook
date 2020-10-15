@@ -81,7 +81,7 @@ Complete **Step 5**: [Associate Your Package Name and Default Class with Your Ap
 
 Complete **Step 6**: [Provide the Development and Release Key Hashes for Your App](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#6--provide-the-development-and-release-key-hashes-for-your-app).
 
-1. Generate Development and Release keys as described in the [documentation](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#6--provide-the-development-and-release-key-hashes-for-your-app). *Note:* if your application uses [Google Play App Signing](https://support.google.com/googleplay/android-developer/answer/7384423) than you should get certificate SHA-1 fingerprint from Google Play Console and convert it to base64
+1. Generate Development and Release keys as described in the [documentation](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#6--provide-the-development-and-release-key-hashes-for-your-app). *Note:* if your application uses [Google Play App Signing](https://support.google.com/googleplay/android-developer/answer/7384423) then you should get certificate SHA-1 fingerprint from Google Play Console and convert it to base64
 ```
 echo "{sha1key}" | xxd -r -p | openssl base64
 ```
