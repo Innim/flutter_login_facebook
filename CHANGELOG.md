@@ -1,5 +1,9 @@
 ## Next release
 
+## 0.3.0-dev - 2020-10-20
+
+* Upgrade to Facebook SDK >8.
+
 ## 0.2.1+1 - 2020-10-15
 
 * Readme: fixes in code example and typos.
