@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
@@ -158,7 +160,16 @@ class FacebookLogin {
     return FacebookLoginResult.fromMap(loginResultData.cast<String, dynamic>());
   }
 
+  /// Start Express log in Facebook process
+  ///
+  /// Express Login is an **[Android only option](https://developers.facebook.com/docs/facebook-login/android/#expresslogin)**
+  ///
+  /// If Login is successful, returns [FacebookLoginResult] with Success Status.
+  /// ```
+  /// var fbUser = await FacebookLogin().expressLogin();
+  /// ```
   Future<FacebookLoginResult> expressLogin() async {
+    assert(Platform.isAndroid);
     if (debug) _log('Trying to expressLogin');
     final Map<dynamic, dynamic> loginResultData =
         await _channel.invokeMethod(_methodExpressLogIn);

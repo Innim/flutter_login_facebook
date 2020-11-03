@@ -105,8 +105,8 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
                 result.success(Results.loginCancel());
             }
             @Override
-            public void onError(Exception exception) {
-                result.success(Results.loginCancel());
+            public void onError(Exception e) {
+                result.error(ErrorCode.FAILED, e.getMessage(), null);
             }
         });
     }

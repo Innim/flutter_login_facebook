@@ -5,7 +5,7 @@ import FBSDKLoginKit
 
 /// Plugin methods.
 enum PluginMethod: String {
-    case logIn, logOut, expressLogin, getAccessToken, getUserProfile, getUserEmail, getSdkVersion, getProfileImageUrl
+    case logIn, logOut, getAccessToken, getUserProfile, getUserEmail, getSdkVersion, getProfileImageUrl
 }
 
 /// Arguments for method `PluginMethod.logIn`
@@ -49,8 +49,6 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             
             let permissions = permissionsArg.map {val in Permission(stringLiteral: val)}
             logIn(result: result, permissions: permissions)
-        case .expressLogin:
-            expressLogin(result: result)
         case .logOut:
             logOut(result: result)
         case .getAccessToken:
@@ -229,14 +227,6 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
         }
     }
     
-    private func expressLogin(result: @escaping FlutterResult) {
-        let data: [String: Any?] = [
-            "status": "Cancel",
-            "accessToken": nil,
-            "error": nil
-        ]
-        result(data)
-    }
     private func logOut(result: @escaping FlutterResult) {
         if isLoggedIn {
             _loginManager.logOut()
