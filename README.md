@@ -256,3 +256,39 @@ switch (res.status) {
 }
 
 ```
+
+#### [Android] Express login
+
+Express Login helps users log in with their Facebook account across devices and platforms. If a person has logged into your app before on any platform, you can use Express Login to log them in with their Facebook account on Android, instead of asking for them to select a login method, which sometimes resulted in creating duplicate accounts or even failing to log in at all.
+
+See [documentation](https://developers.facebook.com/docs/facebook-login/android/#expresslogin).
+
+Example: 
+
+```dart
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+
+// Create an instance of FacebookLogin
+final fb = FacebookLogin();
+
+// Log in
+final res = await fb.expressLogin();
+
+if (res.status == FacebookLoginStatus.Success) {
+  final FacebookAccessToken accessToken = res.accessToken;
+  print('Access token: ${accessToken.token}');
+}
+```
+
+**Only for Android.**
+
+If you targets Android 11 or higher, you should add
+
+```xml
+<queries>
+  <package android:name="com.facebook.katana" />
+</queries> 
+```
+
+in root element of your manifest `android/app/src/main/AndroidManifest.xml`. 
+See [Package visibility in Android 11](https://medium.com/androiddevelopers/package-visibility-in-android-11-cc857f221cd9) for details.
