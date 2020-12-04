@@ -112,6 +112,12 @@ enum FacebookPermission {
   /// Provides the access to manage call to actions of the Pages that you manage.
   pagesManageCta,
 
+  /// Allows your app to create, edit and delete your Page posts
+  pagesManagePosts,
+
+  /// Allows your app to read content (posts, photos, videos, events) posted by the Page
+  pagesReadEngagement,
+
   /// Lets your app manage Instant Articles on behalf of Facebook Pages administered by people using your app.
   pagesManageInstantArticles,
 
@@ -159,6 +165,8 @@ final _mapToString = {
   FacebookPermission.readPageMailboxes: "read_page_mailboxes",
   FacebookPermission.pagesShowList: "pages_show_list",
   FacebookPermission.pagesManageCta: "pages_manage_cta",
+  FacebookPermission.pagesManagePosts: "pages_manage_posts",
+  FacebookPermission.pagesReadEngagement: "pages_read_engagement",
   FacebookPermission.pagesManageInstantArticles:
       "pages_manage_instant_articles",
   FacebookPermission.adsRead: "ads_read",
