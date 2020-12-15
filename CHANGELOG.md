@@ -1,5 +1,9 @@
 ## Next release
 
+# 0.4.1 - 2020-12-15
+
+* Added permissions `pages_manage_posts`, `pages_read_engagement` ([PR #37](https://github.com/Innim/flutter_login_facebook/pull/37)). Thanks to [@rogiervandenberg](https://github.com/rogiervandenberg).
+
 # 0.4.0+1 - 2020-11-05
 
 * Added [Express Login](https://developers.facebook.com/docs/facebook-login/android/#expresslogin) for Android ([PR #27](https://github.com/Innim/flutter_login_facebook/pull/27)). Thanks to [@atrope](https://github.com/atrope).
