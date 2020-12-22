@@ -15,9 +15,10 @@ class FacebookError {
       {this.developerMessage, this.localizedDescription, this.localizedTitle});
 
   factory FacebookError.fromMap(Map<String, dynamic> map) => FacebookError(
-      developerMessage: map['developerMessage'],
-      localizedDescription: map['localizedDescription'],
-      localizedTitle: map['localizedTitle']);
+        developerMessage: map['developerMessage'] as String,
+        localizedDescription: map['localizedDescription'] as String,
+        localizedTitle: map['localizedTitle'] as String,
+      );
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -28,13 +29,13 @@ class FacebookError {
   }
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
 
-    return o is FacebookError &&
-        o.developerMessage == developerMessage &&
-        o.localizedDescription == localizedDescription &&
-        o.localizedTitle == localizedTitle;
+    return other is FacebookError &&
+        other.developerMessage == developerMessage &&
+        other.localizedDescription == localizedDescription &&
+        other.localizedTitle == localizedTitle;
   }
 
   @override
@@ -45,5 +46,6 @@ class FacebookError {
 
   @override
   String toString() => 'FacebookError(developerMessage: $developerMessage, '
-      'localizedDescription: $localizedDescription, localizedTitle: $localizedTitle)';
+      'localizedDescription: $localizedDescription, '
+      'localizedTitle: $localizedTitle)';
 }

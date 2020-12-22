@@ -2,7 +2,7 @@ import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:flutter_login_facebook/src/models/facebook_error.dart';
 
 /// Login status.
-enum FacebookLoginStatus { Success, Cancel, Error }
+enum FacebookLoginStatus { success, cancel, error }
 
 /// Result for login request.
 class FacebookLoginResult {
@@ -15,13 +15,14 @@ class FacebookLoginResult {
         assert(accessToken != null);
 
   FacebookLoginResult.fromMap(Map<String, dynamic> map)
-      : status = _parseStatus(map['status']),
+      : status = _parseStatus(map['status'] as String),
         accessToken = map['accessToken'] != null
             ? FacebookAccessToken.fromMap(
-                map['accessToken'].cast<String, dynamic>())
+                (map['accessToken'] as Map).cast<String, dynamic>())
             : null,
         error = map['error'] != null
-            ? FacebookError.fromMap(map['error'].cast<String, dynamic>())
+            ? FacebookError.fromMap(
+                (map['error'] as Map).cast<String, dynamic>())
             : null;
 
   Map<String, dynamic> toMap() {
@@ -35,11 +36,11 @@ class FacebookLoginResult {
   static FacebookLoginStatus _parseStatus(String status) {
     switch (status) {
       case 'Success':
-        return FacebookLoginStatus.Success;
+        return FacebookLoginStatus.success;
       case 'Cancel':
-        return FacebookLoginStatus.Cancel;
+        return FacebookLoginStatus.cancel;
       case 'Error':
-        return FacebookLoginStatus.Error;
+        return FacebookLoginStatus.error;
     }
 
     throw StateError('Invalid status: $status');
@@ -60,5 +61,6 @@ class FacebookLoginResult {
 
   @override
   String toString() =>
-      'FacebookLoginResult(status: $status, accessToken: $accessToken, error: $error)';
+      'FacebookLoginResult(status: $status, accessToken: $accessToken, '
+      'error: $error)';
 }

@@ -61,12 +61,19 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.4.1"
+    version: "0.4.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
+  innim_lint:
+    dependency: "direct dev"
+    description:
+      name: innim_lint
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.2"
   list_ext:
     dependency: transitive
     description:
@@ -95,6 +102,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0-nullsafety.1"
+  pedantic:
+    dependency: transitive
+    description:
+      name: pedantic
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.9.2"
   quiver:
     dependency: transitive
     description:

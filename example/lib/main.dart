@@ -58,7 +58,7 @@ class _MyHomeState extends State<MyHome> {
         child: Center(
           child: Column(
             children: <Widget>[
-              if (_sdkVersion != null) Text("SDK v$_sdkVersion"),
+              if (_sdkVersion != null) Text('SDK v$_sdkVersion'),
               if (isLogin)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
@@ -105,31 +105,29 @@ class _MyHomeState extends State<MyHome> {
           ],
         ),
         Text('AccessToken: '),
-        Container(
-          child: Text(
-            accessToken.token,
-            softWrap: true,
-          ),
+        Text(
+          accessToken.token,
+          softWrap: true,
         ),
         if (email != null) Text('Email: $email'),
       ],
     );
   }
 
-  void _onPressedLogInButton() async {
+  Future<void> _onPressedLogInButton() async {
     await widget.plugin.logIn(permissions: [
       FacebookPermission.publicProfile,
       FacebookPermission.email,
     ]);
-    _updateLoginInfo();
+    await _updateLoginInfo();
   }
 
-  void _onPressedExpressLogInButton(BuildContext context) async {
+  Future<void> _onPressedExpressLogInButton(BuildContext context) async {
     final res = await widget.plugin.expressLogin();
-    if (res.status == FacebookLoginStatus.Success) {
-      _updateLoginInfo();
+    if (res.status == FacebookLoginStatus.success) {
+      await _updateLoginInfo();
     } else {
-      await showDialog(
+      await showDialog<Object>(
         context: context,
         builder: (context) => AlertDialog(
           content: Text("Can't make express log in. Try regular log in."),
@@ -138,19 +136,19 @@ class _MyHomeState extends State<MyHome> {
     }
   }
 
-  void _onPressedLogOutButton() async {
+  Future<void> _onPressedLogOutButton() async {
     await widget.plugin.logOut();
-    _updateLoginInfo();
+    await _updateLoginInfo();
   }
 
-  void _getSdkVersion() async {
+  Future<void> _getSdkVersion() async {
     final sdkVesion = await widget.plugin.sdkVersion;
     setState(() {
       _sdkVersion = sdkVesion;
     });
   }
 
-  void _updateLoginInfo() async {
+  Future<void> _updateLoginInfo() async {
     final plugin = widget.plugin;
     final token = await plugin.accessToken;
     FacebookUserProfile profile;
@@ -159,8 +157,9 @@ class _MyHomeState extends State<MyHome> {
 
     if (token != null) {
       profile = await plugin.getUserProfile();
-      if (token.permissions?.contains(FacebookPermission.email.name) ?? false)
+      if (token.permissions?.contains(FacebookPermission.email.name) ?? false) {
         email = await plugin.getUserEmail();
+      }
       imageUrl = await plugin.getProfileImageUrl(width: 100);
     }
 

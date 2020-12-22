@@ -1,5 +1,9 @@
 ## Next release
 
+# 0.4.2 - 2020-12-22
+
+* Use [innim_lint](https://pub.dev/packages/innim_lint) analysis options.
+
 # 0.4.1 - 2020-12-15
 
 * Added permissions `pages_manage_posts`, `pages_read_engagement` ([PR #37](https://github.com/Innim/flutter_login_facebook/pull/37)). Thanks to [@rogiervandenberg](https://github.com/rogiervandenberg).
