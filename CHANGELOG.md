@@ -1,6 +1,9 @@
 ## Next release
 
+# 0.4.2+1 - 2020-12-26
+
 * Upgrade `innim_lint` to 0.1.4. Refactoring.
+* Update [list_ext](https://pub.dev/packages/list_ext) dependency.
 
 # 0.4.2 - 2020-12-22
 
