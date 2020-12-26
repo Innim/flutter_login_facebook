@@ -1,5 +1,7 @@
 ## Next release
 
+* Upgrade `innim_lint` to 0.1.4. Refactoring.
+
 # 0.4.2 - 2020-12-22
 
 * Use [innim_lint](https://pub.dev/packages/innim_lint) analysis options.

@@ -66,16 +66,16 @@ class _MyHomeState extends State<MyHome> {
                 ),
               isLogin
                   ? OutlineButton(
-                      child: Text('Log Out'),
+                      child: const Text('Log Out'),
                       onPressed: _onPressedLogOutButton,
                     )
                   : OutlineButton(
-                      child: Text('Log In'),
+                      child: const Text('Log In'),
                       onPressed: _onPressedLogInButton,
                     ),
               if (!isLogin && Platform.isAndroid)
                 OutlineButton(
-                  child: Text('Express Log In'),
+                  child: const Text('Express Log In'),
                   onPressed: () => _onPressedExpressLogInButton(context),
                 )
             ],
@@ -97,14 +97,14 @@ class _MyHomeState extends State<MyHome> {
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text('User: '),
+            const Text('User: '),
             Text(
               '${profile.firstName} ${profile.lastName}',
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ],
         ),
-        Text('AccessToken: '),
+        const Text('AccessToken: '),
         Text(
           accessToken.token,
           softWrap: true,
@@ -129,7 +129,7 @@ class _MyHomeState extends State<MyHome> {
     } else {
       await showDialog<Object>(
         context: context,
-        builder: (context) => AlertDialog(
+        builder: (context) => const AlertDialog(
           content: Text("Can't make express log in. Try regular log in."),
         ),
       );
