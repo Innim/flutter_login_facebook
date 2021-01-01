@@ -1,6 +1,6 @@
 name: flutter_login_facebook
 description: Login via Facebook. Easily add Facebook login feature in your application. User profile information included.
-version: 0.4.2+1
+version: 0.4.2+2
 homepage: https://github.com/Innim/flutter_login_facebook
 repository: https://github.com/Innim/flutter_login_facebook
 issue_tracker: https://github.com/Innim/flutter_login_facebook/issues
@@ -17,7 +17,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  innim_lint: 0.1.4
+  innim_lint: 0.1.5
 
 flutter:
   plugin:

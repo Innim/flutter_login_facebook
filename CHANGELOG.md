@@ -1,5 +1,9 @@
 ## Next release
 
+# 0.4.2+2 - 2021-01-01
+
+* Upgrade `innim_lint` to 0.1.5.
+
 # 0.4.2+1 - 2020-12-26
 
 * Upgrade `innim_lint` to 0.1.4. Refactoring.
