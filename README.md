@@ -224,7 +224,7 @@ final res = await fb.logIn(permissions: [
 
 // Check result status
 switch (res.status) {
-  case FacebookLoginStatus.Success:
+  case FacebookLoginStatus.success:
     // Logged in
     
     // Send access token to server for validation and auth
@@ -246,10 +246,10 @@ switch (res.status) {
       print('And your email is $email');
 
     break;
-  case FacebookLoginStatus.Cancel:
+  case FacebookLoginStatus.cancel:
     // User cancel log in
     break;
-  case FacebookLoginStatus.Error:
+  case FacebookLoginStatus.error:
     // Log in failed
     print('Error while log in: ${res.error}');
     break;
@@ -274,7 +274,7 @@ final fb = FacebookLogin();
 // Log in
 final res = await fb.expressLogin();
 
-if (res.status == FacebookLoginStatus.Success) {
+if (res.status == FacebookLoginStatus.success) {
   final FacebookAccessToken accessToken = res.accessToken;
   print('Access token: ${accessToken.token}');
 }
