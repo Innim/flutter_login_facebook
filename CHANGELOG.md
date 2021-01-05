@@ -1,5 +1,9 @@
 ## Next release
 
+# 0.4.2+3 - 2021-01-05
+
+* Readme: update `FacebookLoginStatus` values. Thanks to [@mean-cj](https://github.com/mean-cj).
+
 # 0.4.2+2 - 2021-01-01
 
 * Upgrade `innim_lint` to 0.1.5.
