@@ -1,5 +1,9 @@
 ## Next release
 
+## [1.0.0-nullsafety.0] - 2021-01-11
+
+* Migrated to null safety.
+
 # 0.4.2+3 - 2021-01-05
 
 * Readme: update `FacebookLoginStatus` values. Thanks to [@mean-cj](https://github.com/mean-cj).
