@@ -27,11 +27,11 @@ class FacebookLogin {
   /// If `true` all requests and results will be printed in console.
   final bool debug;
 
-  FacebookLogin({this.debug = false}) : assert(debug != null) {
+  FacebookLogin({this.debug = false}) {
     if (debug) sdkVersion.then((v) => _log('SDK version: $v'));
   }
 
-  Future<FacebookAccessToken> get accessToken async {
+  Future<FacebookAccessToken?> get accessToken async {
     final tokenData = await _channel.invokeMethod<Map>(_methodGetAccessToken);
 
     return tokenData != null
@@ -42,7 +42,7 @@ class FacebookLogin {
   /// Returns currently used Facebook SDK.
   Future<String> get sdkVersion async {
     final res = await _channel.invokeMethod<String>(_methodGetSdkVersion);
-    return res;
+    return res ?? 'n/a';
   }
 
   Future<bool> get isLoggedIn async {
@@ -53,7 +53,7 @@ class FacebookLogin {
   /// Get user profile information.
   ///
   /// If not logged in or error during request than return `null`.
-  Future<FacebookUserProfile> getUserProfile() async {
+  Future<FacebookUserProfile?> getUserProfile() async {
     if (await isLoggedIn == false) {
       if (debug) _log('Not logged in. User profile is null');
       return null;
@@ -80,9 +80,7 @@ class FacebookLogin {
   ///
   /// [width] of picture is required, but [height] is optional,
   /// and by default is equals to [widht].
-  Future<String> getProfileImageUrl({@required int width, int height}) async {
-    assert(width != null);
-
+  Future<String?> getProfileImageUrl({required int width, int? height}) async {
     if (await isLoggedIn == false) {
       if (debug) _log('Not logged in. Profile image url is null');
       return null;
@@ -114,14 +112,14 @@ class FacebookLogin {
   ///
   /// If not logged in, decline [FacebookPermission.email] permission
   /// or error during request occured, than returns `null`.
-  Future<String> getUserEmail() async {
+  Future<String?> getUserEmail() async {
     final token = await accessToken;
     if (!_isLoggedIn(token)) {
       if (debug) _log('Not logged in. Email is null');
       return null;
     }
 
-    if (!token.permissions.contains(FacebookPermission.email.name)) {
+    if (!token!.permissions.contains(FacebookPermission.email.name)) {
       if (debug) _log('User did not accept `email` permission. Email is null');
       return null;
     }
@@ -145,18 +143,12 @@ class FacebookLogin {
       {List<FacebookPermission> permissions = const [
         FacebookPermission.publicProfile
       ],
-      List<String> customPermissions}) async {
-    assert(permissions != null);
-
+      List<String> customPermissions = const []}) async {
     final permissionsArg = permissions.map((e) => e.name).toList();
-    if (customPermissions != null) permissionsArg.addAll(customPermissions);
+    if (customPermissions.isNotEmpty) permissionsArg.addAll(customPermissions);
 
     if (debug) _log('Log In with permissions $permissionsArg');
-    final loginResultData = await _channel
-        .invokeMethod<Map>(_methodLogIn, {_permissionsArg: permissionsArg});
-
-    if (debug) _log('Result: $loginResultData');
-    return FacebookLoginResult.fromMap(loginResultData.cast<String, dynamic>());
+    return _invokeLoginMethod(_methodLogIn, {_permissionsArg: permissionsArg});
   }
 
   /// Start Express log in Facebook process
@@ -170,10 +162,7 @@ class FacebookLogin {
   Future<FacebookLoginResult> expressLogin() async {
     assert(Platform.isAndroid);
     if (debug) _log('Trying to expressLogin');
-    final loginResultData =
-        await _channel.invokeMethod<Map>(_methodExpressLogIn);
-    if (debug) _log('Result: $loginResultData');
-    return FacebookLoginResult.fromMap(loginResultData.cast<String, dynamic>());
+    return _invokeLoginMethod(_methodExpressLogIn);
   }
 
   Future<void> logOut() {
@@ -181,8 +170,19 @@ class FacebookLogin {
     return _channel.invokeMethod(_methodLogOut);
   }
 
-  bool _isLoggedIn(FacebookAccessToken token) =>
+  bool _isLoggedIn(FacebookAccessToken? token) =>
       token != null && DateTime.now().isBefore(token.expires);
+
+  Future<FacebookLoginResult> _invokeLoginMethod(String method,
+      [Map<String, Object>? arguments]) async {
+    final loginResultData =
+        await (_channel.invokeMethod<Map>(_methodLogIn, arguments));
+
+    if (debug) _log('Result: $loginResultData');
+    return loginResultData != null
+        ? FacebookLoginResult.fromMap(loginResultData.cast<String, dynamic>())
+        : FacebookLoginResult.error();
+  }
 
   void _log(String message) {
     if (debug) debugPrint('[FB] $message');

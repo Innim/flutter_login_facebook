@@ -127,7 +127,7 @@ enum FacebookPermission {
 
 extension FacebookPermissionExtension on FacebookPermission {
   /// Name of permission.
-  String get name => _mapToString[this];
+  String get name => _mapToString[this]!;
 }
 
 final _mapToString = {

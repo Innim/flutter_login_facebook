@@ -7,12 +7,15 @@ enum FacebookLoginStatus { success, cancel, error }
 /// Result for login request.
 class FacebookLoginResult {
   final FacebookLoginStatus status;
-  final FacebookAccessToken accessToken;
-  final FacebookError error;
+  final FacebookAccessToken? accessToken;
+  final FacebookError? error;
 
-  FacebookLoginResult(this.status, this.accessToken, {this.error})
-      : assert(status != null),
-        assert(accessToken != null);
+  FacebookLoginResult(this.status, FacebookAccessToken this.accessToken,
+      {this.error});
+
+  FacebookLoginResult.error({this.error})
+      : status = FacebookLoginStatus.error,
+        accessToken = null;
 
   FacebookLoginResult.fromMap(Map<String, dynamic> map)
       : status = _parseStatus(map['status'] as String),
@@ -57,7 +60,7 @@ class FacebookLoginResult {
 
   @override
   int get hashCode =>
-      status.hashCode ^ accessToken?.hashCode ?? 0 ^ error?.hashCode ?? 0;
+      status.hashCode ^ (accessToken?.hashCode ?? 0) ^ (error?.hashCode ?? 0);
 
   @override
   String toString() =>

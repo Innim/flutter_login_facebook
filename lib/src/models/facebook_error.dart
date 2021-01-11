@@ -3,21 +3,21 @@
 /// See https://developers.facebook.com/docs/ios/errors/.
 class FacebookError {
   /// An error message for the developer.
-  final String developerMessage;
+  final String? developerMessage;
 
   /// A localized user facing message, if available
-  final String localizedDescription;
+  final String? localizedDescription;
 
   /// A localized user facing title, if available
-  final String localizedTitle;
+  final String? localizedTitle;
 
   FacebookError(
       {this.developerMessage, this.localizedDescription, this.localizedTitle});
 
   factory FacebookError.fromMap(Map<String, dynamic> map) => FacebookError(
-        developerMessage: map['developerMessage'] as String,
-        localizedDescription: map['localizedDescription'] as String,
-        localizedTitle: map['localizedTitle'] as String,
+        developerMessage: map['developerMessage'] as String?,
+        localizedDescription: map['localizedDescription'] as String?,
+        localizedTitle: map['localizedTitle'] as String?,
       );
 
   Map<String, dynamic> toMap() {

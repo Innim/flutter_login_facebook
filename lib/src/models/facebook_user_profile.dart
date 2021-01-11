@@ -1,17 +1,17 @@
 /// Facebook user profile.
 class FacebookUserProfile {
   final String userId;
-  final String name;
-  final String firstName;
-  final String middleName;
-  final String lastName;
+  final String? name;
+  final String? firstName;
+  final String? middleName;
+  final String? lastName;
 
   FacebookUserProfile.fromMap(Map<String, dynamic> map)
       : userId = map['userId'] as String,
-        name = map['name'] as String,
-        firstName = map['firstName'] as String,
-        middleName = map['middleName'] as String,
-        lastName = map['lastName'] as String;
+        name = map['name'] as String?,
+        firstName = map['firstName'] as String?,
+        middleName = map['middleName'] as String?,
+        lastName = map['lastName'] as String?;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
