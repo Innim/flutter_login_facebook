@@ -23,20 +23,18 @@ class MyApp extends StatelessWidget {
 class MyHome extends StatefulWidget {
   final FacebookLogin plugin;
 
-  const MyHome({Key key, @required this.plugin})
-      : assert(plugin != null),
-        super(key: key);
+  const MyHome({Key? key, required this.plugin}) : super(key: key);
 
   @override
   _MyHomeState createState() => _MyHomeState();
 }
 
 class _MyHomeState extends State<MyHome> {
-  String _sdkVersion;
-  FacebookAccessToken _token;
-  FacebookUserProfile _profile;
-  String _email;
-  String _imageUrl;
+  String? _sdkVersion;
+  FacebookAccessToken? _token;
+  FacebookUserProfile? _profile;
+  String? _email;
+  String? _imageUrl;
 
   @override
   void initState() {
@@ -62,7 +60,7 @@ class _MyHomeState extends State<MyHome> {
               if (isLogin)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
-                  child: _buildUserInfo(context, _profile, _token, _email),
+                  child: _buildUserInfo(context, _profile!, _token!, _email),
                 ),
               isLogin
                   ? OutlineButton(
@@ -86,13 +84,14 @@ class _MyHomeState extends State<MyHome> {
   }
 
   Widget _buildUserInfo(BuildContext context, FacebookUserProfile profile,
-      FacebookAccessToken accessToken, String email) {
+      FacebookAccessToken accessToken, String? email) {
+    final avatarUrl = _imageUrl;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (_imageUrl != null)
+        if (avatarUrl != null)
           Center(
-            child: Image.network(_imageUrl),
+            child: Image.network(avatarUrl),
           ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -151,13 +150,13 @@ class _MyHomeState extends State<MyHome> {
   Future<void> _updateLoginInfo() async {
     final plugin = widget.plugin;
     final token = await plugin.accessToken;
-    FacebookUserProfile profile;
-    String email;
-    String imageUrl;
+    FacebookUserProfile? profile;
+    String? email;
+    String? imageUrl;
 
     if (token != null) {
       profile = await plugin.getUserProfile();
-      if (token.permissions?.contains(FacebookPermission.email.name) ?? false) {
+      if (token.permissions.contains(FacebookPermission.email.name)) {
         email = await plugin.getUserEmail();
       }
       imageUrl = await plugin.getProfileImageUrl(width: 100);
