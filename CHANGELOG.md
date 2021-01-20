@@ -1,5 +1,9 @@
 ## Next release
 
+## 0.5.0 - 2021-01-20
+
+* Upgrade to Facebook SDK 9 (with new Graph API version). See [Migration guide](UPGRADE.md#Upgrade-to-0-5).
+
 # 0.4.2+3 - 2021-01-05
 
 * Readme: update `FacebookLoginStatus` values. Thanks to [@mean-cj](https://github.com/mean-cj).
