@@ -2,6 +2,43 @@
 
 * Method to check if permission allowed.
 
+# 0.4.2+3 - 2021-01-05
+
+* Readme: update `FacebookLoginStatus` values. Thanks to [@mean-cj](https://github.com/mean-cj).
+
+# 0.4.2+2 - 2021-01-01
+
+* Upgrade `innim_lint` to 0.1.5.
+
+# 0.4.2+1 - 2020-12-26
+
+* Upgrade `innim_lint` to 0.1.4. Refactoring.
+* Update [list_ext](https://pub.dev/packages/list_ext) dependency.
+
+# 0.4.2 - 2020-12-22
+
+* Use [innim_lint](https://pub.dev/packages/innim_lint) analysis options.
+
+# 0.4.1 - 2020-12-15
+
+* Added permissions `pages_manage_posts`, `pages_read_engagement` ([PR #37](https://github.com/Innim/flutter_login_facebook/pull/37)). Thanks to [@rogiervandenberg](https://github.com/rogiervandenberg).
+
+# 0.4.0+1 - 2020-11-05
+
+* Added [Express Login](https://developers.facebook.com/docs/facebook-login/android/#expresslogin) for Android ([PR #27](https://github.com/Innim/flutter_login_facebook/pull/27)). Thanks to [@atrope](https://github.com/atrope).
+
+## 0.3.0 - 2020-10-20
+
+* Upgrade to Facebook SDK >8.
+
+## 0.2.1+1 - 2020-10-15
+
+* Readme: fixes in code example and typos.
+
+## 0.2.1 - 2020-08-06
+
+* **Fixed**: Crash on iOS 10.
+
 ## 0.2.0+1 - 2020-06-21
 
 * Readme: add information about usage `getProfileImageUrl()`.

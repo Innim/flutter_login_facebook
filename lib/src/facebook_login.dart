@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
@@ -6,21 +8,21 @@ import 'package:flutter_login_facebook/src/models/facebook_permission.dart';
 /// Class for implementing login via Facebook.
 class FacebookLogin {
   // Methods
-  static const _methodLogIn = "logIn";
-  static const _methodLogOut = "logOut";
-  static const _methodGetAccessToken = "getAccessToken";
-  static const _methodGetUserProfile = "getUserProfile";
-  static const _methodGetUserEmail = "getUserEmail";
-  static const _methodGetProfileImageUrl = "getProfileImageUrl";
-  static const _methodGetSdkVersion = "getSdkVersion";
+  static const _methodLogIn = 'logIn';
+  static const _methodExpressLogIn = 'expressLogin';
+  static const _methodLogOut = 'logOut';
+  static const _methodGetAccessToken = 'getAccessToken';
+  static const _methodGetUserProfile = 'getUserProfile';
+  static const _methodGetUserEmail = 'getUserEmail';
+  static const _methodGetProfileImageUrl = 'getProfileImageUrl';
+  static const _methodGetSdkVersion = 'getSdkVersion';
 
-  static const _permissionsArg = "permissions";
+  static const _permissionsArg = 'permissions';
 
-  static const _widthArg = "width";
-  static const _heightArg = "height";
+  static const _widthArg = 'width';
+  static const _heightArg = 'height';
 
-  static const MethodChannel _channel =
-      const MethodChannel('flutter_login_facebook');
+  static const MethodChannel _channel = MethodChannel('flutter_login_facebook');
 
   /// If `true` all requests and results will be printed in console.
   final bool debug;
@@ -30,8 +32,7 @@ class FacebookLogin {
   }
 
   Future<FacebookAccessToken> get accessToken async {
-    final Map<dynamic, dynamic> tokenData =
-        await _channel.invokeMethod(_methodGetAccessToken);
+    final tokenData = await _channel.invokeMethod<Map>(_methodGetAccessToken);
 
     return tokenData != null
         ? FacebookAccessToken.fromMap(tokenData.cast<String, dynamic>())
@@ -40,7 +41,7 @@ class FacebookLogin {
 
   /// Returns currently used Facebook SDK.
   Future<String> get sdkVersion async {
-    final String res = await _channel.invokeMethod(_methodGetSdkVersion);
+    final res = await _channel.invokeMethod<String>(_methodGetSdkVersion);
     return res;
   }
 
@@ -59,13 +60,14 @@ class FacebookLogin {
     }
 
     try {
-      final Map<dynamic, dynamic> profileData =
-          await _channel.invokeMethod(_methodGetUserProfile);
+      final profileData =
+          await _channel.invokeMethod<Map>(_methodGetUserProfile);
 
       if (debug) _log('User profile: $profileData');
 
-      if (profileData != null)
+      if (profileData != null) {
         return FacebookUserProfile.fromMap(profileData.cast<String, dynamic>());
+      }
     } on PlatformException catch (e) {
       if (debug) _log('Get profile error: $e');
     }
@@ -87,7 +89,7 @@ class FacebookLogin {
     }
 
     try {
-      final String url = await _channel.invokeMethod(
+      final url = await _channel.invokeMethod<String>(
         _methodGetProfileImageUrl,
         {
           _widthArg: width,
@@ -125,7 +127,7 @@ class FacebookLogin {
     }
 
     try {
-      final String email = await _channel.invokeMethod(_methodGetUserEmail);
+      final email = await _channel.invokeMethod<String>(_methodGetUserEmail);
 
       if (debug) _log('User email: $email');
       return email;
@@ -150,9 +152,26 @@ class FacebookLogin {
     if (customPermissions != null) permissionsArg.addAll(customPermissions);
 
     if (debug) _log('Log In with permissions $permissionsArg');
-    final Map<dynamic, dynamic> loginResultData = await _channel
-        .invokeMethod(_methodLogIn, {_permissionsArg: permissionsArg});
+    final loginResultData = await _channel
+        .invokeMethod<Map>(_methodLogIn, {_permissionsArg: permissionsArg});
 
+    if (debug) _log('Result: $loginResultData');
+    return FacebookLoginResult.fromMap(loginResultData.cast<String, dynamic>());
+  }
+
+  /// Start Express log in Facebook process
+  ///
+  /// Express Login is an **[Android only option](https://developers.facebook.com/docs/facebook-login/android/#expresslogin)**
+  ///
+  /// If Login is successful, returns [FacebookLoginResult] with Success Status.
+  /// ```
+  /// var fbUser = await FacebookLogin().expressLogin();
+  /// ```
+  Future<FacebookLoginResult> expressLogin() async {
+    assert(Platform.isAndroid);
+    if (debug) _log('Trying to expressLogin');
+    final loginResultData =
+        await _channel.invokeMethod<Map>(_methodExpressLogIn);
     if (debug) _log('Result: $loginResultData');
     return FacebookLoginResult.fromMap(loginResultData.cast<String, dynamic>());
   }

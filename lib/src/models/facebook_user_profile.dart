@@ -7,11 +7,11 @@ class FacebookUserProfile {
   final String lastName;
 
   FacebookUserProfile.fromMap(Map<String, dynamic> map)
-      : userId = map['userId'],
-        name = map['name'],
-        firstName = map['firstName'],
-        middleName = map['middleName'],
-        lastName = map['lastName'];
+      : userId = map['userId'] as String,
+        name = map['name'] as String,
+        firstName = map['firstName'] as String,
+        middleName = map['middleName'] as String,
+        lastName = map['lastName'] as String;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

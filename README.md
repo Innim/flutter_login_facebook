@@ -10,8 +10,8 @@ Easily add Facebook login feature in your application. User profile information 
 
 Facebook SDK version, used in plugin:
 
-* iOS: **^7.0** ([CocoaPods](https://cocoapods.org/pods/FBSDKLoginKit))
-* Android: **^7.0** ([Maven](https://search.maven.org/artifact/com.facebook.android/facebook-android-sdk/7.0.0/jar))
+* iOS: **^8.0** ([CocoaPods](https://cocoapods.org/pods/FBSDKLoginKit))
+* Android: **^8.0** ([Maven](https://search.maven.org/artifact/com.facebook.android/facebook-android-sdk/8.0.0/jar))
 
 ## Minimum requirements
 
@@ -81,7 +81,7 @@ Complete **Step 5**: [Associate Your Package Name and Default Class with Your Ap
 
 Complete **Step 6**: [Provide the Development and Release Key Hashes for Your App](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#6--provide-the-development-and-release-key-hashes-for-your-app).
 
-1. Generate Development and Release keys as described in the [documentation](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#6--provide-the-development-and-release-key-hashes-for-your-app). *Note:* if your application uses [Google Play App Signing](https://support.google.com/googleplay/android-developer/answer/7384423) than you should get certificate SHA-1 fingerprint from Google Play Console and convert it to base64
+1. Generate Development and Release keys as described in the [documentation](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#6--provide-the-development-and-release-key-hashes-for-your-app). *Note:* if your application uses [Google Play App Signing](https://support.google.com/googleplay/android-developer/answer/7384423) then you should get certificate SHA-1 fingerprint from Google Play Console and convert it to base64
 ```
 echo "{sha1key}" | xxd -r -p | openssl base64
 ```
@@ -224,11 +224,9 @@ final res = await fb.logIn(permissions: [
 
 // Check result status
 switch (res.status) {
-  case FacebookLoginStatus.Success:
+  case FacebookLoginStatus.success:
     // Logged in
     
-    // Send this access token to server for validation and auth
-    final accessToken = res.accessToken;
     // Send access token to server for validation and auth
     final FacebookAccessToken accessToken = res.accessToken;
     print('Access token: ${accessToken.token}');
@@ -238,7 +236,7 @@ switch (res.status) {
     print('Hello, ${profile.name}! You ID: ${profile.userId}');
 
     // Get user profile image url
-    final imageUrl = await plugin.getProfileImageUrl(width: 100);
+    final imageUrl = await fb.getProfileImageUrl(width: 100);
     print('Your profile image: $imageUrl');
 
     // Get email (since we request email permission)
@@ -248,13 +246,49 @@ switch (res.status) {
       print('And your email is $email');
 
     break;
-  case FacebookLoginStatus.Cancel:
+  case FacebookLoginStatus.cancel:
     // User cancel log in
     break;
-  case FacebookLoginStatus.Error:
+  case FacebookLoginStatus.error:
     // Log in failed
     print('Error while log in: ${res.error}');
     break;
 }
 
 ```
+
+#### [Android] Express login
+
+Express Login helps users log in with their Facebook account across devices and platforms. If a person has logged into your app before on any platform, you can use Express Login to log them in with their Facebook account on Android, instead of asking for them to select a login method, which sometimes resulted in creating duplicate accounts or even failing to log in at all.
+
+See [documentation](https://developers.facebook.com/docs/facebook-login/android/#expresslogin).
+
+Example: 
+
+```dart
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+
+// Create an instance of FacebookLogin
+final fb = FacebookLogin();
+
+// Log in
+final res = await fb.expressLogin();
+
+if (res.status == FacebookLoginStatus.success) {
+  final FacebookAccessToken accessToken = res.accessToken;
+  print('Access token: ${accessToken.token}');
+}
+```
+
+**Only for Android.**
+
+If you targets Android 11 or higher, you should add
+
+```xml
+<queries>
+  <package android:name="com.facebook.katana" />
+</queries> 
+```
+
+in root element of your manifest `android/app/src/main/AndroidManifest.xml`. 
+See [Package visibility in Android 11](https://medium.com/androiddevelopers/package-visibility-in-android-11-cc857f221cd9) for details.

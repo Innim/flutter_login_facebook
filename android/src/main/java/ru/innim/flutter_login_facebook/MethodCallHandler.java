@@ -9,6 +9,7 @@ import com.facebook.FacebookRequestError;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.LoginStatusCallback;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 
@@ -23,6 +24,7 @@ import io.flutter.plugin.common.MethodChannel.Result;
 public class MethodCallHandler implements MethodChannel.MethodCallHandler {
     private final static String _LOGIN_METHOD = "logIn";
     private final static String _LOGOUT_METHOD = "logOut";
+    private final static String _EXPRESS_LOGIN_METHOD = "expressLogin";
     private final static String _GET_ACCESS_TOKEN = "getAccessToken";
     private final static String _GET_USER_PROFILE = "getUserProfile";
     private final static String _GET_SDK_VERSION = "getSdkVersion";
@@ -51,6 +53,9 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
                 case _LOGIN_METHOD:
                     final List<String> permissions = call.argument(_PERMISSIONS_ARG);
                     logIn(permissions, result);
+                    break;
+                case _EXPRESS_LOGIN_METHOD:
+                    expressLogin(result);
                     break;
                 case _LOGOUT_METHOD:
                     logOut(result);
@@ -87,6 +92,23 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
     private void logIn(List<String> permissions, Result result) {
         _loginCallback.addPending(result);
         LoginManager.getInstance().logIn(_activity, permissions);
+    }
+
+    private void expressLogin(final Result result) {
+        LoginManager.getInstance().retrieveLoginStatus(_activity.getApplicationContext(), new LoginStatusCallback() {
+            @Override
+            public void onCompleted(AccessToken token) {
+                result.success(Results.loginSuccess(token));
+            }
+            @Override
+            public void onFailure() {
+                result.success(Results.loginCancel());
+            }
+            @Override
+            public void onError(Exception e) {
+                result.error(ErrorCode.FAILED, e.getMessage(), null);
+            }
+        });
     }
 
     private void logOut(Result result) {

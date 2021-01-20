@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
@@ -7,14 +9,29 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   final plugin = FacebookLogin(debug: true);
 
   @override
-  _MyAppState createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyHome(plugin: plugin),
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
+class MyHome extends StatefulWidget {
+  final FacebookLogin plugin;
+
+  const MyHome({Key key, @required this.plugin})
+      : assert(plugin != null),
+        super(key: key);
+
+  @override
+  _MyHomeState createState() => _MyHomeState();
+}
+
+class _MyHomeState extends State<MyHome> {
   String _sdkVersion;
   FacebookAccessToken _token;
   FacebookUserProfile _profile;
@@ -32,33 +49,36 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     final isLogin = _token != null && _profile != null;
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Login via Facebook example'),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 8.0),
-          child: Center(
-            child: Column(
-              children: <Widget>[
-                if (_sdkVersion != null) Text("SDK v$_sdkVersion"),
-                if (isLogin)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: _buildUserInfo(context, _profile, _token, _email),
-                  ),
-                isLogin
-                    ? OutlineButton(
-                        child: Text('Log Out'),
-                        onPressed: _onPressedLogOutButton,
-                      )
-                    : OutlineButton(
-                        child: Text('Log In'),
-                        onPressed: _onPressedLogInButton,
-                      ),
-              ],
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Login via Facebook example'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 8.0),
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              if (_sdkVersion != null) Text('SDK v$_sdkVersion'),
+              if (isLogin)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: _buildUserInfo(context, _profile, _token, _email),
+                ),
+              isLogin
+                  ? OutlineButton(
+                      child: const Text('Log Out'),
+                      onPressed: _onPressedLogOutButton,
+                    )
+                  : OutlineButton(
+                      child: const Text('Log In'),
+                      onPressed: _onPressedLogInButton,
+                    ),
+              if (!isLogin && Platform.isAndroid)
+                OutlineButton(
+                  child: const Text('Express Log In'),
+                  onPressed: () => _onPressedExpressLogInButton(context),
+                )
+            ],
           ),
         ),
       ),
@@ -77,46 +97,58 @@ class _MyAppState extends State<MyApp> {
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text('User: '),
+            const Text('User: '),
             Text(
               '${profile.firstName} ${profile.lastName}',
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ],
         ),
-        Text('AccessToken: '),
-        Container(
-          child: Text(
-            accessToken.token,
-            softWrap: true,
-          ),
+        const Text('AccessToken: '),
+        Text(
+          accessToken.token,
+          softWrap: true,
         ),
         if (email != null) Text('Email: $email'),
       ],
     );
   }
 
-  void _onPressedLogInButton() async {
+  Future<void> _onPressedLogInButton() async {
     await widget.plugin.logIn(permissions: [
       FacebookPermission.publicProfile,
       FacebookPermission.email,
     ]);
-    _updateLoginInfo();
+    await _updateLoginInfo();
   }
 
-  void _onPressedLogOutButton() async {
+  Future<void> _onPressedExpressLogInButton(BuildContext context) async {
+    final res = await widget.plugin.expressLogin();
+    if (res.status == FacebookLoginStatus.success) {
+      await _updateLoginInfo();
+    } else {
+      await showDialog<Object>(
+        context: context,
+        builder: (context) => const AlertDialog(
+          content: Text("Can't make express log in. Try regular log in."),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onPressedLogOutButton() async {
     await widget.plugin.logOut();
-    _updateLoginInfo();
+    await _updateLoginInfo();
   }
 
-  void _getSdkVersion() async {
+  Future<void> _getSdkVersion() async {
     final sdkVesion = await widget.plugin.sdkVersion;
     setState(() {
       _sdkVersion = sdkVesion;
     });
   }
 
-  void _updateLoginInfo() async {
+  Future<void> _updateLoginInfo() async {
     final plugin = widget.plugin;
     final token = await plugin.accessToken;
     FacebookUserProfile profile;
@@ -125,8 +157,9 @@ class _MyAppState extends State<MyApp> {
 
     if (token != null) {
       profile = await plugin.getUserProfile();
-      if (token.isAllowed(FacebookPermission.email))
+      if (token.isAllowed(FacebookPermission.email)) {
         email = await plugin.getUserEmail();
+      }
       imageUrl = await plugin.getProfileImageUrl(width: 100);
     }
 

@@ -16,9 +16,13 @@ public class Results {
     }
 
     public static HashMap<String, Object> loginSuccess(final LoginResult result) {
+        return loginSuccess(result.getAccessToken());
+    }
+
+    public static HashMap<String, Object> loginSuccess(final AccessToken accessToken) {
         return new HashMap<String, Object>() {{
             put("status", LoginStatus.Success.name());
-            put("accessToken", accessToken(result.getAccessToken()));
+            put("accessToken", accessToken(accessToken));
         }};
     }
 
