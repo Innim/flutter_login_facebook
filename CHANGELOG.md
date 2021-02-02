@@ -1,8 +1,12 @@
 ## Next release
 
-## [1.0.0-nullsafety.0] - 2021-01-11
+## [1.0.0-nullsafety.1] - 2021-02-02
 
 * Migrated to null safety.
+
+## 0.5.0 - 2021-02-02
+
+* Upgrade to Facebook SDK 9 (with new Graph API version). See [Migration guide](UPGRADE.md#Upgrade-to-0-5).
 
 # 0.4.2+3 - 2021-01-05
 

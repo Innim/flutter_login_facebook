@@ -61,7 +61,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.0.0-nullsafety.0"
+    version: "1.0.0-nullsafety.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -73,7 +73,7 @@ packages:
       name: innim_lint
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.5"
+    version: "0.1.6+1"
   list_ext:
     dependency: transitive
     description:

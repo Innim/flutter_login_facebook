@@ -204,7 +204,8 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             switch res {
                 case let .success(_, _, token):
                     status = "Success"
-                    accessTokenMap = self.accessTokenToMap(token: token)
+                    // TODO: check why it's nullable now?
+                    accessTokenMap = self.accessTokenToMap(token: token!)
                     errorMap = nil
                 case .cancelled:
                     status = "Cancel"

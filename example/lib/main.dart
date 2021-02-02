@@ -12,6 +12,8 @@ void main() {
 class MyApp extends StatelessWidget {
   final plugin = FacebookLogin(debug: true);
 
+  MyApp({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

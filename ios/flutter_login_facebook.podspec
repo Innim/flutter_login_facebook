@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_login_facebook'
-  s.version          = '0.3.0'
+  s.version          = '0.5.0'
   s.summary          = 'Login via Facebook for Flutter projects.'
   s.description      = <<-DESC
 Login via Facebook for Flutter projects.
@@ -15,7 +15,7 @@ Login via Facebook for Flutter projects.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'FBSDKLoginKit', '~> 8.0'
+  s.dependency 'FBSDKLoginKit', '~> 9.0'
   s.platform = :ios
   s.ios.deployment_target = '9.0'
 
