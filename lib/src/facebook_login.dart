@@ -176,7 +176,7 @@ class FacebookLogin {
   Future<FacebookLoginResult> _invokeLoginMethod(String method,
       [Map<String, Object>? arguments]) async {
     final loginResultData =
-        await (_channel.invokeMethod<Map>(_methodLogIn, arguments));
+        await _channel.invokeMethod<Map>(_methodLogIn, arguments);
 
     if (debug) _log('Result: $loginResultData');
     return loginResultData != null
