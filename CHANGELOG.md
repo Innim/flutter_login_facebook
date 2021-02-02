@@ -1,6 +1,6 @@
 ## Next release
 
-## 0.5.0 - 2021-01-20
+## 0.5.0 - 2021-02-02
 
 * Upgrade to Facebook SDK 9 (with new Graph API version). See [Migration guide](UPGRADE.md#Upgrade-to-0-5).
 
