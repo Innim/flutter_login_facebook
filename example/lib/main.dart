@@ -65,16 +65,16 @@ class _MyHomeState extends State<MyHome> {
                   child: _buildUserInfo(context, _profile!, _token!, _email),
                 ),
               isLogin
-                  ? OutlineButton(
+                  ? OutlinedButton(
                       child: const Text('Log Out'),
                       onPressed: _onPressedLogOutButton,
                     )
-                  : OutlineButton(
+                  : OutlinedButton(
                       child: const Text('Log In'),
                       onPressed: _onPressedLogInButton,
                     ),
               if (!isLogin && Platform.isAndroid)
-                OutlineButton(
+                OutlinedButton(
                   child: const Text('Express Log In'),
                   onPressed: () => _onPressedExpressLogInButton(context),
                 )

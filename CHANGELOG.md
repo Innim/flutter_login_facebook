@@ -1,5 +1,9 @@
 ## Next release
 
+## [1.0.0] - 2021-03-04
+
+* Flutter 2.0.0.
+
 ## [1.0.0-nullsafety.1] - 2021-02-02
 
 * Migrated to null safety.
