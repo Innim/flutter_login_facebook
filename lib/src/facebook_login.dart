@@ -22,7 +22,7 @@ class FacebookLogin {
   static const _widthArg = 'width';
   static const _heightArg = 'height';
 
-  static const MethodChannel _channel = MethodChannel('flutter_login_facebook');
+  static const _channel = MethodChannel('flutter_login_facebook');
 
   /// If `true` all requests and results will be printed in console.
   final bool debug;
