@@ -1,10 +1,10 @@
 ## Next release
 
-## [1.0.0] - 2021-03-04
+## 1.0.0 - 2021-03-04
 
 * Flutter 2.0.0.
 
-## [1.0.0-nullsafety.1] - 2021-02-02
+## 1.0.0-nullsafety.1 - 2021-02-02
 
 * Migrated to null safety.
 
@@ -12,28 +12,28 @@
 
 * Upgrade to Facebook SDK 9 (with new Graph API version). See [Migration guide](UPGRADE.md#Upgrade-to-0-5).
 
-# 0.4.2+3 - 2021-01-05
+## 0.4.2+3 - 2021-01-05
 
 * Readme: update `FacebookLoginStatus` values. Thanks to [@mean-cj](https://github.com/mean-cj).
 
-# 0.4.2+2 - 2021-01-01
+## 0.4.2+2 - 2021-01-01
 
 * Upgrade `innim_lint` to 0.1.5.
 
-# 0.4.2+1 - 2020-12-26
+## 0.4.2+1 - 2020-12-26
 
 * Upgrade `innim_lint` to 0.1.4. Refactoring.
 * Update [list_ext](https://pub.dev/packages/list_ext) dependency.
 
-# 0.4.2 - 2020-12-22
+## 0.4.2 - 2020-12-22
 
 * Use [innim_lint](https://pub.dev/packages/innim_lint) analysis options.
 
-# 0.4.1 - 2020-12-15
+## 0.4.1 - 2020-12-15
 
 * Added permissions `pages_manage_posts`, `pages_read_engagement` ([PR #37](https://github.com/Innim/flutter_login_facebook/pull/37)). Thanks to [@rogiervandenberg](https://github.com/rogiervandenberg).
 
-# 0.4.0+1 - 2020-11-05
+## 0.4.0+1 - 2020-11-05
 
 * Added [Express Login](https://developers.facebook.com/docs/facebook-login/android/#expresslogin) for Android ([PR #27](https://github.com/Innim/flutter_login_facebook/pull/27)). Thanks to [@atrope](https://github.com/atrope).
 
