@@ -1,4 +1,6 @@
-## Next release
+## 1.0.1 - 2021-03-15
+
+* **Fixed**: App Events use the correct token if none have been provided manually (Facebook SDK 9.1). Thanks to [@shemhazai](https://github.com/shemhazai).
 
 ## 1.0.0 - 2021-03-04
 
