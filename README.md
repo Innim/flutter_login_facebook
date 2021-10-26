@@ -1,6 +1,7 @@
 # flutter_login_facebook
 
 [![pub package](https://img.shields.io/pub/v/flutter_login_facebook)](https://pub.dartlang.org/packages/flutter_login_facebook)
+[![innim lint](https://img.shields.io/badge/style-innim_lint-40c4ff.svg)](https://pub.dev/packages/innim_lint)
 
 Flutter Plugin to login via Facebook.
 
