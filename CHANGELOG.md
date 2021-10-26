@@ -1,3 +1,4 @@
+## 1.2.0 - 2021-10-26
 
 * Upgrade to Facebook SDK 12. See [Migration guide](UPGRADE.md#Upgrade-to-1-2).
   * ⚠️ The minimum supported version of iOS is now **10.0**.
