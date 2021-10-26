@@ -1,0 +1,24 @@
+.DS_Store
+.dart_tool/
+.idea/
+
+.packages
+.pub/
+
+build/
+
+# VSCode settings
+.vscode/
+# VSCode extension generated files
+android/.settings/
+android/.classpath
+android/.project
+example/android/.settings/
+example/android/.classpath
+example/android/.project
+example/android/app/.settings/
+example/android/app/.classpath
+example/android/app/.project
+
+# Docs
+docs/
