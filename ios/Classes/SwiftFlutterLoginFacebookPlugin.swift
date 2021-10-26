@@ -216,6 +216,13 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
                     status = "Error"
                     accessTokenMap = nil
                     errorMap = self.errorToMap(error: error)
+                @unknown default:
+                    print("Log in result has unknown value: \(res)")
+                    status = "Error"
+                    accessTokenMap = nil
+                    errorMap = [
+                        "developerMessage": "Log in result has unknown value: \(res)",
+                    ]
             }
         
             let data: [String: Any?] = [
