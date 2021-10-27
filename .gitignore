@@ -9,7 +9,7 @@ build/
 
 # VSCode settings
 .vscode/
-# VSCode extension generated files
+
 android/.settings/
 android/.classpath
 android/.project
@@ -19,3 +19,6 @@ example/android/.project
 example/android/app/.settings/
 example/android/app/.classpath
 example/android/app/.project
+
+# FVM
+.fvm/
