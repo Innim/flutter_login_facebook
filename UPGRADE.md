@@ -2,7 +2,7 @@
 
 ## Upgrade to 1.2
 
-Facebook SDK upgraded to 11 version.
+Facebook SDK upgraded to 12 version.
 
 ### iOS
 
