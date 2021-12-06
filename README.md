@@ -182,6 +182,10 @@ your application icon instead of the default icon when they attempt to log in.
 
 In Setting -> Basic -> iOS fill up field "iPhone Store ID" ("iPad Store ID").
 
+#### Permissions and features
+
+To use the profile data, you must raise the access level for the "public_profile" and "email" functions to "Advanced Access" in `App Review` -> `Permissions and features`  (Administrator rights required).
+
 #### Optional settings
 
 You may want to change some other settings.
