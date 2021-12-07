@@ -1,3 +1,7 @@
+## 1.2.0+1 - 2021-12-07
+
+* Readme: section about setup permissions for Facebook app. Thanks to [@SF-97](https://github.com/SF-97).
+
 ## 1.2.0 - 2021-10-26
 
 * Upgrade to Facebook SDK 12. See [Migration guide](UPGRADE.md#Upgrade-to-1-2).
