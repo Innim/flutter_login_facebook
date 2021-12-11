@@ -5,12 +5,17 @@ import FBSDKLoginKit
 
 /// Plugin methods.
 enum PluginMethod: String {
-    case logIn, logOut, getAccessToken, getUserProfile, getUserEmail, getSdkVersion, getProfileImageUrl
+    case logIn, logOut, getAccessToken, getUserProfile, getUserEmail, getSdkVersion, getProfileImageUrl, setAppId
 }
 
 /// Arguments for method `PluginMethod.logIn`
 enum LogInArg: String {
     case permissions
+}
+
+/// Arguments for method `PluginMethod.setAppId`
+enum AppIdArg: String {
+    case appId
 }
 
 /// Arguments for method `PluginMethod.getProfileImageUrl`
@@ -49,6 +54,18 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             
             let permissions = permissionsArg.map {val in Permission(stringLiteral: val)}
             logIn(result: result, permissions: permissions)
+        case .setAppId:
+            guard
+                let args = call.arguments as? String: Any,
+                let appId = args[AppIdArg.permissions.rawValue] as? String
+                else {
+                    result(FlutterError(code: "INVALID_ARGS",
+                                        message: "Arguments is invalid",
+                                        details: nil))
+                    return
+            }
+            
+            setAppId(result: result, appId: appId)
         case .logOut:
             logOut(result: result)
         case .getAccessToken:
@@ -224,6 +241,30 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
                         "developerMessage": "Log in result has unknown value: \(res)",
                     ]
             }
+        
+            let data: [String: Any?] = [
+                "status": status,
+                "accessToken": accessTokenMap,
+                "error": errorMap
+            ]
+            
+            result(data)
+        }
+    }
+
+    private func setAppId(result: @escaping FlutterResult, appId: AppId) {
+        let viewController = (UIApplication.shared.delegate?.window??.rootViewController)!
+        
+        _loginManager.setAppId(
+            appId: appId,
+            viewController: viewController
+        ) { res in
+            // TODO: add `granted` and `declined` information
+            let accessTokenMap: [String: Any]?
+            let status: String
+            let errorMap: [String: Any?]?
+            
+            FBSDKSettings.setDefaultAppID(appId)
         
             let data: [String: Any?] = [
                 "status": status,

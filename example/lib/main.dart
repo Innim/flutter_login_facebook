@@ -77,7 +77,7 @@ class _MyHomeState extends State<MyHome> {
                 OutlinedButton(
                   child: const Text('Express Log In'),
                   onPressed: () => _onPressedExpressLogInButton(context),
-                )
+                ),
             ],
           ),
         ),
@@ -118,7 +118,7 @@ class _MyHomeState extends State<MyHome> {
   Future<void> _onPressedLogInButton() async {
     await widget.plugin.logIn(permissions: [
       FacebookPermission.publicProfile,
-      FacebookPermission.email,
+      FacebookPermission.email
     ]);
     await _updateLoginInfo();
   }
