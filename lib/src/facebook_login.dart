@@ -16,8 +16,10 @@ class FacebookLogin {
   static const _methodGetUserEmail = 'getUserEmail';
   static const _methodGetProfileImageUrl = 'getProfileImageUrl';
   static const _methodGetSdkVersion = 'getSdkVersion';
+	static const _methodSetAppId = 'setAppId';
 
   static const _permissionsArg = 'permissions';
+	static const _appIdArg = 'appIdArg';	
 
   static const _widthArg = 'width';
   static const _heightArg = 'height';
@@ -26,9 +28,13 @@ class FacebookLogin {
 
   /// If `true` all requests and results will be printed in console.
   final bool debug;
+	/// Initialize with Facebook App ID
+  final String appId;
 
-  FacebookLogin({this.debug = false}) {
+  FacebookLogin({this.debug = false, required this.appId}) {
     if (debug) sdkVersion.then((v) => _log('SDK version: $v'));
+
+		setAppId(appId: appId);
   }
 
   Future<FacebookAccessToken?> get accessToken async {
@@ -48,6 +54,17 @@ class FacebookLogin {
   Future<bool> get isLoggedIn async {
     final token = await accessToken;
     return _isLoggedIn(token);
+  }
+
+	/// Set Application ID.
+	Future<void> setAppId({String? appId}) {
+    if (debug) _log('Set App ID');
+
+		if (appId != null) {
+		  return _channel.invokeMethod(_methodSetAppId, {_appIdArg: appId});
+		}
+
+		return Future.value();
   }
 
   /// Get user profile information.

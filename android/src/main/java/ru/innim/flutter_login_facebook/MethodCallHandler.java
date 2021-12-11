@@ -30,8 +30,11 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
     private final static String _GET_SDK_VERSION = "getSdkVersion";
     private final static String _GET_USER_EMAIL = "getUserEmail";
     private final static String _GET_PROFILE_IMAGE_URL = "getProfileImageUrl";
+    private final static String _SET_APP_ID = "setAppId";
 
     private final static String _PERMISSIONS_ARG = "permissions";
+    private final static String _APP_ID_ARG = "appIdArg";
+
     private final static String _WIDTH_ARG = "width";
     private final static String _HEIGHT_ARG = "height";
 
@@ -72,6 +75,10 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
                 case _GET_USER_EMAIL:
                     getUserEmail(result);
                     break;
+                case _SET_APP_ID:
+                    final String appId = call.argument(_APP_ID_ARG);
+                    setAppId(appId, result);
+                    break;
                 case _GET_PROFILE_IMAGE_URL:
                     final Integer width = call.argument(_WIDTH_ARG);
                     final Integer height = call.argument(_HEIGHT_ARG);
@@ -92,6 +99,11 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
     private void logIn(List<String> permissions, Result result) {
         _loginCallback.addPending(result);
         LoginManager.getInstance().logIn(_activity, permissions);
+    }
+
+    private void setAppId(String applicationId, Result result) {
+        FacebookSdk.setApplicationId(applicationId);
+        result.success(null);
     }
 
     private void expressLogin(final Result result) {

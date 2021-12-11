@@ -10,7 +10,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final plugin = FacebookLogin(debug: true);
+  final plugin = FacebookLogin(debug: true, appId: '123123123123');
 
   MyApp({Key? key}) : super(key: key);
 
