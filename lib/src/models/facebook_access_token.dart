@@ -11,7 +11,10 @@ class FacebookAccessToken {
   FacebookAccessToken.fromMap(Map<String, dynamic> map)
       : token = map['token'] as String,
         userId = map['userId'] as String,
-        expires = DateTime.fromMillisecondsSinceEpoch(map['expires'] as int,
+        expires = DateTime.fromMillisecondsSinceEpoch(
+            map['expires'] as int > 8640000000000000
+                ? 8640000000000000
+                : map['expires'] as int,
             isUtc: true),
         permissions = (map['permissions'] as List).cast<String>(),
         declinedPermissions =
