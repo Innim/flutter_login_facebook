@@ -91,7 +91,7 @@ echo "{sha1key}" | xxd -r -p | openssl base64
 3. Click "Save".
 
 ⚠️ **Important!** You should add key hashes for every build variants. E.g. if you have CI/CD which build APK for testing
-with it's own cerificate (it may be auto generated debug cetificate or some another) than you should add it's key too.
+with it's own certificate (it may be auto generated debug certificate or some another) than you should add it's key too.
 
 In the next **Step 7** [Enable Single Sign On for Your App](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#7--enable-single-sign-on-for-your-app) you can enable Single Sing On if you want to.
 
