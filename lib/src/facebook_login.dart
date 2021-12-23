@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'package:flutter_login_facebook/src/models/facebook_permission.dart';
 
 /// Class for implementing login via Facebook.
 class FacebookLogin {
