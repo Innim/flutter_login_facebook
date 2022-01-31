@@ -1,3 +1,7 @@
+## 1.2.1 - 2022-01-31
+
+* Added `user_link` permission. Thanks to [@YuriNagy01](https://github.com/YuriNagy01).
+
 ## 1.2.0+1 - 2021-12-07
 
 * Readme: section about setup permissions for Facebook app. Thanks to [@SF-97](https://github.com/SF-97).
