@@ -122,7 +122,10 @@ enum FacebookPermission {
   pagesManageInstantArticles,
 
   /// Provides the access to Ads Insights API to pull ads report information for ad accounts you have access to.
-  adsRead
+  adsRead,
+
+  /// Allows your app see profile user
+  userLink
 }
 
 extension FacebookPermissionExtension on FacebookPermission {
@@ -133,6 +136,7 @@ extension FacebookPermissionExtension on FacebookPermission {
 final _mapToString = {
   FacebookPermission.publicProfile: 'public_profile',
   FacebookPermission.userFriends: 'user_friends',
+  FacebookPermission.userLink: 'user_link',
   FacebookPermission.email: 'email',
   FacebookPermission.userAboutMe: 'user_about_me',
   FacebookPermission.userActionsBooks: 'user_actions.books',
