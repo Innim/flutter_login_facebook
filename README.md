@@ -13,7 +13,7 @@ Easily add Facebook login feature in your application. User profile information 
 Facebook SDK version, used in plugin:
 
 * iOS: **^12.3** ([CocoaPods](https://cocoapods.org/pods/FBSDKLoginKit))
-* Android: **^12.0** ([Maven](https://search.maven.org/artifact/com.facebook.android/facebook-android-sdk/12.0.1/aar))
+* Android: **^12.3** ([Maven](https://search.maven.org/artifact/com.facebook.android/facebook-android-sdk))
 
 ## Minimum requirements
 
@@ -48,27 +48,25 @@ Skip **Step 2** (Download the Facebook App) and **Step 3** (Integrate the Facebo
 
 Complete **Step 4**: [Edit Your Resources and Manifest](https://developers.facebook.com/docs/facebook-login/android?locale=en_US#manifest)
 
-* Add values to `/android/app/src/main/res/values/strings.xml` (create file if it doesn't exist)
-* Add a `meta-data` element and activities to `android/app/src/main/AndroidManifest.xml`, section `application`:
-
+* Add values to `/android/app/src/main/res/values/strings.xml` (create file if it doesn't exist). 
+You don't need to add `fb_login_protocol_scheme`, only `facebook_app_id` and `facebook_client_token`:
 ```xml
-    <meta-data android:name="com.facebook.sdk.ApplicationId" 
-        android:value="@string/facebook_app_id"/>
-    
-    <activity android:name="com.facebook.FacebookActivity"
-        android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-        android:label="@string/app_name" />
-    <activity
-        android:name="com.facebook.CustomTabActivity"
-        android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
-            <data android:scheme="@string/fb_login_protocol_scheme" />
-        </intent-filter>
-    </activity>
+<string name="facebook_app_id">YOUR_APP_ID</string>
+<string name="facebook_client_token">YOUR_CLIENT_ACCESS_TOKEN</string>
+```
+  * How to get your Client Access Token:
+    1. Sign into your [developer account](https://developers.facebook.com/).
+    2. On the [Apps page](https://developers.facebook.com/apps/), select an app to open the dashboard for that app.
+    3. On the **Dashboard**, navigate to **Settings** > **Advanced** > **Security** > **Client token**.
+* Make changes in `android/app/src/main/AndroidManifest.xml`:
+  * Add a `meta-data` elements in section `application`:
+```xml
+    <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+    <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+```
+  * Add a permission if not exist in root section (before or after `application`):
+```xml
+<uses-permission android:name="android.permission.INTERNET"/>
 ```
 
 See full `AndroidManifest.xml` in [example](example/android/app/src/main/AndroidManifest.xml).
