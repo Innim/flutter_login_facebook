@@ -1,3 +1,6 @@
+
+## 1.3.0 - 2022-02-15
+
 * Upgrade to Facebook SDK 12.3.
 * Add Client Token support.
 
