@@ -1,3 +1,5 @@
+* Upgrade to Facebook SDK 12.3.
+
 ## 1.2.1 - 2022-01-31
 
 * Added `user_link` permission. Thanks to [@YuriNagy01](https://github.com/YuriNagy01).
