@@ -1,5 +1,7 @@
 package ru.innim.flutter_login_facebook;
 
+import androidx.annotation.NonNull;
+
 import com.facebook.CallbackManager;
 import com.facebook.login.LoginManager;
 
@@ -33,7 +35,7 @@ public class FlutterLoginFacebookPlugin implements FlutterPlugin, ActivityAware 
     }
 
     @Override
-    public void onAttachedToActivity(ActivityPluginBinding activityPluginBinding) {
+    public void onAttachedToActivity(@NonNull ActivityPluginBinding activityPluginBinding) {
         _setActivity(activityPluginBinding);
     }
 
@@ -43,7 +45,7 @@ public class FlutterLoginFacebookPlugin implements FlutterPlugin, ActivityAware 
     }
 
     @Override
-    public void onReattachedToActivityForConfigChanges(ActivityPluginBinding activityPluginBinding) {
+    public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding activityPluginBinding) {
         _setActivity(activityPluginBinding);
     }
 
@@ -54,7 +56,7 @@ public class FlutterLoginFacebookPlugin implements FlutterPlugin, ActivityAware 
 
 
     @Override
-    public void onDetachedFromEngine(FlutterPluginBinding binding) {
+    public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
         _methodCallHandler = null;
         _activityListener = null;
         _callbackManager = null;
