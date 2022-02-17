@@ -142,9 +142,9 @@ class _MyHomeState extends State<MyHome> {
   }
 
   Future<void> _getSdkVersion() async {
-    final sdkVesion = await widget.plugin.sdkVersion;
+    final sdkVersion = await widget.plugin.sdkVersion;
     setState(() {
-      _sdkVersion = sdkVesion;
+      _sdkVersion = sdkVersion;
     });
   }
 
