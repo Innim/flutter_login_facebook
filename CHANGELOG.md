@@ -1,4 +1,7 @@
 
+* **BREAKING** Full remove of Android embedding v1 support. 
+This will not affect most of developers. See [Readme](README.md#minimum-requirements).
+
 ## 1.3.0 - 2022-02-15
 
 * Upgrade to Facebook SDK 12.3.

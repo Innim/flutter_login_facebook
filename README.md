@@ -20,6 +20,9 @@ Facebook SDK version, used in plugin:
 * iOS **10.0** and higher.
 * Android **4.1** and newer (SDK **16**).
 
+Also package require Android embedding v2. So if your project was create with Flutter pre 1.12 
+you should [upgrade it](https://github.com/flutter/flutter/wiki/Upgrading-pre-1.12-Android-projects)
+
 ## Getting Started
 
 To use this plugin:
