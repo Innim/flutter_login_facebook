@@ -106,7 +106,7 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
     }
     
     private func getSdkVersion(result: @escaping FlutterResult) {
-        let sdkVersion = Settings.sdkVersion
+        let sdkVersion = Settings.shared.sdkVersion
         result(sdkVersion)
     }
     
@@ -216,13 +216,6 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
                     status = "Error"
                     accessTokenMap = nil
                     errorMap = self.errorToMap(error: error)
-                @unknown default:
-                    print("Log in result has unknown value: \(res)")
-                    status = "Error"
-                    accessTokenMap = nil
-                    errorMap = [
-                        "developerMessage": "Log in result has unknown value: \(res)",
-                    ]
             }
         
             let data: [String: Any?] = [
