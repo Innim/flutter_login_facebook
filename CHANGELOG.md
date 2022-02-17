@@ -1,4 +1,7 @@
 
+## 1.4.0 - 2022-02-17
+
+* Fix warnings and deprecation messages.
 * **BREAKING** Full remove of Android embedding v1 support. 
 This will not affect most of developers. See [Readme](README.md#minimum-requirements).
 
@@ -121,7 +124,7 @@ See [Migration guide](UPGRADE.md#Upgrade-to-1-3).
 
 * Add error information for login failure.
 * Readme: add information about additional key hashes.
-* Mute exception furing get profile.
+* Mute exception during get profile.
 
 ## 0.1.0+1 - 2020-05-19
 
