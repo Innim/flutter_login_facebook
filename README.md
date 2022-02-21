@@ -123,7 +123,9 @@ Configure `Info.plist` (`ios/Runner/Info.plist`):
 
 1. In Xcode right-click on `Info.plist`, and choose `Open As Source Code`.
 2. Copy and paste the following XML snippet into the body of your file (`<dict>...</dict>`),
-replacing `[APP_ID]` with Facebook application id and `[APP_NAME]` with Facebook application name
+replacing `[APP_ID]` with Facebook application id, 
+`[CLIENT_TOKEN]` value found under **Settings** > **Advanced** > **Client Token** in your App Dashboard
+and `[APP_NAME]` with Facebook application name
 (you can copy prepared values from [Step 4](https://developers.facebook.com/docs/facebook-login/ios?locale=en_US#4--configure-your-project) in Facebook Quickstart).
 ```xml
 <key>CFBundleURLTypes</key>
@@ -137,6 +139,8 @@ replacing `[APP_ID]` with Facebook application id and `[APP_NAME]` with Facebook
 </array>
 <key>FacebookAppID</key>
 <string>[APP_ID]</string>
+<key>FacebookClientToken</key>
+<string>[CLIENT_TOKEN]</string>
 <key>FacebookDisplayName</key>
 <string>[APP_NAME]</string>
 ```

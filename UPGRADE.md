@@ -11,12 +11,17 @@ Facebook SDK upgraded to 12.3 version.
     - `app_name` and `fb_login_protocol_scheme` from `string.xml`;
     - activities `com.facebook.FacebookActivity` and `com.facebook.CustomTabActivity` from `AndroidManifest.xml`.
 
-See [Edit Your Resources and Manifest](README.md#edit-your-resources-and-manifest) in README.
+See [Android - Edit Your Resources and Manifest](README.md#edit-your-resources-and-manifest) in README.
 
 ### iOS
 
+- Edit `Info.plist` (in `ios/Runner/`):
+    - add `FacebookClientToken`;
+    - you can remove now most of items in `LSApplicationQueriesSchemes`, except `fbapi` and `fb-messenger-share-api`.
 - You should run `pod update` in `/ios` directory for you project. That's for upgrading native dependencies. 
 - Also `flutter clean` may be required.
+
+See [iOS - Configure Your Project](README.md#configure-your-project) in README.
 
 ## Upgrade to 1.2
 
