@@ -26,5 +26,5 @@ jobs:
         run: flutter analyze
 
       # No test for now
-      #- name: Run tests
-      #  run: flutter test
+      - name: Run tests
+        run: flutter test
