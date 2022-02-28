@@ -1,3 +1,7 @@
+## 1.4.1 - 2022-02-28
+
+* **Fixed**: Exception on parse Access Token if Facebook returns extremely high expiry timestamps for expires. Thanks to [@rogiervandenberg](https://github.com/rogiervandenberg).
+
 ## 1.4.0+1 - 2022-02-21
 
 * Update README and Example.
