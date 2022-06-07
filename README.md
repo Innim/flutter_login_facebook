@@ -12,12 +12,12 @@ Easily add Facebook login feature in your application. User profile information 
 
 Facebook SDK version, used in plugin:
 
-* iOS: **^12.3** ([CocoaPods](https://cocoapods.org/pods/FBSDKLoginKit))
-* Android: **^12.3** ([Maven](https://search.maven.org/artifact/com.facebook.android/facebook-android-sdk))
+* iOS: **^13.2** ([CocoaPods](https://cocoapods.org/pods/FBSDKLoginKit))
+* Android: **^13.2** ([Maven](https://search.maven.org/artifact/com.facebook.android/facebook-android-sdk))
 
 ## Minimum requirements
 
-* iOS **10.0** and higher.
+* iOS **11.0** and higher.
 * Android **4.1** and newer (SDK **16**).
 
 Also package require Android embedding v2. So if your project was create with Flutter pre 1.12 

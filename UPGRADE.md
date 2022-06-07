@@ -1,5 +1,15 @@
 # Migration guides
 
+## Upgrade to 1.5
+
+Facebook SDK upgraded to 13 version.
+
+### iOS
+
+- Update minimum deployment target to iOS **11** if you have smaller version before.
+- You should run `pod update` in `/ios` directory for you project. That's for upgrading native dependencies. 
+- Also `flutter clean` may be required.
+
 ## Upgrade to 1.3
 
 Facebook SDK upgraded to 12.3 version.

@@ -1,3 +1,10 @@
+## 1.5.0 - 2022-06-07
+
+* Upgrade to Facebook SDK 13.2.
+  * ⚠️ The minimum supported version of iOS is now **11.0**.
+
+See [Migration guide](UPGRADE.md#Upgrade-to-1-5).
+
 ## 1.4.1 - 2022-02-28
 
 * **Fixed**: Exception on parse Access Token if Facebook returns extremely high expiry timestamps for expires. Thanks to [@rogiervandenberg](https://github.com/rogiervandenberg).
