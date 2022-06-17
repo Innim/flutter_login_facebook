@@ -78,7 +78,7 @@ class FacebookLogin {
   /// If not logged in or error during request than return `null`.
   ///
   /// [width] of picture is required, but [height] is optional,
-  /// and by default is equals to [widht].
+  /// and by default is equals to [width].
   Future<String?> getProfileImageUrl({required int width, int? height}) async {
     if (await isLoggedIn == false) {
       if (debug) _log('Not logged in. Profile image url is null');
@@ -110,7 +110,7 @@ class FacebookLogin {
   /// accepted [FacebookPermission.email] permission.
   ///
   /// If not logged in, decline [FacebookPermission.email] permission
-  /// or error during request occured, than returns `null`.
+  /// or error during request occurred, than returns `null`.
   Future<String?> getUserEmail() async {
     final token = await accessToken;
     if (!_isLoggedIn(token)) {
