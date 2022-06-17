@@ -1,4 +1,16 @@
+## 1.5.0+1 - 2022-06-17
+
+**Fixed**: Don't compile for iOS.
+
+* Upgrade Facebook iOS SDK to 14.
+
+If you're upgrading from **1.5.0** - please follow to 
+[Migration guide](UPGRADE.md#Upgrade-to-1-5) to version 1.5
+once again.
+
 ## 1.5.0 - 2022-06-07
+
+⛔️ May not compile for iOS! Use one of the next versions ⛔️ 
 
 * Upgrade to Facebook SDK 13.2.
   * ⚠️ The minimum supported version of iOS is now **11.0**.
