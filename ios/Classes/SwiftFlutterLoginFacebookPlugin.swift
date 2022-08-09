@@ -47,8 +47,7 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
                     return
             }
             
-            let permissions = permissionsArg.map {val in Permission(stringLiteral: val)}
-            logIn(result: result, permissions: permissions)
+            logIn(result: result, permissions: permissionsArg)
         case .logOut:
             logOut(result: result)
         case .getAccessToken:
@@ -190,32 +189,41 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
         }
     }
     
-    private func logIn(result: @escaping FlutterResult, permissions: [Permission]) {
+    private func logIn(result: @escaping FlutterResult, permissions: [String]) {
         let viewController = (UIApplication.shared.delegate?.window??.rootViewController)!
         
         _loginManager.logIn(
             permissions: permissions,
-            viewController: viewController
-        ) { res in
+            from: viewController
+        ) { res, error in
             // TODO: add `granted` and `declined` information
             let accessTokenMap: [String: Any]?
             let status: String
             let errorMap: [String: Any?]?
-            switch res {
-                case let .success(_, _, token):
-                    status = "Success"
-                    // TODO: check why it's nullable now?
-                    accessTokenMap = self.accessTokenToMap(token: token!)
-                    errorMap = nil
-                case .cancelled:
+            
+            if let result = res {
+                if  result.isCancelled {
                     status = "Cancel"
                     accessTokenMap = nil
                     errorMap = nil
-                case let .failed(error):
+                } else {
+                    status = "Success"
+                    // TODO: check why it's nullable now?
+                    accessTokenMap = self.accessTokenToMap(token: result.token!)
+                    errorMap = nil
+                }
+            } else {
+                status = "Error"
+                accessTokenMap = nil
+                if let error = error {
                     print("Log in failed with error: \(error)")
-                    status = "Error"
-                    accessTokenMap = nil
                     errorMap = self.errorToMap(error: error)
+                } else {
+                    print("No result and no error")
+                    errorMap = [
+                        "developerMessage": "No result and no error"
+                    ]
+                }
             }
         
             let data: [String: Any?] = [

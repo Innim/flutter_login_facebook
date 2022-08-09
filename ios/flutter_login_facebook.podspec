@@ -4,18 +4,18 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_login_facebook'
-  s.version          = '1.5.0'
+  s.version          = '1.6.0'
   s.summary          = 'Login via Facebook for Flutter projects.'
   s.description      = <<-DESC
 Login via Facebook for Flutter projects.
                        DESC
   s.homepage         = 'https://github.com/Innim/flutter_login_facebook'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Innim' => 'info@innim.ru' }
+  s.author           = { 'Innim' => 'developer@innim.org' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'FBSDKLoginKit', '14.0.0'
+  s.dependency 'FBSDKLoginKit', '14.1.0'
   s.platform = :ios
   s.ios.deployment_target = '11.0'
 
