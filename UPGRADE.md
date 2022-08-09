@@ -1,5 +1,16 @@
 # Migration guides
 
+## Upgrade to 1.6
+
+Facebook SDK upgraded to 14.1 version.
+
+### iOS
+
+- Go to `/ios` directory of your project, and:
+  - run `pod repo update`;
+  - run `pod update`. That's for upgrading native dependencies. 
+- Also `flutter clean` may be required.
+
 ## Upgrade to 1.5
 
 Facebook SDK upgraded to 13 version.

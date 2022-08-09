@@ -1,5 +1,9 @@
+## 1.6.0 - 2022-08-09
+
 * Upgrade Facebook iOS SDK to 14.1.
 * Upgrade Facebook Android SDK to 14.1.
+
+See [Migration guide](UPGRADE.md#Upgrade-to-1-6).
 
 ## 1.5.0+1 - 2022-06-17
 
