@@ -125,7 +125,13 @@ enum FacebookPermission {
   adsRead,
 
   /// Allows your app see profile user
-  userLink
+  userLink,
+
+  /// Allows to read meta data about instagram pages
+  instagramBasic,
+
+  /// Allows you to publish content to a person's Instagram feed as the person.
+  instagramContentPublish
 }
 
 extension FacebookPermissionExtension on FacebookPermission {
@@ -174,4 +180,6 @@ final _mapToString = {
   FacebookPermission.pagesManageInstantArticles:
       'pages_manage_instant_articles',
   FacebookPermission.adsRead: 'ads_read',
+  FacebookPermission.instagramBasic: 'instagram_basic',
+  FacebookPermission.instagramContentPublish: 'instagram_content_publish',
 };
