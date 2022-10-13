@@ -37,6 +37,8 @@ See [Facebook Login documentation](https://developers.facebook.com/docs/facebook
 
 Also you can read the [article on Medium](https://medium.com/@greymag/add-facebook-login-in-your-flutter-app-5172b034aa7d) with detailed instructions.
 
+If you have any troubles check out [Problem solving](#problem-solving) section.
+
 ### Android
 
 Go to [Facebook Login for Android - Quickstart](https://developers.facebook.com/docs/facebook-login/android) page.
@@ -290,3 +292,28 @@ If you targets Android 11 or higher, you should add
 
 in root element of your manifest `android/app/src/main/AndroidManifest.xml`. 
 See [Package visibility in Android 11](https://medium.com/androiddevelopers/package-visibility-in-android-11-cc857f221cd9) for details.
+
+## Problem solving
+
+### Android 
+
+#### Missing attribute
+
+You get error like this:
+
+```
+Missing 'package' key attribute on element package at ...
+```
+
+This issue happens for the combination of:
+
+- Using Android-SDK's API level 31 (or later),
+- With old Gradle version(s).
+
+Quote:
+```
+Basically, updating build-tools to 31 is not enough to support queries element (of manifest, added since Android 11+). Gradle needs to be updated, too.
+```
+
+Check your `com.android.tools.build:gradle` version in
+`android/build.gradle`. It's should be 3.5.4 or higher.

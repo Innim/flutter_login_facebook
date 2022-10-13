@@ -1,6 +1,7 @@
 ## 1.6.1 - 2022-10-13
 
 * Upgrade Facebook Android SDK to 14.1.1.
+* Added new [Problem solving](README.md#problem-solving) section in README.
 
 ## 1.6.0 - 2022-08-09
 
