@@ -1,3 +1,8 @@
+## 1.6.2 - 2022-10-31
+
+* [Android] Migrate from `jcenter()` to `mavenCentral()`.
+* **Fixed**: Compilation error `Could not resolve com.facebook.android:...`.
+
 ## 1.6.1 - 2022-10-13
 
 * Upgrade Facebook Android SDK to 14.1.1.
