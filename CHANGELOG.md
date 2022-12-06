@@ -1,3 +1,5 @@
+* Upgrade Facebook Android SDK to 15.1.0.
+  * ⚠️ The minimum supported version of Android is now **5.0** (API 21).
 * Upgrade Facebook iOS SDK to 15.1.0. Thanks to [@hamzaalmahdi](https://github.com/hamzaalmahdi).
   * ⚠️ The minimum supported version of iOS is now **12.0**.
 * Fixed compatibility issue with Flutter 3.3.9.
