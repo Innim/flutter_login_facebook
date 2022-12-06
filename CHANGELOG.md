@@ -1,3 +1,6 @@
+* Upgrade Facebook iOS SDK to 15.1.0. Thanks to [@hamzaalmahdi](https://github.com/hamzaalmahdi).
+  * ⚠️ The minimum supported version of iOS is now **12.0**.
+* Fixed compatibility issue with Flutter 3.3.9.
 ## 1.6.2 - 2022-10-31
 
 * [Android] Migrate from `jcenter()` to `mavenCentral()`.
