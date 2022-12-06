@@ -1,8 +1,14 @@
+## 1.7.0 - 2022-12-06
+
 * Upgrade Facebook Android SDK to 15.1.0.
   * ⚠️ The minimum supported version of Android is now **5.0** (API 21).
 * Upgrade Facebook iOS SDK to 15.1.0. Thanks to [@hamzaalmahdi](https://github.com/hamzaalmahdi).
   * ⚠️ The minimum supported version of iOS is now **12.0**.
+* Added Instagram permissions: `instagram_basic` and `instagram_content_publish`. Thanks to [@vhnum](https://github.com/vhnum).
 * Fixed compatibility issue with Flutter 3.3.9.
+
+See [Migration guide](UPGRADE.md#Upgrade-to-1-7).
+
 ## 1.6.2 - 2022-10-31
 
 * [Android] Migrate from `jcenter()` to `mavenCentral()`.

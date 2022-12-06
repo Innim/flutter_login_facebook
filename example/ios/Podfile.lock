@@ -8,7 +8,7 @@ PODS:
   - FBSDKLoginKit (15.1.0):
     - FBSDKCoreKit (= 15.1.0)
   - Flutter (1.0.0)
-  - flutter_login_facebook (1.6.0):
+  - flutter_login_facebook (1.7.0):
     - FBSDKLoginKit (= 15.1.0)
     - Flutter
 
@@ -35,7 +35,7 @@ SPEC CHECKSUMS:
   FBSDKCoreKit_Basics: 92d6b26c0bed30ab09bbdd96dccaa26e6c9978d1
   FBSDKLoginKit: 4e275d30cf90e92bdf3a7c82857a8642abf23037
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_login_facebook: 95f891fbb22239d6cb469165452eb50029394c64
+  flutter_login_facebook: eafd8b1aadbb3b0ccb5afd3e1ac57350bafe9d0a
 
 PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
 
