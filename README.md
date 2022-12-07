@@ -66,8 +66,8 @@ You don't need to add `fb_login_protocol_scheme`, only `facebook_app_id` and `fa
 * Make changes in `android/app/src/main/AndroidManifest.xml`:
   * Add a `meta-data` elements in section `application`:
 ```xml
-    <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-    <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+<meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
 ```
   * Add a permission if not exist in root section (before or after `application`):
 ```xml
