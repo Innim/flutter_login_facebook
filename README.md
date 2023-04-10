@@ -13,7 +13,7 @@ Easily add Facebook login feature in your application. User profile information 
 Facebook SDK version, used in plugin:
 
 * iOS: **^15.1** ([CocoaPods](https://cocoapods.org/pods/FBSDKLoginKit))
-* Android: **^15.1** ([Maven](https://search.maven.org/artifact/com.facebook.android/facebook-android-sdk))
+* Android: **^16.0** ([Maven](https://search.maven.org/artifact/com.facebook.android/facebook-android-sdk))
 
 ## Minimum requirements
 
