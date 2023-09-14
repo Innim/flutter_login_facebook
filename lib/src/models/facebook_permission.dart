@@ -132,6 +132,9 @@ enum FacebookPermission {
 
   /// Allows you to publish content to a person's Instagram feed as the person.
   instagramContentPublish
+
+  /// Allows your app to read and write with the Business Manager API.
+  businessManagement
 }
 
 extension FacebookPermissionExtension on FacebookPermission {
@@ -182,4 +185,5 @@ final _mapToString = {
   FacebookPermission.adsRead: 'ads_read',
   FacebookPermission.instagramBasic: 'instagram_basic',
   FacebookPermission.instagramContentPublish: 'instagram_content_publish',
+  FacebookPermission.businessManagement: 'business_management'
 };
