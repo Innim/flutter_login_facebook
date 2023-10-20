@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 
+import 'models/types.dart';
+
 /// Class for implementing login via Facebook.
 class FacebookLogin {
   // Methods
@@ -31,11 +33,9 @@ class FacebookLogin {
   }
 
   Future<FacebookAccessToken?> get accessToken async {
-    final tokenData = await _channel.invokeMethod<Map>(_methodGetAccessToken);
+    final tokenData = await _invoke(_methodGetAccessToken);
 
-    return tokenData != null
-        ? FacebookAccessToken.fromMap(tokenData.cast<String, dynamic>())
-        : null;
+    return tokenData != null ? FacebookAccessToken.fromMap(tokenData) : null;
   }
 
   /// Returns currently used Facebook SDK.
@@ -59,13 +59,12 @@ class FacebookLogin {
     }
 
     try {
-      final profileData =
-          await _channel.invokeMethod<Map>(_methodGetUserProfile);
+      final profileData = await _invoke(_methodGetUserProfile);
 
       if (debug) _log('User profile: $profileData');
 
       if (profileData != null) {
-        return FacebookUserProfile.fromMap(profileData.cast<String, dynamic>());
+        return FacebookUserProfile.fromMap(profileData);
       }
     } on PlatformException catch (e) {
       if (debug) _log('Get profile error: $e');
@@ -174,14 +173,17 @@ class FacebookLogin {
 
   Future<FacebookLoginResult> _invokeLoginMethod(String method,
       [Map<String, Object>? arguments]) async {
-    final loginResultData =
-        await _channel.invokeMethod<Map>(_methodLogIn, arguments);
+    final loginResultData = await _invoke(_methodLogIn, arguments);
 
     if (debug) _log('Result: $loginResultData');
     return loginResultData != null
-        ? FacebookLoginResult.fromMap(loginResultData.cast<String, dynamic>())
+        ? FacebookLoginResult.fromMap(loginResultData)
         : FacebookLoginResult.error();
   }
+
+  Future<JsonData?> _invoke(String method, [Object? arguments]) async =>
+      (await _channel.invokeMethod<JsonRawData>(method, arguments))
+          ?.cast<String, Object?>();
 
   void _log(String message) {
     if (debug) debugPrint('[FB] $message');

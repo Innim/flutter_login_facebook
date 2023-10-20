@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:list_ext/list_ext.dart';
 
+import 'types.dart';
+
 int _maxMillisecondsSinceEpoch = 8640000000000000;
 
 /// Facebook access token.
@@ -12,7 +14,7 @@ class FacebookAccessToken {
   final List<String> permissions;
   final List<String> declinedPermissions;
 
-  FacebookAccessToken.fromMap(Map<String, dynamic> map)
+  FacebookAccessToken.fromMap(JsonData map)
       : token = map['token'] as String,
         userId = map['userId'] as String,
         expires = DateTime.fromMillisecondsSinceEpoch(
