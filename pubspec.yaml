@@ -17,7 +17,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  innim_lint: ^0.3.1
+  innim_lint: ^0.4.0
 
 flutter:
   plugin:
