@@ -52,6 +52,6 @@ class FacebookUserProfile {
   @override
   String toString() {
     return 'FacebookUserProfile(userId: $userId, name: $name, '
-        'firstName: $firstName, middleName: $middleName, lastName: $lastName)';
+        'firstName: $firstName, middleName: $middleName, lastName: $lastName , gender: $gender)';
   }
 }
