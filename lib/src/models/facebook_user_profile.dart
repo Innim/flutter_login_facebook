@@ -7,13 +7,15 @@ class FacebookUserProfile {
   final String? firstName;
   final String? middleName;
   final String? lastName;
+  final String? gender;
 
   FacebookUserProfile.fromMap(JsonData map)
       : userId = map['userId'] as String,
         name = map['name'] as String?,
         firstName = map['firstName'] as String?,
         middleName = map['middleName'] as String?,
-        lastName = map['lastName'] as String?;
+        lastName = map['lastName'] as String?,
+        gender = map['user_gender'] as String?;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -22,6 +24,7 @@ class FacebookUserProfile {
       'firstName': firstName,
       'middleName': middleName,
       'lastName': lastName,
+      'user_gender': gender
     };
   }
 
@@ -34,7 +37,8 @@ class FacebookUserProfile {
           name == other.name &&
           firstName == other.firstName &&
           middleName == other.middleName &&
-          lastName == other.lastName;
+          lastName == other.lastName &&
+          gender == other.gender;
 
   @override
   int get hashCode =>
@@ -42,11 +46,12 @@ class FacebookUserProfile {
       name.hashCode ^
       firstName.hashCode ^
       middleName.hashCode ^
-      lastName.hashCode;
+      lastName.hashCode ^
+      gender.hashCode;
 
   @override
   String toString() {
     return 'FacebookUserProfile(userId: $userId, name: $name, '
-        'firstName: $firstName, middleName: $middleName, lastName: $lastName)';
+        'firstName: $firstName, middleName: $middleName, lastName: $lastName , gender: $gender)';
   }
 }
