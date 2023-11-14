@@ -1,5 +1,7 @@
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 
+import 'types.dart';
+
 /// Login status.
 enum FacebookLoginStatus { success, cancel, error }
 
@@ -16,15 +18,13 @@ class FacebookLoginResult {
       : status = FacebookLoginStatus.error,
         accessToken = null;
 
-  FacebookLoginResult.fromMap(Map<String, dynamic> map)
+  FacebookLoginResult.fromMap(JsonData map)
       : status = _parseStatus(map['status'] as String),
         accessToken = map['accessToken'] != null
-            ? FacebookAccessToken.fromMap(
-                (map['accessToken'] as Map).cast<String, dynamic>())
+            ? FacebookAccessToken.fromMap(map['accessToken']!.castJsonData())
             : null,
         error = map['error'] != null
-            ? FacebookError.fromMap(
-                (map['error'] as Map).cast<String, dynamic>())
+            ? FacebookError.fromMap(map['error']!.castJsonData())
             : null;
 
   Map<String, dynamic> toMap() {

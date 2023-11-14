@@ -1,3 +1,5 @@
+import 'types.dart';
+
 /// Error object from Facebook.
 ///
 /// See https://developers.facebook.com/docs/ios/errors/.
@@ -14,7 +16,7 @@ class FacebookError {
   FacebookError(
       {this.developerMessage, this.localizedDescription, this.localizedTitle});
 
-  factory FacebookError.fromMap(Map<String, dynamic> map) => FacebookError(
+  factory FacebookError.fromMap(JsonData map) => FacebookError(
         developerMessage: map['developerMessage'] as String?,
         localizedDescription: map['localizedDescription'] as String?,
         localizedTitle: map['localizedTitle'] as String?,

@@ -1,3 +1,5 @@
+import 'types.dart';
+
 /// Facebook user profile.
 class FacebookUserProfile {
   final String userId;
@@ -6,7 +8,7 @@ class FacebookUserProfile {
   final String? middleName;
   final String? lastName;
 
-  FacebookUserProfile.fromMap(Map<String, dynamic> map)
+  FacebookUserProfile.fromMap(JsonData map)
       : userId = map['userId'] as String,
         name = map['name'] as String?,
         firstName = map['firstName'] as String?,

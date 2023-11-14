@@ -32,14 +32,14 @@ void main() {
   });
 }
 
-Map<String, dynamic> _map({
+Map<String, Object?> _map({
   String token = 'fake_token',
   String userId = '123456',
   int expires = 1646057049123,
   List<String> permissions = const ['email'],
   List<String> declinedPermissions = const <String>[],
 }) =>
-    <String, dynamic>{
+    {
       'token': token,
       'userId': userId,
       'expires': expires,
