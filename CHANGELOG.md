@@ -1,3 +1,21 @@
+## 1.10.0
+
+* Upgrade Facebook Android SDK to 17.0.0. 
+* Upgrade Facebook iOS SDK to 17.0.0. 
+  * Added [Privacy Manifests](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files?content_id=AOGW6t0dwUTq7kR).
+
+See [Migration guide](UPGRADE.md#Upgrade-to-1-10).
+
+### Privacy Manifest for App Store Review requirements
+
+Additional guidance for developers from Facebook [documentation](https://developers.facebook.com/docs/ios/):
+
+* Our Privacy Manifest only provides information collected by default and the SDKs that depend on the Core SDK for functionality may restate the data usage details of the Core SDK. Some app developers may choose to send us more or less information in code, or via the Events Manager or through Advanced matching functionality. These developers will need to provide details around additional data usage details in their Privacy Manifest or App Store Privacy Labels in accordance with their own practices. Refer to the following article for more information on additional data that may be sent by developers through Meta’s SDKs.
+* Note that we do not attempt to associate all collected data with Meta users.
+* We have pre-populated the tracking domain field for the FBSDK in the Privacy Manifest to help ensure that our services continue to function properly. We do not advise manually adding domains. Listing “www.facebook.com” or subdomains of “facebook.com” in the tracking domain field of a Privacy Manifest may break functionality.
+
+**Note:** Developers can find additional details around the tracking domain field in the Privacy Manifests for Meta SDKs. What is pre-populated in the tracking domain field is intended to receive traffic when a user has provided AppTrackingTransparency (ATT) permission to the app. If our check determines that a request or event from an iOS14.5+ device lacks ATT permission, then usage of such data will be restricted and we will use privacy preserving methods (like those available in [Aggregated Event Measurement]()) to remove or combine information before delivering or measuring ads.
+
 ## 1.9.0
 
 * Upgrade Facebook Android SDK to 16.2.0. 

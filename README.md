@@ -12,8 +12,8 @@ Easily add Facebook login feature in your application. User profile information 
 
 Facebook SDK version, used in plugin:
 
-* iOS: **^16.2** ([CocoaPods](https://cocoapods.org/pods/FBSDKLoginKit))
-* Android: **^16.2** ([Maven](https://search.maven.org/artifact/com.facebook.android/facebook-android-sdk))
+* iOS: **17.0** ([CocoaPods](https://cocoapods.org/pods/FBSDKLoginKit))
+* Android: **^17.0** ([Maven](https://search.maven.org/artifact/com.facebook.android/facebook-android-sdk))
 
 ## Minimum requirements
 
@@ -162,6 +162,18 @@ See full `Info.plist` in [example](example/ios/Runner/Info.plist).
 Skip **Step 5** (Connect Your App Delegate) and all the rest.
 
 And that's it for iOS.
+
+#### Additional information
+
+##### Privacy Manifest for App Store Review requirements
+
+Additional guidance for developers from Facebook [documentation](https://developers.facebook.com/docs/ios/):
+
+* Our Privacy Manifest only provides information collected by default and the SDKs that depend on the Core SDK for functionality may restate the data usage details of the Core SDK. Some app developers may choose to send us more or less information in code, or via the Events Manager or through Advanced matching functionality. These developers will need to provide details around additional data usage details in their Privacy Manifest or App Store Privacy Labels in accordance with their own practices. Refer to the following article for more information on additional data that may be sent by developers through Meta’s SDKs.
+* Note that we do not attempt to associate all collected data with Meta users.
+* We have pre-populated the tracking domain field for the FBSDK in the Privacy Manifest to help ensure that our services continue to function properly. We do not advise manually adding domains. Listing “www.facebook.com” or subdomains of “facebook.com” in the tracking domain field of a Privacy Manifest may break functionality.
+
+**Note:** Developers can find additional details around the tracking domain field in the Privacy Manifests for Meta SDKs. What is pre-populated in the tracking domain field is intended to receive traffic when a user has provided AppTrackingTransparency (ATT) permission to the app. If our check determines that a request or event from an iOS14.5+ device lacks ATT permission, then usage of such data will be restricted and we will use privacy preserving methods (like those available in [Aggregated Event Measurement]()) to remove or combine information before delivering or measuring ads.
 
 ### Additional Facebook app setup
 
