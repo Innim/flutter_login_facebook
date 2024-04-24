@@ -78,10 +78,10 @@ packages:
     dependency: "direct dev"
     description:
       name: innim_lint
-      sha256: c80c9c1b9b0528279f997e27dc17f23409b47a5b8c1f1d6f991bc313bff6b114
+      sha256: "2c6a0e9775cf97f7cc60e12690ce6519611799b703e85f2824a281fa477f7680"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.0"
+    version: "0.4.0"
   js:
     dependency: transitive
     description:
