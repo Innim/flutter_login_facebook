@@ -8,6 +8,11 @@ enum PluginMethod: String {
     case logIn, logOut, getAccessToken, getUserProfile, getUserEmail, getSdkVersion, getProfileImageUrl
 }
 
+/// Plugin methods in Dart code.
+enum PluginDartMethod: String {
+    case ready
+}
+
 /// Arguments for method `PluginMethod.logIn`
 enum LogInArg: String {
     case permissions
@@ -18,16 +23,38 @@ enum GetProfileImageUrlArg: String {
     case width, height
 }
 
+class FbAppObserver : FBSDKApplicationObserving {
+    private let onReady: () -> Void
+    
+    init(onReady: @escaping () -> Void) {
+        self.onReady = onReady
+    }
+    
+    public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        // before that we have no data about the previously logged in user
+        onReady()
+        return true
+    }
+}
+
 public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "flutter_login_facebook", binaryMessenger: registrar.messenger())
-        let instance = SwiftFlutterLoginFacebookPlugin()
+        let instance = SwiftFlutterLoginFacebookPlugin(channel: channel)
         
         registrar.addMethodCallDelegate(instance, channel: channel)
         registrar.addApplicationDelegate(instance)
     }
     
+    private let _channel: FlutterMethodChannel
+    
+    private lazy var _initObserver = FbAppObserver { self.onFbReady() }
+    
     private lazy var _loginManager = LoginManager()
+    
+    init(channel: FlutterMethodChannel) {
+        self._channel = channel
+    }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let method = PluginMethod(rawValue: call.method) else {
@@ -82,9 +109,9 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             options[key] = value
         }
         
-        ApplicationDelegate.shared.application(
-            application,
-            didFinishLaunchingWithOptions: options)
+        let fbDelegate = ApplicationDelegate.shared
+        fbDelegate.addObserver(_initObserver)
+        fbDelegate.application(application, didFinishLaunchingWithOptions: options)
         
         return true
     }
@@ -96,6 +123,13 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
             annotation: options[UIApplication.OpenURLOptionsKey.annotation])
         return processed;
+    }
+    
+    private func onFbReady() {
+        let fbDelegate = ApplicationDelegate.shared
+        fbDelegate.addObserver(_initObserver)
+        
+        _channel.invokeMethod(PluginDartMethod.ready.rawValue, arguments: nil)
     }
     
     var isLoggedIn: Bool {
