@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 
+import 'facebook_plugin_channel.dart';
 import 'models/types.dart';
 
 /// Class for implementing login via Facebook.
@@ -23,7 +25,7 @@ class FacebookLogin {
   static const _widthArg = 'width';
   static const _heightArg = 'height';
 
-  static const _channel = MethodChannel('flutter_login_facebook');
+  static final _channel = FacebookPluginChannel();
 
   /// If `true` all requests and results will be printed in console.
   final bool debug;
@@ -40,7 +42,7 @@ class FacebookLogin {
 
   /// Returns currently used Facebook SDK.
   Future<String> get sdkVersion async {
-    final res = await _channel.invokeMethod<String>(_methodGetSdkVersion);
+    final res = await _channel.invokeMethodNow<String>(_methodGetSdkVersion);
     return res ?? 'n/a';
   }
 
