@@ -177,9 +177,15 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
     }
     
     private func getUserEmail(result: @escaping FlutterResult) {
+        if let email = Profile.current?.email {
+            if email.isEmpty == false {
+                result(email)
+                return
+            }
+        }
+        
         let graphRequest : GraphRequest = GraphRequest(graphPath: "me", parameters: ["fields": "email"])
         graphRequest.start(completion: { (connection, res, error) -> Void in
-            
             guard
                 let response = res as? [String: Any],
                 let email = response["email"] as? String
