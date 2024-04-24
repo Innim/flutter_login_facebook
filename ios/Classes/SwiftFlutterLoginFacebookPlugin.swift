@@ -23,6 +23,14 @@ enum GetProfileImageUrlArg: String {
     case width, height
 }
 
+enum LocalStoreKey: String {
+    case limitedLogin
+    
+    var value: String {
+        return "flutter_login_facebook.\(rawValue)"
+    }
+}
+
 class FbAppObserver : FBSDKApplicationObserving {
     private let onReady: () -> Void
     
@@ -145,7 +153,7 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
     
     private func getAccessToken(result: @escaping FlutterResult) {
         if let token = AccessToken.current, !token.isExpired {
-            result(accessTokenToMap(token: token))
+            result(accessTokenToMap(token: token, authenticationToken: AuthenticationToken.current, isLimitedLogin: loadIsLimitedLogin()))
         } else {
             result(nil)
         }
@@ -233,9 +241,15 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
         let nonce = UUID().uuidString
         let config = LoginConfiguration(permissions: permissions, tracking: .enabled, nonce: nonce)
         
+        // If we have not permissions for tracking, then FB SDK will falls back to limited login
+        // and there is not way no know about this.
+        // So, as a temporary workaround, we will make the same checks as FB SDK does.
+        // https://github.com/facebook/facebook-ios-sdk/blob/7aa39da29eca817495cecf1f9fa831f023208c63/FBSDKLoginKit/FBSDKLoginKit/LoginManager.swift#L570
+        let isLimitedLogin = _DomainHandler.sharedInstance().isDomainHandlingEnabled() && !Settings.shared.isAdvertiserTrackingEnabled
+        
         _loginManager.logIn(configuration: config) { res in
             // TODO: add `granted` and `declined` information
-            let accessTokenMap: [String: Any]?
+            let accessTokenMap: [String: Any?]?
             let status: String
             let errorMap: [String: Any?]?
             
@@ -243,8 +257,16 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             case let .success(granted, declined, token):
                 status = "Success"
                 
+                let authenticationToken = AuthenticationToken.current
+                if authenticationToken?.nonce != nonce {
+                    // print warning, but process for now
+                    print("[WARNING] Nonce is not match. Expected: \(nonce), got: \(authenticationToken?.nonce ?? "nil")")
+                }
+                    
+                self.saveIsLimitedLogin(isLimitedLogin)
+                
                 // TODO: check why it's nullable now?
-                accessTokenMap = self.accessTokenToMap(token: token!)
+                accessTokenMap = self.accessTokenToMap(token: token!, authenticationToken: authenticationToken, isLimitedLogin: isLimitedLogin)
                 errorMap = nil
                 break;
             case .cancelled:
@@ -275,18 +297,21 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
     private func logOut(result: @escaping FlutterResult) {
         if isLoggedIn {
             _loginManager.logOut()
+            saveIsLimitedLogin(false)
         }
         
         result(nil)
     }
     
-    private func accessTokenToMap(token: AccessToken) -> [String: Any] {
+    private func accessTokenToMap(token: AccessToken, authenticationToken: AuthenticationToken?, isLimitedLogin: Bool) -> [String: Any?] {
         return [
             "token": token.tokenString,
             "userId": token.userID,
             "expires": Int64((token.expirationDate.timeIntervalSince1970 * 1000.0).rounded()),
             "permissions": token.permissions.map {item in item.name},
             "declinedPermissions": token.declinedPermissions.map {item in item.name},
+            "authenticationToken": authenticationToken?.tokenString,
+            "isLimitedLogin": isLimitedLogin,
         ]
     }
     
@@ -299,5 +324,13 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             "localizedDescription": info[ErrorLocalizedDescriptionKey] as? String,
             "localizedTitle": info[ErrorLocalizedTitleKey] as? String,
         ]
+    }
+    
+    private func saveIsLimitedLogin(_ value: Bool) {
+        UserDefaults.standard.set(value, forKey: LocalStoreKey.limitedLogin.value)
+    }
+    
+    private func loadIsLimitedLogin() -> Bool {
+        return UserDefaults.standard.bool(forKey: LocalStoreKey.limitedLogin.value)
     }
 }
