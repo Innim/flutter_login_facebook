@@ -39,6 +39,8 @@ class _MyHomeState extends State<MyHome> {
   String? _email;
   String? _imageUrl;
 
+  bool _isPending = false;
+
   @override
   void initState() {
     super.initState();
@@ -57,30 +59,33 @@ class _MyHomeState extends State<MyHome> {
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 8.0),
         child: Center(
-          child: Column(
-            children: <Widget>[
-              if (_sdkVersion != null) Text('SDK v$_sdkVersion'),
-              if (isLogin)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: _buildUserInfo(context, _profile!, _token!, _email),
+          child: _isPending
+              ? const CircularProgressIndicator()
+              : Column(
+                  children: <Widget>[
+                    if (_sdkVersion != null) Text('SDK v$_sdkVersion'),
+                    if (isLogin)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child:
+                            _buildUserInfo(context, _profile!, _token!, _email),
+                      ),
+                    isLogin
+                        ? OutlinedButton(
+                            child: const Text('Log Out'),
+                            onPressed: _onPressedLogOutButton,
+                          )
+                        : OutlinedButton(
+                            child: const Text('Log In'),
+                            onPressed: _onPressedLogInButton,
+                          ),
+                    if (!isLogin && Platform.isAndroid)
+                      OutlinedButton(
+                        child: const Text('Express Log In'),
+                        onPressed: () => _onPressedExpressLogInButton(context),
+                      )
+                  ],
                 ),
-              isLogin
-                  ? OutlinedButton(
-                      child: const Text('Log Out'),
-                      onPressed: _onPressedLogOutButton,
-                    )
-                  : OutlinedButton(
-                      child: const Text('Log In'),
-                      onPressed: _onPressedLogInButton,
-                    ),
-              if (!isLogin && Platform.isAndroid)
-                OutlinedButton(
-                  child: const Text('Express Log In'),
-                  onPressed: () => _onPressedExpressLogInButton(context),
-                )
-            ],
-          ),
         ),
       ),
     );
@@ -151,6 +156,9 @@ class _MyHomeState extends State<MyHome> {
   }
 
   Future<void> _updateLoginInfo() async {
+    setState(() {
+      _isPending = true;
+    });
     final plugin = widget.plugin;
     final token = await plugin.accessToken;
     FacebookUserProfile? profile;
@@ -170,6 +178,7 @@ class _MyHomeState extends State<MyHome> {
       _profile = profile;
       _email = email;
       _imageUrl = imageUrl;
+      _isPending = false;
     });
   }
 }
