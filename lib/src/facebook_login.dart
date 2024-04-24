@@ -80,6 +80,10 @@ class FacebookLogin {
   ///
   /// [width] of picture is required, but [height] is optional,
   /// and by default is equals to [width].
+  ///
+  /// In Limited Login mode image sizes are **ignored**.
+  /// This is because we can't make Graph API requests in Limited Login mode,
+  /// so this method alway return basic profile image from AuthenticationToken.
   Future<String?> getProfileImageUrl({required int width, int? height}) async {
     if (await isLoggedIn == false) {
       if (debug) _log('Not logged in. Profile image url is null');
