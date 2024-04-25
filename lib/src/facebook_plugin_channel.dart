@@ -19,9 +19,7 @@ class FacebookPluginChannel {
   }
 
   Future<T?> invokeMethod<T>(PluginMethod method, [dynamic arguments]) async {
-    print('${DateTime.now()} invokeMethod $method - start');
     await _readyCompleter.future;
-    print('${DateTime.now()} invokeMethod $method - proceed');
     return _channel.invokeMethod(method.name, arguments);
   }
 
