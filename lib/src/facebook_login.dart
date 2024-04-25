@@ -7,19 +7,10 @@ import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 
 import 'facebook_plugin_channel.dart';
 import 'models/types.dart';
+import 'plugin_method.dart';
 
 /// Class for implementing login via Facebook.
 class FacebookLogin {
-  // Methods
-  static const _methodLogIn = 'logIn';
-  static const _methodExpressLogIn = 'expressLogin';
-  static const _methodLogOut = 'logOut';
-  static const _methodGetAccessToken = 'getAccessToken';
-  static const _methodGetUserProfile = 'getUserProfile';
-  static const _methodGetUserEmail = 'getUserEmail';
-  static const _methodGetProfileImageUrl = 'getProfileImageUrl';
-  static const _methodGetSdkVersion = 'getSdkVersion';
-
   static const _permissionsArg = 'permissions';
 
   static const _widthArg = 'width';
@@ -35,14 +26,15 @@ class FacebookLogin {
   }
 
   Future<FacebookAccessToken?> get accessToken async {
-    final tokenData = await _invoke(_methodGetAccessToken);
+    final tokenData = await _invoke(PluginMethod.getAccessToken);
 
     return tokenData != null ? FacebookAccessToken.fromMap(tokenData) : null;
   }
 
   /// Returns currently used Facebook SDK.
   Future<String> get sdkVersion async {
-    final res = await _channel.invokeMethodNow<String>(_methodGetSdkVersion);
+    final res =
+        await _channel.invokeMethodNow<String>(PluginMethod.getSdkVersion);
     return res ?? 'n/a';
   }
 
@@ -61,7 +53,7 @@ class FacebookLogin {
     }
 
     try {
-      final profileData = await _invoke(_methodGetUserProfile);
+      final profileData = await _invoke(PluginMethod.getUserProfile);
 
       if (debug) _log('User profile: $profileData');
 
@@ -92,7 +84,7 @@ class FacebookLogin {
 
     try {
       final url = await _channel.invokeMethod<String>(
-        _methodGetProfileImageUrl,
+        PluginMethod.getProfileImageUrl,
         {
           _widthArg: width,
           _heightArg: height ?? width,
@@ -129,7 +121,8 @@ class FacebookLogin {
     }
 
     try {
-      final email = await _channel.invokeMethod<String>(_methodGetUserEmail);
+      final email =
+          await _channel.invokeMethod<String>(PluginMethod.getUserEmail);
 
       if (debug) _log('User email: $email');
       return email;
@@ -152,7 +145,8 @@ class FacebookLogin {
     if (customPermissions.isNotEmpty) permissionsArg.addAll(customPermissions);
 
     if (debug) _log('Log In with permissions $permissionsArg');
-    return _invokeLoginMethod(_methodLogIn, {_permissionsArg: permissionsArg});
+    return _invokeLoginMethod(
+        PluginMethod.logIn, {_permissionsArg: permissionsArg});
   }
 
   /// Start Express log in Facebook process
@@ -166,20 +160,20 @@ class FacebookLogin {
   Future<FacebookLoginResult> expressLogin() async {
     assert(Platform.isAndroid);
     if (debug) _log('Trying to expressLogin');
-    return _invokeLoginMethod(_methodExpressLogIn);
+    return _invokeLoginMethod(PluginMethod.expressLogIn);
   }
 
   Future<void> logOut() {
     if (debug) _log('Log Out');
-    return _channel.invokeMethod(_methodLogOut);
+    return _channel.invokeMethod(PluginMethod.logOut);
   }
 
   bool _isLoggedIn(FacebookAccessToken? token) =>
       token != null && DateTime.now().isBefore(token.expires);
 
-  Future<FacebookLoginResult> _invokeLoginMethod(String method,
+  Future<FacebookLoginResult> _invokeLoginMethod(PluginMethod method,
       [Map<String, Object>? arguments]) async {
-    final loginResultData = await _invoke(_methodLogIn, arguments);
+    final loginResultData = await _invoke(method, arguments);
 
     if (debug) _log('Result: $loginResultData');
     return loginResultData != null
@@ -187,7 +181,7 @@ class FacebookLogin {
         : FacebookLoginResult.error();
   }
 
-  Future<JsonData?> _invoke(String method, [Object? arguments]) async =>
+  Future<JsonData?> _invoke(PluginMethod method, [Object? arguments]) async =>
       (await _channel.invokeMethod<JsonRawData>(method, arguments))
           ?.cast<String, Object?>();
 

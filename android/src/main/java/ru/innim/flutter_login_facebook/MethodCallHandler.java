@@ -24,7 +24,7 @@ import io.flutter.plugin.common.MethodChannel.Result;
 public class MethodCallHandler implements MethodChannel.MethodCallHandler {
     private final static String _LOGIN_METHOD = "logIn";
     private final static String _LOGOUT_METHOD = "logOut";
-    private final static String _EXPRESS_LOGIN_METHOD = "expressLogin";
+    private final static String _EXPRESS_LOGIN_METHOD = "expressLogIn";
     private final static String _GET_ACCESS_TOKEN = "getAccessToken";
     private final static String _GET_USER_PROFILE = "getUserProfile";
     private final static String _GET_SDK_VERSION = "getSdkVersion";

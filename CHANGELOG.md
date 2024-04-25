@@ -3,6 +3,7 @@
 * Upgrade Facebook Android SDK to 17.0.0. 
 * Upgrade Facebook iOS SDK to 17.0.0. 
   * Added [Privacy Manifests](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files?content_id=AOGW6t0dwUTq7kR).
+* [Android] Fixed: `expressLogin()` invokes standard login process.
 
 See [Migration guide](UPGRADE.md#Upgrade-to-1-10).
 

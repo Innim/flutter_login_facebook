@@ -13,15 +13,15 @@ class FacebookPluginChannel {
     _channel.setMethodCallHandler(_handleMethodCall);
   }
 
-  Future<T?> invokeMethod<T>(String method, [dynamic arguments]) async {
+  Future<T?> invokeMethod<T>(PluginMethod method, [dynamic arguments]) async {
     print('${DateTime.now()} invokeMethod $method - start');
     await _readyCompleter.future;
     print('${DateTime.now()} invokeMethod $method - proceed');
-    return _channel.invokeMethod(method, arguments);
+    return _channel.invokeMethod(method.name, arguments);
   }
 
-  Future<T?> invokeMethodNow<T>(String method, [dynamic arguments]) =>
-      _channel.invokeMethod(method, arguments);
+  Future<T?> invokeMethodNow<T>(PluginMethod method, [dynamic arguments]) =>
+      _channel.invokeMethod(method.name, arguments);
 
   Future<dynamic> _handleMethodCall(MethodCall call) {
     switch (call.method) {
