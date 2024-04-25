@@ -6,8 +6,8 @@ repository: https://github.com/Innim/flutter_login_facebook
 issue_tracker: https://github.com/Innim/flutter_login_facebook/issues
 
 environment:
-  sdk: ">=2.13.0 <4.0.0"
-  flutter: ">=2.0.0"
+  sdk: ">=2.15.0 <4.0.0"
+  flutter: ">=2.8.0"
 
 dependencies:
   flutter:
