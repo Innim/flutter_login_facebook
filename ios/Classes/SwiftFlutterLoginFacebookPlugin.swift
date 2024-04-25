@@ -221,8 +221,9 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
     private func getProfileImageUrl(result: @escaping FlutterResult, width: Int, height: Int) {
         let isLimitedLogin = loadIsLimitedLogin()
         if isLimitedLogin {
-            // If we use a Limited Login than loadCurrentProfile() will return not working url
-            // just trying to parse data from AuthenticationToken
+            // If we use a Limited Login than loadCurrentProfile() will return not working url,
+            // and profile.imageURL will return nil.
+            // So we just trying to parse data from AuthenticationToken
             var url: String? = nil
             if let authenticationToken = AuthenticationToken.current {
                 if let claims = authenticationToken.claims() {
