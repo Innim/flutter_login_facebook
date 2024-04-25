@@ -272,10 +272,16 @@ switch (res.status) {
 
 With the release of SDK v17.0 for iOS, there are significant changes to the login behavior and token validation process:
 
-1. **Limited Login Mode**: If the user has not granted the AdvertiserTracking permission, the login process will now enter a Limited Login mode. This mode is indicated by the `isLimitedLogin` field in the `AccessToken` object.
-2. **Access Token in Limited Login Mode**: In Limited Login mode, the access token is not valid and will **fail server-side verification**. Additionally, it will not permit Graph API requests. For Limited Login you need to validate OIDC token.
-3. **OIDC Token Validation**: the OIDC Token will be available in the new `authenticationToken` field in the `AccessToken`. In Limited Login mode you should validate this token for the server-side verification. Learn more about token validation in the [documentation](https://developers.facebook.com/docs/facebook-login/limited-login/token/validating).
-4. **Profile Image URL**: In Limited Login mode, the `getProfileImageUrl()` method will ignore size parameters. This limitation arises because we can't execute API calls, thus only a 100x100 image from the JWT authentication token can be used.
+1. **Limited Login Mode**: If the user has not granted the AdvertiserTracking permission 
+([Apple documentation](https://developer.apple.com/documentation/apptrackingtransparency), [Facebook documentation](https://www.facebook.com/business/help/365087497929660)), 
+the login process will now enter a Limited Login mode. This mode is indicated by the `isLimitedLogin` field in the `AccessToken` object.
+2. **Access Token in Limited Login Mode**: In Limited Login mode, the access token is not valid and will **fail server-side verification**. 
+Additionally, it will not permit Graph API requests. For Limited Login you need to validate OIDC token.
+3. **OIDC Token Validation**: the OIDC Token will be available in the new `authenticationToken` field in the `AccessToken`. 
+In Limited Login mode you should validate this token for the server-side verification. 
+Learn more about token validation in the [documentation](https://developers.facebook.com/docs/facebook-login/limited-login/token/validating).
+4. **Profile Image URL**: In Limited Login mode, the `getProfileImageUrl()` method will ignore size parameters. 
+This limitation arises because we can't execute API calls, thus only a 100x100 image from the JWT authentication token can be used.
 
 For detailed insights into these changes, please refer to the [blog post](https://developers.facebook.com/blog/post/2024/03/28/changes-made-to-fb-login-sdk/) and the documentation on [Limited Login](https://developers.facebook.com/docs/facebook-login/limited-login).
 
