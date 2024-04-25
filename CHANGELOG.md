@@ -1,4 +1,4 @@
-## 1.10.0
+## 2.0.0
 
 * Upgrade Facebook Android SDK to 17.0.0. 
 * Upgrade Facebook iOS SDK to 17.0.0. 
