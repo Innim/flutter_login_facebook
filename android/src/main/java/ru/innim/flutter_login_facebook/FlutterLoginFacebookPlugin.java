@@ -14,6 +14,7 @@ import io.flutter.plugin.common.MethodChannel;
 /** FlutterLoginFacebookPlugin */
 public class FlutterLoginFacebookPlugin implements FlutterPlugin, ActivityAware {
     private static final String _CHANNEL_NAME = "flutter_login_facebook";
+    private static final String _METHOD_READY = "ready";
 
     private MethodChannel _dartChannel;
 
@@ -32,6 +33,7 @@ public class FlutterLoginFacebookPlugin implements FlutterPlugin, ActivityAware 
         _activityListener = new ActivityListener(_callbackManager);
         _methodCallHandler = new MethodCallHandler(_loginCallback);
         _dartChannel.setMethodCallHandler(_methodCallHandler);
+        _dartChannel.invokeMethod(_METHOD_READY, null);
     }
 
     @Override

@@ -7,4 +7,5 @@ enum PluginMethod {
   getUserEmail,
   getProfileImageUrl,
   getSdkVersion,
+  isReady
 }

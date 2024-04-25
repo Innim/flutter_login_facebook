@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_login_facebook/src/plugin_method.dart';
 
 class FacebookPluginChannel {
   static const _methodReady = 'ready';
@@ -11,6 +12,10 @@ class FacebookPluginChannel {
 
   FacebookPluginChannel() {
     _channel.setMethodCallHandler(_handleMethodCall);
+
+    invokeMethodNow<bool>(PluginMethod.isReady).then((value) {
+      if (value == true) _ready();
+    });
   }
 
   Future<T?> invokeMethod<T>(PluginMethod method, [dynamic arguments]) async {
@@ -26,12 +31,16 @@ class FacebookPluginChannel {
   Future<dynamic> _handleMethodCall(MethodCall call) {
     switch (call.method) {
       case _methodReady:
-        _readyCompleter.complete();
+        _ready();
         break;
       default:
         debugPrint('[FB] Unknown method call from native code: ${call.method}');
     }
 
     return Future<void>.value();
+  }
+
+  void _ready() {
+    if (!_readyCompleter.isCompleted) _readyCompleter.complete();
   }
 }

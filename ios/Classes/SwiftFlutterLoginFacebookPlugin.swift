@@ -5,7 +5,7 @@ import FBSDKLoginKit
 
 /// Plugin methods.
 enum PluginMethod: String {
-    case logIn, logOut, getAccessToken, getUserProfile, getUserEmail, getSdkVersion, getProfileImageUrl
+    case logIn, logOut, getAccessToken, getUserProfile, getUserEmail, getSdkVersion, getProfileImageUrl, isReady
 }
 
 /// Plugin methods in Dart code.
@@ -59,6 +59,7 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
     private lazy var _initObserver = FbAppObserver { self.onFbReady() }
     
     private lazy var _loginManager = LoginManager()
+    private var _isReady = false
     
     init(channel: FlutterMethodChannel) {
         self._channel = channel
@@ -106,6 +107,8 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             getProfileImageUrl(result: result, width: widthArg, height: heightArg)
         case .getSdkVersion:
             getSdkVersion(result: result)
+        case .isReady:
+            isReady(result: result)
         }
     }
     
@@ -137,6 +140,7 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
         let fbDelegate = ApplicationDelegate.shared
         fbDelegate.addObserver(_initObserver)
         
+        _isReady = true
         _channel.invokeMethod(PluginDartMethod.ready.rawValue, arguments: nil)
     }
     
@@ -149,6 +153,10 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
     private func getSdkVersion(result: @escaping FlutterResult) {
         let sdkVersion = Settings.shared.sdkVersion
         result(sdkVersion)
+    }
+    
+    private func isReady(result: @escaping FlutterResult) {
+        result(_isReady)
     }
     
     private func getAccessToken(result: @escaping FlutterResult) {

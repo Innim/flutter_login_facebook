@@ -30,6 +30,7 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
     private final static String _GET_SDK_VERSION = "getSdkVersion";
     private final static String _GET_USER_EMAIL = "getUserEmail";
     private final static String _GET_PROFILE_IMAGE_URL = "getProfileImageUrl";
+    private final static String _IS_READY_METHOD = "isReady";
 
     private final static String _PERMISSIONS_ARG = "permissions";
     private final static String _WIDTH_ARG = "width";
@@ -50,6 +51,9 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
     public void onMethodCall(MethodCall call, Result result) {
         if (_activity != null) {
             switch (call.method) {
+                case _IS_READY_METHOD:
+                    isReady(result);
+                    break;
                 case _LOGIN_METHOD:
                     final List<String> permissions = call.argument(_PERMISSIONS_ARG);
                     logIn(permissions, result);
@@ -161,5 +165,9 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
 
     private void getSdkVersion(Result result) {
         result.success(FacebookSdk.getSdkVersion());
+    }
+
+    private void isReady(Result result) {
+        result.success(true);
     }
 }
