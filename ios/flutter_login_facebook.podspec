@@ -2,9 +2,17 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
 # Run `pod lib lint flutter_login_facebook.podspec' to validate before publishing.
 #
+
+# Get version from pubspec.yaml
+require 'yaml'
+
+pubspec = YAML.load_file(File.join('..', 'pubspec.yaml'))
+library_version = pubspec['version'].gsub('+', '-')
+
+# Pod spec
 Pod::Spec.new do |s|
   s.name             = 'flutter_login_facebook'
-  s.version          = '2.0.0'
+  s.version          = library_version
   s.summary          = 'Login via Facebook for Flutter projects.'
   s.description      = <<-DESC
 Login via Facebook for Flutter projects.
