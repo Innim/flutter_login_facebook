@@ -139,7 +139,7 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
     private func onFbReady() {
         let fbDelegate = ApplicationDelegate.shared
         fbDelegate.addObserver(_initObserver)
-        
+
         _isReady = true
         _channel.invokeMethod(PluginDartMethod.ready.rawValue, arguments: nil)
     }
@@ -302,7 +302,7 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
         // and there is not way no know about this.
         // So, as a temporary workaround, we will make the same checks as FB SDK does.
         // https://github.com/facebook/facebook-ios-sdk/blob/7aa39da29eca817495cecf1f9fa831f023208c63/FBSDKLoginKit/FBSDKLoginKit/LoginManager.swift#L570
-        let isLimitedLogin = _DomainHandler.sharedInstance().isDomainHandlingEnabled() && !Settings.shared.isAdvertiserTrackingEnabled
+        var isLimitedLogin = _DomainHandler.sharedInstance().isDomainHandlingEnabled() && !Settings.shared.isAdvertiserTrackingEnabled
         
         _loginManager.logIn(configuration: config) { res in
             // TODO: add `granted` and `declined` information
@@ -315,11 +315,18 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
                 status = "Success"
                 
                 let authenticationToken = AuthenticationToken.current
-                if authenticationToken?.nonce != nonce {
-                    // print warning, but process for now
-                    print("[WARNING] Nonce is not match. Expected: \(nonce), got: \(authenticationToken?.nonce ?? "nil")")
+                if isLimitedLogin {
+                    if let oidcToken = authenticationToken {
+                        if oidcToken.nonce != nonce {
+                            // print warning, but process for now
+                            print("[WARNING] Nonce is not match. Expected: \(nonce), got: \(oidcToken.nonce)")
+                        }
+                    } else  {
+                        print("[WARNING] Limited login was defined as TRUE, but no AuthenticationToken after login. Reset isLimitedLogin to FALSE")
+                        isLimitedLogin = false
+                    }
                 }
-                    
+                
                 self.saveIsLimitedLogin(isLimitedLogin)
                 
                 // TODO: check why it's nullable now?

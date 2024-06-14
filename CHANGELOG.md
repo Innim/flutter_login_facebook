@@ -1,4 +1,5 @@
 * Upgrade Facebook iOS SDK to 17.0.2. 
+* [iOS] Reset `isLimitedLogin` flag on login if no `authenticationToken` (see issue [#12](https://github.com/Innim/flutter_login_facebook/issues/112)).
 * [iOS] Return profile data and email from authentication token in Limited Login if no current Profile data.
 * [iOS] **Fixed**: `firstName` instead of `middleName` in profile on iOS.
 
