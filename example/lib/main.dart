@@ -117,6 +117,7 @@ class _MyHomeState extends State<MyHome> {
           softWrap: true,
         ),
         if (email != null) Text('Email: $email'),
+        Text('Limited Login: ${accessToken.isLimitedLogin ? 'YES' : 'NO'}'),
       ],
     );
   }
