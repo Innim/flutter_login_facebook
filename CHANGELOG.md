@@ -1,4 +1,6 @@
 * Upgrade Facebook iOS SDK to 17.0.2. 
+* [iOS] Return profile data and email from authentication token in Limited Login if no current Profile data.
+* [iOS] **Fixed**: `firstName` instead of `middleName` in profile on iOS.
 
 This includes minor update of native SDK, so see [Migration guide](UPGRADE.md#Upgrade-to-2-0-1).
 

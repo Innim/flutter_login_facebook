@@ -75,7 +75,10 @@ class FacebookLogin {
   ///
   /// In Limited Login mode image sizes are **ignored**.
   /// This is because we can't make Graph API requests in Limited Login mode,
-  /// so this method alway return basic profile image from AuthenticationToken.
+  /// so this method always return basic profile image from AuthenticationToken.
+  ///
+  /// Also in Limited Login mode Url have expiration time and can stop
+  /// working after a while. To get new URL user should login again.
   Future<String?> getProfileImageUrl({required int width, int? height}) async {
     if (await isLoggedIn == false) {
       if (debug) _log('Not logged in. Profile image url is null');

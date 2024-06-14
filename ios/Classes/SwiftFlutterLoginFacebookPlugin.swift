@@ -168,18 +168,37 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
     }
     
     private func getUserProfile(result: @escaping FlutterResult) {
+        let isLimitedLogin = loadIsLimitedLogin()
+        if isLimitedLogin {
+            // If we use a Limited Login than loadCurrentProfile() will not work,
+            // so check current and if it is nil, then we get data from AuthenticationToken
+            let data: [String: Any?]?
+            if let profile = Profile.current {
+                data = profileToMap(profile)
+            } else if let authenticationToken = AuthenticationToken.current,
+                let claims = parseAuthenticationToken(authenticationToken) {
+                data = [
+                    "userId" : claims.sub,
+                    "name" : claims.name,
+                    "firstName" : claims.givenName,
+                    "middleName" : claims.middleName,
+                    "lastName" : claims.familyName,
+                ]
+            } else {
+                data = nil
+            }
+            
+            // If no data than try to make load request
+            if data != nil {
+                result(data)
+                return
+            }
+        }
+        
         Profile.loadCurrentProfile { profile, error in
             switch (profile, error) {
             case let (profile?, nil):
-                let data: [String: Any?] = [
-                    "userId" : profile.userID,
-                    "name" : profile.name,
-                    "firstName" : profile.firstName,
-                    "middleName" : profile.firstName,
-                    "lastName" : profile.lastName,
-                ]
-                
-                result(data)
+                result(self.profileToMap(profile))
             case let (nil, error?):
                 result(FlutterError(code: "FAILED",
                                     message: "Can't get profile: \(error)",
@@ -199,6 +218,18 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
                 return
             }
         }
+        
+        let isLimitedLogin = loadIsLimitedLogin()
+        if isLimitedLogin,
+           let authenticationToken = AuthenticationToken.current,
+           let claims = parseAuthenticationToken(authenticationToken) {
+            // If we use a Limited Login than graph request will not work,
+            // so get data from AuthenticationToken
+            let email = claims.email
+            result(email)
+            return
+        }
+        
         
         let graphRequest : GraphRequest = GraphRequest(graphPath: "me", parameters: ["fields": "email"])
         graphRequest.start(completion: { (connection, res, error) -> Void in
@@ -351,6 +382,16 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             "declinedPermissions": token.declinedPermissions.map {item in item.name},
             "authenticationToken": authenticationToken?.tokenString,
             "isLimitedLogin": isLimitedLogin,
+        ]
+    }
+    
+    private func profileToMap(_ profile: Profile) -> [String: Any?] {
+        return [
+            "userId" : profile.userID,
+            "name" : profile.name,
+            "firstName" : profile.firstName,
+            "middleName" : profile.middleName,
+            "lastName" : profile.lastName,
         ]
     }
     
