@@ -161,7 +161,16 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
     
     private func getAccessToken(result: @escaping FlutterResult) {
         if let token = AccessToken.current, !token.isExpired {
-            result(accessTokenToMap(token: token, authenticationToken: AuthenticationToken.current, isLimitedLogin: loadIsLimitedLogin()))
+            let authenticationToken = AuthenticationToken.current
+            let isLimitedLogin = loadIsLimitedLogin()
+            
+            if isLimitedLogin, authenticationToken == nil {
+                print("[WARNING] isLimitedLogin = TRUE, but authenticationToken is nil. Invoke logout")
+                doLogOut()
+                result(nil)
+            } else {
+                result(accessTokenToMap(token: token, authenticationToken: authenticationToken, isLimitedLogin: isLimitedLogin))
+            }
         } else {
             result(nil)
         }
@@ -360,11 +369,15 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
     
     private func logOut(result: @escaping FlutterResult) {
         if isLoggedIn {
-            _loginManager.logOut()
-            saveIsLimitedLogin(false)
+            doLogOut()
         }
         
         result(nil)
+    }
+    
+    private func doLogOut() {
+        _loginManager.logOut()
+        saveIsLimitedLogin(false)
     }
     
     // we need this method, becase token.claims() returns nil for an expired token
