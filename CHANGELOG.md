@@ -1,3 +1,5 @@
+## 2.0.1
+
 * Upgrade Facebook iOS SDK to 17.0.2. 
 * [iOS] Reset `isLimitedLogin` flag on login if no `authenticationToken` (see issue [#12](https://github.com/Innim/flutter_login_facebook/issues/112)).
 * [iOS] Auto logout if missed `authenticationToken` data while limited login mode.
