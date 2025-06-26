@@ -23,7 +23,7 @@ Login via Facebook for Flutter projects.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'FBSDKLoginKit', '17.0.2'
+  s.dependency 'FBSDKLoginKit', '18.0.0'
   s.platform = :ios
   s.ios.deployment_target = '12.0'
 
