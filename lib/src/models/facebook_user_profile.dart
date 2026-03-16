@@ -9,11 +9,11 @@ class FacebookUserProfile {
   final String? lastName;
 
   FacebookUserProfile.fromMap(JsonData map)
-      : userId = map['userId'] as String,
-        name = map['name'] as String?,
-        firstName = map['firstName'] as String?,
-        middleName = map['middleName'] as String?,
-        lastName = map['lastName'] as String?;
+    : userId = map['userId']! as String,
+      name = map['name'] as String?,
+      firstName = map['firstName'] as String?,
+      middleName = map['middleName'] as String?,
+      lastName = map['lastName'] as String?;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

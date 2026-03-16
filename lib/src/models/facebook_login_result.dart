@@ -11,21 +11,24 @@ class FacebookLoginResult {
   final FacebookAccessToken? accessToken;
   final FacebookError? error;
 
-  FacebookLoginResult(this.status, FacebookAccessToken this.accessToken,
-      {this.error});
+  FacebookLoginResult(
+    this.status,
+    FacebookAccessToken this.accessToken, {
+    this.error,
+  });
 
   FacebookLoginResult.error({this.error})
-      : status = FacebookLoginStatus.error,
-        accessToken = null;
+    : status = FacebookLoginStatus.error,
+      accessToken = null;
 
   FacebookLoginResult.fromMap(JsonData map)
-      : status = _parseStatus(map['status'] as String),
-        accessToken = map['accessToken'] != null
-            ? FacebookAccessToken.fromMap(map['accessToken']!.castJsonData())
-            : null,
-        error = map['error'] != null
-            ? FacebookError.fromMap(map['error']!.castJsonData())
-            : null;
+    : status = _parseStatus(map['status']! as String),
+      accessToken = map['accessToken'] != null
+          ? FacebookAccessToken.fromMap(map['accessToken']!.castJsonData())
+          : null,
+      error = map['error'] != null
+          ? FacebookError.fromMap(map['error']!.castJsonData())
+          : null;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

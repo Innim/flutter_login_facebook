@@ -45,13 +45,14 @@ class FbAppObserver : FBSDKApplicationObserving {
     }
 }
 
-public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
+public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin, FlutterSceneLifeCycleDelegate {
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "flutter_login_facebook", binaryMessenger: registrar.messenger())
         let instance = SwiftFlutterLoginFacebookPlugin(channel: channel)
         
         registrar.addMethodCallDelegate(instance, channel: channel)
         registrar.addApplicationDelegate(instance)
+        registrar.addSceneDelegate(instance)
     }
     
     private let _channel: FlutterMethodChannel
@@ -111,6 +112,11 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             isReady(result: result)
         }
     }
+
+
+    // Below are methods to initialize and handle login by Facebook SDK. 
+    // Both are kept for backward compatibility: scene() for apps using UIScene lifecycle,
+    // and application() for apps that haven't migrated yet.
     
     public func application(_ application: UIApplication,
                             didFinishLaunchingWithOptions launchOptions: [AnyHashable: Any] = [:]) -> Bool {
@@ -135,10 +141,26 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
             annotation: options[UIApplication.OpenURLOptionsKey.annotation])
         return processed;
     }
+
+    public func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) -> Bool {
+        guard let url = URLContexts.first?.url else {
+            return false
+        }
+
+        return ApplicationDelegate.shared.application(
+            UIApplication.shared,
+            open: url,
+            sourceApplication: nil,
+            annotation: [UIApplication.OpenURLOptionsKey.annotation]
+        )
+    }
+
+    // -- 
+
     
     private func onFbReady() {
         let fbDelegate = ApplicationDelegate.shared
-        fbDelegate.addObserver(_initObserver)
+        fbDelegate.removeObserver(_initObserver)
 
         _isReady = true
         _channel.invokeMethod(PluginDartMethod.ready.rawValue, arguments: nil)

@@ -22,3 +22,6 @@ example/android/app/.project
 
 # FVM
 .fvm/
+
+# pubspec.lock for packages
+pubspec.lock

@@ -1,5 +1,57 @@
 # Migration guides
 
+## Upgrade to 3.0
+
+Facebook SDK upgraded to 18.0.3 on iOS and 18.1.3 on Android.
+
+### Flutter and Dart
+
+- Update your project to Flutter **3.38.0** or newer.
+
+### Android
+
+- Update `minSdkVersion` to **24** if your app still uses a lower value.
+- If your Android project still uses the old pre-plugin-DSL Gradle setup, migrate it to the current Flutter/Gradle configuration before upgrading.
+
+### iOS
+
+- Update minimum deployment target to iOS **13** if you have a lower version now.
+- Go to `/ios` directory of your project, and:
+  - run `pod repo update`;
+  - run `pod update`. That's for upgrading native dependencies.
+- Also `flutter clean` may be required.
+
+### Potential issues after update
+
+#### iOS build fails with Swift compiler errors
+
+If the iOS build fails after upgrading to `3.0.0` and the errors mention Facebook SDK API mismatches such as:
+
+- incorrect argument labels around `ApplicationDelegate`;
+- missing members on `Profile`;
+- `LoginConfiguration` initializer or `LoginManager.logIn` not found;
+
+For example, you may see errors like:
+
+- `Incorrect argument label in call (have '_:didFinishLaunchingWithOptions:', expected '_:continue:')`
+- `Type 'Profile' has no member 'current'`
+- `'LoginConfiguration' cannot be constructed because it has no accessible initializers`
+- `Value of type 'LoginManager' has no member 'logIn'`
+
+then the most likely cause is an outdated Xcode version.
+
+Solution: update Xcode to version **26** and rebuild the project.
+
+#### iOS build fails with sandbox `rsync` error
+
+If Xcode build fails with an error similar to:
+
+- `Error (Xcode): Sandbox: rsync(...) deny(1) file-read-data`
+
+then disable user script sandboxing for the iOS target.
+
+Solution: set `ENABLE_USER_SCRIPT_SANDBOXING` to `NO` in Xcode Build Settings.
+
 ## Upgrade to 2.0.1
 
 Facebook SDK upgraded to 17.0.2 version.

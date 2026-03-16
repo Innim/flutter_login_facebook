@@ -1,3 +1,16 @@
+## 3.0.0
+
+* Upgrade Facebook Android SDK to 18.1.3.
+* Upgrade Facebook iOS SDK to 18.0.3.
+* Add iOS `UIScene` lifecycle support for Facebook login URL handling (experimental, if you have any issues with it, please create an issue).
+* [Android] Use Flutter-defined `compileSdk` instead of fixed `compileSdkVersion 28`.
+* Raise minimum Flutter SDK to **3.38.0**.
+* Raise minimum Dart SDK to **3.10.0**.
+* ⚠️ The minimum supported version of iOS is now **13.0**.
+* ⚠️ The minimum supported version of Android is now **7.0** (API **24**).
+
+See [Migration guide](UPGRADE.md#upgrade-to-30).
+
 ## 2.0.1
 
 * Upgrade Facebook iOS SDK to 17.0.2. 
