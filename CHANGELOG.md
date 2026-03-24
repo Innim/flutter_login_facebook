@@ -1,3 +1,7 @@
+## 3.0.1
+
+* Add pub.dev topics.
+
 ## 3.0.0
 
 * Upgrade Facebook Android SDK to 18.1.3.
