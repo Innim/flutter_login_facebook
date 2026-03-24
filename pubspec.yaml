@@ -4,6 +4,11 @@ version: 3.0.0
 homepage: https://github.com/Innim/flutter_login_facebook
 repository: https://github.com/Innim/flutter_login_facebook
 issue_tracker: https://github.com/Innim/flutter_login_facebook/issues
+topics:
+  - facebook
+  - login
+  - authentication
+  - social-login
 
 environment:
   sdk: ^3.10.0
