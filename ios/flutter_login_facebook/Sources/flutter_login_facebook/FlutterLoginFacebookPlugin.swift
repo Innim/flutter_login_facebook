@@ -45,10 +45,10 @@ class FbAppObserver : FBSDKApplicationObserving {
     }
 }
 
-public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin, FlutterSceneLifeCycleDelegate {
+public class FlutterLoginFacebookPlugin: NSObject, FlutterPlugin, FlutterSceneLifeCycleDelegate {
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "flutter_login_facebook", binaryMessenger: registrar.messenger())
-        let instance = SwiftFlutterLoginFacebookPlugin(channel: channel)
+        let instance = FlutterLoginFacebookPlugin(channel: channel)
         
         registrar.addMethodCallDelegate(instance, channel: channel)
         registrar.addApplicationDelegate(instance)
