@@ -21,8 +21,6 @@ let package = Package(
             dependencies: [
                 .product(name: "FlutterFramework", package: "FlutterFramework"),
                 .product(name: "FacebookLogin", package: "facebook-ios-sdk"),
-            ],
-            resources: [
             ]
         )
     ]
