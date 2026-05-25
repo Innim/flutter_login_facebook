@@ -47,6 +47,13 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
         _activity = activity;
     }
 
+    private void ensureFacebookSdkInitialized() {
+        if (!FacebookSdk.isInitialized()) {
+            FacebookSdk.setAutoInitEnabled(true);
+            FacebookSdk.fullyInitialize();
+        }
+    }
+
     @Override
     public void onMethodCall(MethodCall call, Result result) {
         if (_activity != null) {
@@ -94,11 +101,13 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
     }
 
     private void logIn(List<String> permissions, Result result) {
+        ensureFacebookSdkInitialized();
         _loginCallback.addPending(result);
         LoginManager.getInstance().logIn(_activity, permissions);
     }
 
     private void expressLogin(final Result result) {
+        ensureFacebookSdkInitialized();
         LoginManager.getInstance().retrieveLoginStatus(_activity.getApplicationContext(), new LoginStatusCallback() {
             @Override
             public void onCompleted(AccessToken token) {
@@ -116,21 +125,25 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
     }
 
     private void logOut(Result result) {
+        ensureFacebookSdkInitialized();
         LoginManager.getInstance().logOut();
         result.success(null);
     }
 
     private void getAccessToken(Result result) {
+        ensureFacebookSdkInitialized();
         final AccessToken token = AccessToken.getCurrentAccessToken();
         result.success(Results.accessToken(token));
     }
 
     private void getUserProfile(Result result) {
+        ensureFacebookSdkInitialized();
         final Profile profile = Profile.getCurrentProfile();
         result.success(Results.userProfile(profile));
     }
 
     private void getUserEmail(final Result result) {
+        ensureFacebookSdkInitialized();
         GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),
                 new GraphRequest.GraphJSONObjectCallback() {
                     @Override
@@ -154,6 +167,7 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
     }
 
     private void getProfileImageUrl(Result result, int width, int height) {
+        ensureFacebookSdkInitialized();
         final Profile profile = Profile.getCurrentProfile();
         final Uri uri = profile.getProfilePictureUri(width, height);
         if (uri != null) {
@@ -164,6 +178,7 @@ public class MethodCallHandler implements MethodChannel.MethodCallHandler {
     }
 
     private void getSdkVersion(Result result) {
+        ensureFacebookSdkInitialized();
         result.success(FacebookSdk.getSdkVersion());
     }
 
