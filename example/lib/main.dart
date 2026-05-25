@@ -17,9 +17,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHome(plugin: plugin),
-    );
+    return MaterialApp(home: MyHome(plugin: plugin));
   }
 }
 
@@ -53,9 +51,7 @@ class _MyHomeState extends State<MyHome> {
   Widget build(BuildContext context) {
     final isLogin = _token != null && _profile != null;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login via Facebook example'),
-      ),
+      appBar: AppBar(title: const Text('Login via Facebook example')),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 8.0),
         child: Center(
@@ -67,8 +63,12 @@ class _MyHomeState extends State<MyHome> {
                     if (isLogin)
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
-                        child:
-                            _buildUserInfo(context, _profile!, _token!, _email),
+                        child: _buildUserInfo(
+                          context,
+                          _profile!,
+                          _token!,
+                          _email,
+                        ),
                       ),
                     isLogin
                         ? OutlinedButton(
@@ -83,7 +83,7 @@ class _MyHomeState extends State<MyHome> {
                       OutlinedButton(
                         child: const Text('Express Log In'),
                         onPressed: () => _onPressedExpressLogInButton(context),
-                      )
+                      ),
                   ],
                 ),
         ),
@@ -91,16 +91,17 @@ class _MyHomeState extends State<MyHome> {
     );
   }
 
-  Widget _buildUserInfo(BuildContext context, FacebookUserProfile profile,
-      FacebookAccessToken accessToken, String? email) {
+  Widget _buildUserInfo(
+    BuildContext context,
+    FacebookUserProfile profile,
+    FacebookAccessToken accessToken,
+    String? email,
+  ) {
     final avatarUrl = _imageUrl;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (avatarUrl != null)
-          Center(
-            child: Image.network(avatarUrl),
-          ),
+        if (avatarUrl != null) Center(child: Image.network(avatarUrl)),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -112,10 +113,7 @@ class _MyHomeState extends State<MyHome> {
           ],
         ),
         const Text('AccessToken: '),
-        Text(
-          accessToken.token,
-          softWrap: true,
-        ),
+        Text(accessToken.token, softWrap: true),
         if (email != null) Text('Email: $email'),
         Text('Limited Login: ${accessToken.isLimitedLogin ? 'YES' : 'NO'}'),
       ],
@@ -123,10 +121,9 @@ class _MyHomeState extends State<MyHome> {
   }
 
   Future<void> _onPressedLogInButton() async {
-    await widget.plugin.logIn(permissions: [
-      FacebookPermission.publicProfile,
-      FacebookPermission.email,
-    ]);
+    await widget.plugin.logIn(
+      permissions: [FacebookPermission.publicProfile, FacebookPermission.email],
+    );
     await _updateLoginInfo();
   }
 

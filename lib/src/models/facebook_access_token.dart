@@ -41,16 +41,17 @@ class FacebookAccessToken {
   final bool isLimitedLogin;
 
   FacebookAccessToken.fromMap(JsonData map)
-      : token = map['token'] as String,
-        userId = map['userId'] as String,
-        expires = DateTime.fromMillisecondsSinceEpoch(
-            min(_maxMillisecondsSinceEpoch, map['expires'] as int),
-            isUtc: true),
-        permissions = (map['permissions'] as List).cast<String>(),
-        declinedPermissions =
-            (map['declinedPermissions'] as List).cast<String>(),
-        authenticationToken = map['authenticationToken'] as String?,
-        isLimitedLogin = _parseBool(map['isLimitedLogin']);
+    : token = map['token']! as String,
+      userId = map['userId']! as String,
+      expires = DateTime.fromMillisecondsSinceEpoch(
+        min(_maxMillisecondsSinceEpoch, map['expires']! as int),
+        isUtc: true,
+      ),
+      permissions = (map['permissions']! as List).cast<String>(),
+      declinedPermissions = (map['declinedPermissions']! as List)
+          .cast<String>(),
+      authenticationToken = map['authenticationToken'] as String?,
+      isLimitedLogin = _parseBool(map['isLimitedLogin']);
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

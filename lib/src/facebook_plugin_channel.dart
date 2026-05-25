@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_login_facebook/src/plugin_method.dart';
 
 class FacebookPluginChannel {
@@ -30,7 +30,6 @@ class FacebookPluginChannel {
     switch (call.method) {
       case _methodReady:
         _ready();
-        break;
       default:
         debugPrint('[FB] Unknown method call from native code: ${call.method}');
     }

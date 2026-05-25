@@ -21,11 +21,11 @@ Login via Facebook for Flutter projects.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Innim' => 'developer@innim.org' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'flutter_login_facebook/Sources/flutter_login_facebook/**/*.swift'
   s.dependency 'Flutter'
-  s.dependency 'FBSDKLoginKit', '18.0.0'
+  s.dependency 'FBSDKLoginKit', '18.0.3'
   s.platform = :ios
-  s.ios.deployment_target = '12.0'
+  s.ios.deployment_target = '13.0'
 
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
