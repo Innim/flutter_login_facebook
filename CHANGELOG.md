@@ -1,3 +1,9 @@
+## 4.0.0
+
+* [iOS] Added Swift Package Manager (SPM) support. CocoaPods support is preserved.
+  * Experimental, if you have any issues with it, please create an [issue](https://github.com/Innim/flutter_login_facebook/issues).
+* Min Flutter SDK **3.41.0**.
+
 ## 3.0.0
 
 * Upgrade Facebook Android SDK to 18.1.3.
