@@ -21,7 +21,7 @@ Login via Facebook for Flutter projects.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Innim' => 'developer@innim.org' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'flutter_login_facebook/Sources/flutter_login_facebook/**/*.swift'
   s.dependency 'Flutter'
   s.dependency 'FBSDKLoginKit', '18.0.3'
   s.platform = :ios
